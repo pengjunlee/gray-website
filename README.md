@@ -1,37 +1,22 @@
-# gray-website
+# Blossom-doc
 
-#### 介绍
-个人导航网站，all in one
+Blossom 笔记软件的博客工程
 
-#### 软件架构
-软件架构说明
+[博客页面的使用文档](https://www.wangyunf.com/blossom-doc/guide/deploy/blog.html)
 
+![](./doc/imgs/blog_home_pc.jpg "Blossom 首页")
 
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+<p align="center">
+<img src="../doc/imgs/blog_home_m.png" height="700">
+<img src="../doc/imgs/blog_article.png" height="700" style="margin-left: 30px">
+</p>
+<p align="center">博客移动端</p>
 
 
-#### 特技
+```
+# 下载依赖
+npm install
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+# 构建
+npm run build
+```
