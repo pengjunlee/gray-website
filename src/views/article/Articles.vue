@@ -364,7 +364,7 @@ const onresize = () => {
 @import './styles/doc-tree-detail.scss';
 
 .articles-root {
-  @include box(100vw, 100%);
+  @include box(100vw, calc(100vh - 60px));
   @include flex(column, flex-start, center);
   box-sizing: border-box;
   background: var(--bl-bg-color);
@@ -372,7 +372,7 @@ const onresize = () => {
 
   .mask {
     position: absolute;
-    @include box(100%, calc(100%));
+    @include box(100%, calc(100% + 10px));
     left: 0;
     top: -10px;
     z-index: 9998;
@@ -391,10 +391,10 @@ const onresize = () => {
   }
 
   .main {
-    @include box(100%, calc(100% - 60px));
+    @include box(100%, calc(100vh - 100px));
     @include flex(row, center, center);
     padding: 10px;
-    overflow: scroll;
+    overflow: hidden;
   }
 
   // 屏幕宽度在 1100 以内时使用以下样式
@@ -407,7 +407,7 @@ const onresize = () => {
     }
 
     .main {
-      @include box(100%, calc(100% - 40px));
+      @include box(100%, calc(100vh - 100px));
       padding: 0;
 
       .doc-tree-container {
@@ -443,7 +443,7 @@ const onresize = () => {
     }
 
     .toc-container {
-      height: calc(100% - 60px) !important;
+      height: calc(100% - 100px) !important;
       position: absolute;
       right: 10px;
       top: 10px;

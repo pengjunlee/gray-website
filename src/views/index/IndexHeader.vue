@@ -142,7 +142,7 @@ const clickTab = (event: MouseEvent) => {
   @include box(100%, 60px);
   @include flex(row, space-between, center);
   padding: 10px 10px;
-  z-index: 2003;
+  z-index: 2000;
 
   .head-row {
     line-height: 40px;
@@ -204,11 +204,10 @@ const clickTab = (event: MouseEvent) => {
 .item {
   @include flex(row, flex-start, center);
   padding: 0 10px;
-  color: #aeaeae;
+  color: var(--bl-font-active-color);
   border-radius: 5px;
   transition: 0.3s;
   white-space: pre-line;
-  text-shadow: 3px 3px 5px #1d1d1d;
   cursor: pointer;
 
   .iconbl {
@@ -217,7 +216,8 @@ const clickTab = (event: MouseEvent) => {
   }
 
   &:hover {
-    color: var(--bl-html-color);
+    color: var(--bl-font-color);
+    text-shadow: 3px 3px 5px var(--bl-font-color);
   }
 }
 
