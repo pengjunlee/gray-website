@@ -12,7 +12,7 @@
       <el-input class="login-input" size="default" v-model="formLogin.password" type="password">
         <template #prepend>密　码</template>
       </el-input>
-      <bl-row just="flex-end">
+      <bl-row just="center">
         <el-button size="default" text bg @click="toRoute('/home')">返　回</el-button>
         <el-button size="default" text bg @click="handleLogin">登　录</el-button>
       </bl-row>

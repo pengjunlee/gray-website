@@ -7,9 +7,18 @@
       <div class="project-name" @click="toRoute('Home')">{{ sysName() }}</div>
     </bl-row>
     <bl-row class="head-row tabs" width="100%" height="100%">
-      <div :class="tabClass('Home')" @click="clickTab($event)" name="Home">首页</div>
-      <div :class="tabClass('Articles')" @click="clickTab($event)"  name="Articles">文章</div>
-      <div :class="tabClass('Links')" @click="clickTab($event)"  name="Links">链接</div>
+      <div :class="tabClass('Home')" @click="clickTab($event)" name="Home">
+        <span class="iconbl bl-a-home1-line tab-target"></span>
+        <span class="tab-text">首页</span>
+        </div>
+      <div :class="tabClass('Articles')" @click="clickTab($event)"  name="Articles">
+        <span class="iconbl bl-pen-line tab-target"></span>
+        <span class="tab-text">博文</span>
+        </div>
+      <div :class="tabClass('Links')" @click="clickTab($event)"  name="Links">
+        <span class="iconbl bl-link-m tab-target"></span>
+        <span class="tab-text">导航</span>
+      </div>
     </bl-row>
     <bl-row class="head-row" width="auto" height="100%">
       <day-night-switch :size="60" v-model="isDark"></day-night-switch>
@@ -112,12 +121,11 @@ const links = () => {
 }
 
 const handlLogout = () => {
-  logout()
-  toRoute('/home')
+  logout();
+  toRoute('Home')
 }
 
 const clickTab = (event: MouseEvent) => {
-  debugger;
   // 获取所有带有 'my-button' 类的按钮元素
   const tabs = document.querySelectorAll('.head-row.tabs .tab');
 
@@ -175,6 +183,19 @@ const clickTab = (event: MouseEvent) => {
         background-position: -300%;
       }
     }
+  }
+}
+
+.tab-target {
+  height: 100%;
+  font-size: 20px;
+  color: var(--bl-font-color);
+  text-shadow: 3px 3px 5px var(--bl-bg-color);
+  user-select: none;
+  transition: color 0.3s;
+  vertical-align: bottom;
+  &:hover {
+    color: var(--bl-font-color);
   }
 }
 
@@ -236,6 +257,8 @@ const clickTab = (event: MouseEvent) => {
 }
 
 .tab {
+  font-family: QianTuXiaoTu;
+  font-weight: 400;
   border-radius: 5px;
   padding: 3px 20px;
   margin: 0 5px;
@@ -251,5 +274,10 @@ const clickTab = (event: MouseEvent) => {
   color: var(--bl-font-color);
   font-weight: bold;
 }
-
+/* 在屏幕宽度小于 400px 时隐藏文字，只显示图标 */
+@media (max-width: 750px) {
+  .tab-text {
+    display: none;
+  }
+}
 </style>

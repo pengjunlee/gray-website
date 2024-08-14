@@ -175,7 +175,7 @@ const toToc = (articleId: number) => {
       display: inline-block;
      }
      .link-text {
-      font-family: cursive;
+      font-family: ChillDuanSans_Light;
       display: flex;
       padding-left: 10px;
       flex-direction: column;
@@ -200,7 +200,8 @@ const toToc = (articleId: number) => {
 
 .name {
   margin:15px 0;
-  font-family: monospace;
+  font-family: BaoTuXiaoBai;
+  font-weight:400;
   ::after {
     content: "";
     background-color: aqua;
@@ -209,6 +210,7 @@ const toToc = (articleId: number) => {
   }
 }
 .link-title {
-  font-weight:800;
+  font-family: ChillDuanSans_Black;
+  font-weight:400;
 }
 </style>
