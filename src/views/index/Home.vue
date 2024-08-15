@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import snowIcon from '../../assets/svgs/snow.svg'
+import snowIcon from '../../assets/icons/snow.svg'
 onMounted(() => {
 })
 

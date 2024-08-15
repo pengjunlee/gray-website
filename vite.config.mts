@@ -11,6 +11,8 @@ import ElementPlus from 'unplugin-element-plus/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import path from 'path'
 import { resolve } from 'path'
 
 const npm_lifecycle_event = process.env.npm_lifecycle_event
@@ -42,6 +44,12 @@ export default defineConfig({
   plugins: [
     vue(),
     svgLoader(),
+    createSvgIconsPlugin({
+      // 指定图标存放的文件夹
+      iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+      // 指定 symbolId 格式
+      symbolId: 'icon-[name]',
+    }),
     vueJsx(),
     visualizer({
       emitFile: false,

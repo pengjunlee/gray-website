@@ -8,7 +8,7 @@
     </bl-row>
     <bl-row class="head-row tabs" width="100%" height="100%">
       <div v-for="(tab, index) in tabs" :key="index" :class="['tab', selectedTab === tab.name ? 'active':'']"  @click="selectTab(index,tab.name)">
-        <!-- <homeIcon class="icon bl-a-home1-line tab-target"></homeIcon> -->
+        <SvgIcon :size="18" :icon-class="tab.icon" />
         <span class="tab-text">{{ tab.title }}</span>
       </div>
     </bl-row>
@@ -24,50 +24,44 @@
         transition="el-zoom-in-top">
         <template #reference>
           <div v-show="userStore.auth && userStore.auth.status === '已登录'" class="popper-target icon-circle">
-            <span class="icon bl-apps-line"></span>
+            <span class="iconbl bl-apps-line"></span>
           </div>
         </template>
         <div class="popper-content">
-          <div class="item" @click="toRoute('/todo')"><span class="icon bl-a-labellist-line"></span>待办事项</div>
-          <div class="item" @click="toRoute('/plan')"><span class="icon bl-calendar-line"></span>日历计划</div>
-          <div class="item" @click="toRoute('/note')"><span class="icon bl-note-line"></span>便签</div>
+          <div class="item" @click="toRoute('/todo')"><span class="iconbl bl-a-labellist-line"></span>待办事项</div>
+          <div class="item" @click="toRoute('/plan')"><span class="iconbl bl-calendar-line"></span>日历计划</div>
+          <div class="item" @click="toRoute('/note')"><span class="iconbl bl-note-line"></span>便签</div>
         </div>
       </el-popover>
-      <div class="icon-circle">
-          <span  @click="handlLogout" v-if="userStore.auth && userStore.auth.status === '已登录'" class="icon bl-logout-circle-line popper-target"></span>
-          <span v-else @click="toRoute('Login')" class="icon bl-login-circle-line popper-target"></span>
+      <div class="iconbl-circle">
+          <span  @click="handlLogout" v-if="userStore.auth && userStore.auth.status === '已登录'" class="iconbl bl-logout-circle-line popper-target"></span>
+          <span v-else @click="toRoute('Login')" class="iconbl bl-login-circle-line popper-target"></span>
       </div>
     </bl-row>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, toRefs, defineEmits } from 'vue'
+import { ref, toRefs } from 'vue'
 import { toRoute } from '@/router'
 import { useUserStore } from '@/stores/user'
 import { logout } from '@/scripts/auth'
 import { getSysName, getThemeLogoStyle } from '@/scripts/env'
 import { isNotBlank } from '@/assets/utils/obj'
-import type { RouteRecordName } from 'vue-router'
 import DayNightSwitch from "@/components/DayNight.vue";
 import {useDark} from "@vueuse/core";
+import type { Tab } from '@/types/gw.props'
 
 let isDark = useDark();
-
-interface Tab {
-  icon: string;
-  name: string;
-  title: string;
-}
 
 interface TabProps {
   tabs: Tab[];
   selectedTab: string;
 }
 
-const data = withDefaults(defineProps<TabProps>(),{});
+const props = defineProps<TabProps>();
 
-const {tabs , selectedTab} = toRefs(data);
+const {tabs , selectedTab} = toRefs(props);
 
 const emit = defineEmits<{
   (event: 'update:selectedTab', value: string): void;
@@ -77,39 +71,7 @@ function selectTab(index: number, tab: string) {
   emit('update:selectedTab', tab);
 }
 
-const curRoute = ref<RouteRecordName>('Home')
-const tabClass = (name:string) => {
-  if (curRoute.value === name){
-    return "tab active";
-  }
-  return "tab";
-}
-
 const userStore = useUserStore()
-
-const props = defineProps({
-  bg: {
-    type: Boolean,
-    default: false
-  }
-})
-
-let recount: NodeJS.Timeout | undefined
-const tryLoginCount = ref(0)
-
-const toLogin = () => {
-  tryLoginCount.value += 1
-  if (!recount) {
-    recount = setTimeout(() => {
-      tryLoginCount.value = 0
-      clearTimeout(recount)
-      recount = undefined
-    }, 5000)
-  }
-  if (tryLoginCount.value === 7) {
-    toRoute('/login')
-  }
-}
 
 const sysName = () => {
   if (userStore.userParams.WEB_LOGO_NAME) {
@@ -125,39 +87,14 @@ const logo = () => {
   return 'favicon.png'
 }
 
-const links = () => {
-  return [{URL:"https://www.baidu.com",LOGO:"https://www.baidu.com/favicon.ico",NAME:"baidu"}] ;
-  // if (isNotBlank(userStore.links)) {
-  //   return JSON.parse(userStore.links)
-  // } else {
-  //   getLinks()
-  // }
-}
-
 const handlLogout = () => {
   logout();
   toRoute('Home')
 }
 
-const clickTab = (event: MouseEvent) => {
-  // 获取所有带有 'my-button' 类的按钮元素
-  const tabs = document.querySelectorAll('.head-row.tabs .tab');
-
-  // 移除所有按钮的 'active' 类
-  tabs.forEach((tab: { classList: { remove: (arg0: string) => void } }) => {
-    tab.classList.remove('active');
-  });
-
-  // 为当前点击的按钮添加 'active' 类
-  event.currentTarget?.classList.add('active');
-
-  // 获取当前点击按钮的 path 属性值
-  const name = event.currentTarget?.getAttribute('name');
-  toRoute(name);
-}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .gw-header-root {
   background-color: var(--gw-bg-color);
   border-bottom: var(--el-border);
@@ -217,7 +154,7 @@ const clickTab = (event: MouseEvent) => {
   font-size: 15px;
   color: #909090;
   padding: 0 10px;
-  text-shadow: 3px 3px 5px var(--gw-bg-color);
+  text-shadow: 1px 1px 2px var(--gw-bg-color);
   user-select: none;
   transition: color 0.3s;
 
@@ -225,7 +162,7 @@ const clickTab = (event: MouseEvent) => {
     color: var(--gw-font-color);
   }
 
-  .icon {
+  .iconbl {
     font-size: 18px;
   }
 }
@@ -244,7 +181,7 @@ const clickTab = (event: MouseEvent) => {
   white-space: pre-line;
   cursor: pointer;
 
-  .icon {
+  .iconbl {
     font-size: 20px;
     margin-right: 10px;
   }

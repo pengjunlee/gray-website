@@ -37,6 +37,7 @@ declare module 'vue' {
     NotFound: typeof import('./src/components/NotFound.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SvgIcon: typeof import('./src/components/SvgIcon.vue')['default']
     Template: typeof import('./src/components/Template.vue')['default']
   }
 }

@@ -26,6 +26,7 @@
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vue/tsconfig": "^0.5.1",
+    "fast-glob": "^3.3.2",
     "npm-run-all": "^4.1.5",
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.74.1",
@@ -34,6 +35,7 @@
     "unplugin-element-plus": "^0.8.0",
     "unplugin-vue-components": "^0.26.0",
     "vite": "^5.2.8",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^2.0.10"
   }
 }

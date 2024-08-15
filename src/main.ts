@@ -15,9 +15,11 @@ import '@/assets/styles/css/theme.css'
 import BLRow from '@/components/BLRow.vue'
 import BLCol from '@/components/BLCol.vue'
 import BLTag from '@/components/BLTag.vue'
+import SvgIcon from '@/components/SvgIcon.vue'
+import 'virtual:svg-icons-register'
 
 const app = createApp(App)
 app.use(pinia)
 app.use(router)
-app.component('bl-row', BLRow).component('bl-col', BLCol).component('bl-tag', BLTag)
+app.component('bl-row', BLRow).component('bl-col', BLCol).component('bl-tag', BLTag).component('svg-icon',SvgIcon)
 app.mount('#app')
