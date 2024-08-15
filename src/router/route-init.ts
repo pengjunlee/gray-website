@@ -6,7 +6,7 @@ import router from '@/router'
 // components
 const NotFound = () => import('@/components/NotFound.vue')
 
-// blossom
+// 前端页面
 const Index = () => import('../views/Index.vue')
 const Home = () => import('../views/index/Home.vue')
 const GrayLink = () => import('../views/index/GrayLink.vue')
@@ -16,9 +16,12 @@ const TodoIndex = () => import('@/views/todo/TodoIndex.vue')
 const PlanIndex = () => import('@/views/plan/PlanIndex.vue')
 const NoteIndex = () => import('@/views/note/NoteIndex.vue')
 
+// 管理后台
+const Admin = () => import('../views/Admin.vue')
+
 router.addRoute({ path: '/404', component: NotFound })
 router.addRoute({ path: '/:pathMatch(.*)', redirect: '/404' })
-router.addRoute({ path: '/', redirect: '/index' })
+router.addRoute({ path: '/', redirect: '/home' })
 router.addRoute({
   path: '/',
   name: 'Index',
@@ -32,5 +35,15 @@ router.addRoute({
     { path: '/todo', name: 'TodoIndex', component: TodoIndex, meta: { keepAlive: true } },
     { path: '/plan', name: 'PlanIndex', component: PlanIndex, meta: { keepAlive: false } },
     { path: '/note', name: 'NoteIndex', component: NoteIndex, meta: { keepAlive: false } }
+  ]
+})
+router.addRoute({
+  path: '/admin',
+  redirect: '/home2',
+  name: 'Admin',
+  component: Admin,
+  meta: { keepAlive: true },
+  children: [
+    { path: '/home2', name: 'Home2', component: Home, meta: { keepAlive: true } },
   ]
 })
