@@ -35,23 +35,23 @@
 }
 
 /* ================================= 自定义颜色 ================================== */
-
+/* 白天主题 */
 :root {
-  --bl-html-color: #ffffff;
-  --bl-bg-color: #f8f9fb;
-  --bl-bg-active-color: #d8dbde;
-  --bl-header-color: #313131;
-  --bl-font-color: rgb(46, 52, 60);
-  --bl-border-color: rgb(46, 52, 60, 0.1);
+  --gw-html-color: #ffffff;
+  --gw-bg-color: #f8f9fb;
+  --gw-bg-active-color: #d8dbde;
+  --gw-header-color: #313131;
+  --gw-font-color: rgb(46, 52, 60);
+  --gw-border-color: rgb(46, 52, 60, 0.1);
 }
-
+/* 黑夜主题 */
 html.dark {
-  --bl-html-color: #303134;
-  --bl-bg-color: #37383c;
-  --bl-bg-active-color: #454549;
-  --bl-header-color: rgb(48, 49, 52);
-  --bl-font-color: rgb(242, 242, 243);
-  --bl-border-color: rgb(242, 242, 243, 0.1);
+  --gw-html-color: #303134;
+  --gw-bg-color: #37383c;
+  --gw-bg-active-color: #454549;
+  --gw-header-color: rgb(48, 49, 52);
+  --gw-font-color: rgb(242, 242, 243);
+  --gw-border-color: rgb(242, 242, 243, 0.1);
 }
 
 :root {

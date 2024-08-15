@@ -2,6 +2,7 @@
   <div class="graython-home-root">
     <bl-row class="head-row" width="auto" height="auto">
       <h3>作图</h3>
+      <snowIcon></snowIcon>
     </bl-row>
     <bl-row class="head-row link-card" width="auto" height="auto">
       <div style="display: inline-block;overflow: hidden;">BBbbbbbBBbbbbbBBbbbbbBBbbbbbBBbbbbbBBbbbbbBBbbbbbBBbbbbbBBbbbbb</div>
@@ -16,6 +17,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import snowIcon from '../../assets/svgs/snow.svg'
 onMounted(() => {
 })
 
@@ -23,7 +25,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .graython-home-root {
-  background-color: var(--bl-bg-color);
+  background-color: var(--gw-bg-color);
   @include box(100%, 100%);
   padding: 10px 100px;
   position: relative;

@@ -30,14 +30,14 @@
   .el-drawer__header {
     max-width: var(--max-width);
     width: 100%;
-    background-color: var(--bl-bg-color);
+    background-color: var(--gw-bg-color);
     position: relative;
   }
 
   .el-drawer__body {
     max-width: var(--max-width);
     width: 100%;
-    background-color:  var(--bl-bg-color);
+    background-color:  var(--gw-bg-color);
     box-shadow: var(--el-box-shadow-dark);
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;

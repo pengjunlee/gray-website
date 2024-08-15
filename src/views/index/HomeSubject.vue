@@ -100,24 +100,24 @@ const toToc = (articleId: number) => {
     .name {
       height: 35px;
       font-weight: 700;
-      color: var(--bl-font-color);
+      color: var(--gw-font-color);
       transition: text-shadow 0.3s;
     }
 
     .words {
       @include font(12px, 300);
       height: 20px;
-      color: var(--bl-font-color);
+      color: var(--gw-font-color);
     }
 
     .upd-time {
       @include font(12px, 300);
       height: 20px;
-      color: var(--bl-font-color);
+      color: var(--gw-font-color);
     }
 
     .cover-name {
-      background-color: var(--bl-bg-color);
+      background-color: var(--gw-bg-color);
       @include box(150px, 17px);
       @include font(12px, 700);
       line-height: 17px;
@@ -125,7 +125,7 @@ const toToc = (articleId: number) => {
       top: 15px;
       right: -50px;
       opacity: 0;
-      color: var(--bl-font-color);
+      color: var(--gw-font-color);
       box-shadow: 0 0 10px 1px #181818;
       text-align: center;
       transform: scale(0.8) rotate(45deg);
@@ -134,7 +134,7 @@ const toToc = (articleId: number) => {
 
     .describes {
       font-size: 12px;
-      color: var(--bl-font-color);
+      color: var(--gw-font-color);
       margin-top: 5px;
     }
 
@@ -142,7 +142,7 @@ const toToc = (articleId: number) => {
       position: absolute;
       right: 5px;
       bottom: 8px;
-      color: var(--bl-font-color);
+      color: var(--gw-font-color);
       opacity: 0;
       cursor: pointer;
 

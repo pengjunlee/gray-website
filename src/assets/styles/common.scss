@@ -1,7 +1,7 @@
 .module-workbench {
   @include box(35px, 35px);
   @include flex(row, center, center);
-  background-color: var(--bl-html-color);
+  background-color: var(--gw-html-color);
   box-shadow: -1px 0px 3px #bababa;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -25,11 +25,11 @@
     background-color: #606060;
 
     .iconbl {
-      color: var(--bl-html-color);
+      color: var(--gw-html-color);
     }
 
     i {
-      --color: var(--bl-html-color) !important;
+      --color: var(--gw-html-color) !important;
     }
   }
 }

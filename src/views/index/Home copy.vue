@@ -62,7 +62,7 @@ const ipc = () => {
 
 <style scoped lang="scss">
 .blossom-home-root {
-  background-color: var(--bl-bg-color);
+  background-color: var(--gw-bg-color);
   @include box(100%, 100%);
   @include flex(column, center, center);
   position: relative;

@@ -8,15 +8,15 @@
     </bl-row>
     <bl-row class="head-row tabs" width="100%" height="100%">
       <div :class="tabClass('Home')" @click="clickTab($event)" name="Home">
-        <span class="iconbl bl-a-home1-line tab-target"></span>
+        <homeIcon class="iconbl bl-a-home1-line tab-target"></homeIcon>
         <span class="tab-text">首页</span>
         </div>
       <div :class="tabClass('Articles')" @click="clickTab($event)"  name="Articles">
-        <span class="iconbl bl-pen-line tab-target"></span>
+        <blogIcon class="iconbl bl-pen-line tab-target"></blogIcon>
         <span class="tab-text">博文</span>
         </div>
       <div :class="tabClass('Links')" @click="clickTab($event)"  name="Links">
-        <span class="iconbl bl-link-m tab-target"></span>
+        <locationIcon class="iconbl bl-link-m tab-target"></locationIcon>
         <span class="tab-text">导航</span>
       </div>
     </bl-row>
@@ -60,6 +60,9 @@ import { isNotBlank } from '@/assets/utils/obj'
 import type { RouteRecordName } from 'vue-router'
 import DayNightSwitch from "@/components/DayNight.vue";
 import {useDark} from "@vueuse/core";
+import homeIcon from '@/assets/svgs/home.svg'
+import locationIcon from '@/assets/svgs/location.svg'
+import blogIcon from '@/assets/svgs/blog.svg'
 
 let isDark = useDark();
 
@@ -145,7 +148,7 @@ const clickTab = (event: MouseEvent) => {
 
 <style lang="scss">
 .graython-header-root {
-  background-color: var(--bl-bg-color);
+  background-color: var(--gw-bg-color);
   border-bottom: var(--el-border);
   @include box(100%, 60px);
   @include flex(row, space-between, center);
@@ -168,12 +171,12 @@ const clickTab = (event: MouseEvent) => {
   .project-name {
     @include box(auto, 100%);
     margin-left: 10px;
-    text-shadow: 3px 3px 5px var(--bl-bg-color);
+    text-shadow: 3px 3px 5px var(--gw-bg-color);
     cursor: pointer;
     color: transparent;
     font-family: current, sans-serif;
     letter-spacing: 1px;
-    background: linear-gradient(90deg, var(--bl-header-color), var(--bl-font-color), var(--bl-header-color));
+    background: linear-gradient(90deg, var(--gw-header-color), var(--gw-font-color), var(--gw-header-color));
     -webkit-background-clip: text;
     animation: glow 10s linear infinite;
     transition: 1.5s;
@@ -189,13 +192,13 @@ const clickTab = (event: MouseEvent) => {
 .tab-target {
   height: 100%;
   font-size: 20px;
-  color: var(--bl-font-color);
-  text-shadow: 3px 3px 5px var(--bl-bg-color);
+  color: var(--gw-font-color);
+  text-shadow: 3px 3px 5px var(--gw-bg-color);
   user-select: none;
   transition: color 0.3s;
-  vertical-align: bottom;
+  vertical-align: sub;
   &:hover {
-    color: var(--bl-font-color);
+    color: var(--gw-font-color);
   }
 }
 
@@ -204,12 +207,12 @@ const clickTab = (event: MouseEvent) => {
   font-size: 15px;
   color: #909090;
   padding: 0 10px;
-  text-shadow: 3px 3px 5px var(--bl-bg-color);
+  text-shadow: 3px 3px 5px var(--gw-bg-color);
   user-select: none;
   transition: color 0.3s;
 
   &:hover {
-    color: var(--bl-font-color);
+    color: var(--gw-font-color);
   }
 
   .iconbl {
@@ -219,7 +222,7 @@ const clickTab = (event: MouseEvent) => {
 
 .icon-circle:hover {
   border-radius: 50%;
-  background-color: var(--bl-bg-active-color);
+  background-color: var(--gw-bg-active-color);
 }
 
 .item {
@@ -237,8 +240,8 @@ const clickTab = (event: MouseEvent) => {
   }
 
   &:hover {
-    color: var(--bl-font-color);
-    text-shadow: 3px 3px 5px var(--bl-font-color);
+    color: var(--gw-font-color);
+    text-shadow: 3px 3px 5px var(--gw-font-color);
   }
 }
 
@@ -249,7 +252,7 @@ const clickTab = (event: MouseEvent) => {
 }
 
 .graython-header-bg {
-  box-shadow: 0 1px 8px 1px var(--bl-bg-color);
+  box-shadow: 0 1px 8px 1px var(--gw-bg-color);
 }
 
 .head-row.tabs {
@@ -265,13 +268,13 @@ const clickTab = (event: MouseEvent) => {
   cursor: pointer;
   transition: 0.3s;
   &:hover {
-    background: var(--bl-bg-active-color);
+    background: var(--gw-bg-active-color);
   }
 }
 
 .tab.active {
-  background: var(--bl-bg-active-color);
-  color: var(--bl-font-color);
+  background: var(--gw-bg-active-color);
+  color: var(--gw-font-color);
   font-weight: bold;
 }
 /* 在屏幕宽度小于 400px 时隐藏文字，只显示图标 */

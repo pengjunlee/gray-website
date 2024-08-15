@@ -16,7 +16,7 @@ import { increase, decrease, getFontSizeValue } from './scripts/article-setting'
 
 <style scoped lang="scss">
 .detail {
-  background-color: var(--bl-bg-color);
+  background-color: var(--gw-bg-color);
   color: var(--bl-font-active-color);
   @include flex(column, flex-start, flex-start);
   height: 100%;

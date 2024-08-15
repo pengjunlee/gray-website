@@ -81,7 +81,7 @@ const links = () => {
       .desc {
         @include font(13px, 300);
         height: 20px;
-        color: var(--bl-font-color);
+        color: var(--gw-font-color);
         letter-spacing: 1px;
       }
     }

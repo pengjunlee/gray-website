@@ -1,6 +1,6 @@
 .doc-tree-container {
-  background-color: var(--bl-bg-color);
-  color: var(--bl-font-color);
+  background-color: var(--gw-bg-color);
+  color: var(--gw-font-color);
   @include box(300px, 100%, 300px, 300px);
   font-family: 'Jetbrains Mono';
   border-right: 1px solid var(--el-border-color);
@@ -47,7 +47,7 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: var(--bl-bg-color);
+      background-color: var(--gw-bg-color);
     }
   }
 }

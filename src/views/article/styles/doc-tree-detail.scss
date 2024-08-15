@@ -5,7 +5,7 @@ $icon-size: 17px;
 }
 
 .doc-title {
-  color: var(--bl-font-color);
+  color: var(--gw-font-color);
   @include flex(row, flex-start, flex-start);
   width: 100%;
   position: relative;
@@ -50,7 +50,7 @@ $icon-size: 17px;
 .subject-title {
   @include flex(row, flex-start, flex-start);
   box-shadow: 2px 2px 8px 1px var(--el-color-primary-light-8);
-  background: linear-gradient(135deg, var(--el-color-primary-light-7), var(--el-color-primary-light-8), var(--bl-html-color));
+  background: linear-gradient(135deg, var(--el-color-primary-light-7), var(--el-color-primary-light-8), var(--gw-html-color));
   min-height: 44px;
   max-width: 300px;
   width: calc(100% - 10px);

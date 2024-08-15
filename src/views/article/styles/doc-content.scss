@@ -11,10 +11,10 @@
   }
 
   .article-name {
-    color: var(--bl-font-color);
+    color: var(--gw-font-color);
     font-weight: 700;
     padding: 10px 0;
-    border-bottom: 1px solid var(--bl-font-color);
+    border-bottom: 1px solid var(--gw-font-color);
     text-align: left;
     position: relative;
     word-break: break-all;
@@ -23,7 +23,7 @@
 
   .bl-preview {
     $borderRadius: 4px;
-    color: var(--bl-font-color);
+    color: var(--gw-font-color);
     font-size: inherit;
     line-height: 1.6;
 
@@ -56,7 +56,7 @@
     :deep(h1) {
       padding: 10px 0;
       margin-top: 70px;
-      border-bottom: 1px solid var(--bl-font-color);
+      border-bottom: 1px solid var(--gw-font-color);
       text-align: left;
       position: relative;
       font-size: 1.8em;
@@ -131,8 +131,8 @@
       width: 100%;
 
       thead {
-        background-color: var(--bl-bg-color);
-        color: var(--bl-font-color);
+        background-color: var(--gw-bg-color);
+        color: var(--gw-font-color);
 
         code {
           background-color: #000000;
@@ -198,7 +198,7 @@
       border-radius: $borderRadius;
 
       blockquote {
-        border: 1px solid var(--bl-bg-color);
+        border: 1px solid var(--gw-bg-color);
         border-left: 3px solid #bebebe;
       }
     }
@@ -236,7 +236,7 @@
     // 单行代码块
     :deep(code) {
       font-family: 'Jetbrains Mono';
-      background-color: var(--bl-bg-color);
+      background-color: var(--gw-bg-color);
       padding: 0px 4px;
       border-radius: 3px;
       margin: 0 3px;

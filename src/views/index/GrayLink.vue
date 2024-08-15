@@ -143,7 +143,7 @@ const toToc = (articleId: number) => {
 
 <style scoped lang="scss">
 .gray-link-root {
-  background-color: var(--bl-bg-color);
+  background-color: var(--gw-bg-color);
   @include box(100%, 100%);
   @include flex(row, flex-start, flex-start);
   flex-wrap: wrap;
@@ -159,12 +159,12 @@ const toToc = (articleId: number) => {
     .link-item {
       height: 100px;
       padding: 10px;
-      border: 1px solid var(--bl-border-color);
+      border: 1px solid var(--gw-border-color);
       border-radius: 5px;
       display: flex;
       align-items: center;
       text-decoration: none;
-      color:var(--bl-font-color);
+      color:var(--gw-font-color);
       .img {
       width: 50px;
       height: 50px;

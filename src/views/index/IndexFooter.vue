@@ -43,7 +43,7 @@ const ipc = () => {
 
 <style scoped lang="scss">
 .graython-footer-root {
-  background-color: var(--bl-bg-color);
+  background-color: var(--gw-bg-color);
   border-top: var(--el-border);
   @include box(100%, 60px);
   @include flex(row, center, center);

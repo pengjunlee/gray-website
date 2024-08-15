@@ -104,7 +104,7 @@
     :with-header="true"
     :destroy-on-close="true"
     size="70px">
-    <ArticleSetting style="background-color: var(--bl-bg-color);"></ArticleSetting>
+    <ArticleSetting style="background-color: var(--gw-bg-color);"></ArticleSetting>
   </el-drawer>
 </template>
 
@@ -367,7 +367,7 @@ const onresize = () => {
   @include box(100vw, calc(100vh - 60px));
   @include flex(column, flex-start, center);
   box-sizing: border-box;
-  background: var(--bl-bg-color);
+  background: var(--gw-bg-color);
   position: relative;
 
   .mask {
@@ -416,7 +416,7 @@ const onresize = () => {
         left: 10px;
         top: 10px;
         border-radius: 10px;
-        background-color: var(--bl-bg-color);
+        background-color: var(--gw-bg-color);
         padding-top: 10px;
         z-index: 9999;
         overflow: hidden;
@@ -447,8 +447,8 @@ const onresize = () => {
       position: absolute;
       right: 10px;
       top: 10px;
-      background-color: var(--bl-bg-color);
-      color: var(--bl-font-color);
+      background-color: var(--gw-bg-color);
+      color: var(--gw-font-color);
       border-radius: 10px;
       border: 0;
       z-index: 9999;

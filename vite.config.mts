@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import svgLoader from 'vite-svg-loader'
 
 // 为 Element Plus 按需引入样式。
 import ElementPlus from 'unplugin-element-plus/vite'
@@ -40,6 +41,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    svgLoader(),
     vueJsx(),
     visualizer({
       emitFile: false,
