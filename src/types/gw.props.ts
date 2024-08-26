@@ -3,3 +3,10 @@ export type Tab = {
   name: string;
   title: string;
 }
+
+export type CardLinkItem = {
+  title?: string;
+  desc: string;
+  logo: string;
+  url:string;
+}
