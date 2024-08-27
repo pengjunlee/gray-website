@@ -34,8 +34,7 @@ export default defineConfig({
     proxy: {
       // 第一个代理后端地址
       "*": {
-        target: "http://192.168.192.66:890",
-        // target: "http://192.168.2.2:8091",
+        // target: "http://192.168.192.66:890",
         changeOrigin: true,
         rewrite: (path) => path,
       },

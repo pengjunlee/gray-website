@@ -9,6 +9,7 @@ const NotFound = () => import('@/components/NotFound.vue')
 // 前端页面
 const Index = () => import('../views/Index.vue')
 const Home = () => import('../views/index/Home.vue')
+const Library = () => import('../views/index/Library.vue')
 const GrayLink = () => import('../views/index/GrayLink.vue')
 const Login = () => import('@/views/index/Login.vue')
 const Articles = () => import('@/views/article/Articles.vue')
@@ -39,11 +40,11 @@ router.addRoute({
 })
 router.addRoute({
   path: '/admin',
-  redirect: '/home2',
+  redirect: '/library',
   name: 'Admin',
   component: Admin,
   meta: { keepAlive: true },
   children: [
-    { path: '/home2', name: 'Home2', component: Home, meta: { keepAlive: true } },
+    { path: '/library', name: 'Library', component: Library, meta: { keepAlive: true } },
   ]
 })

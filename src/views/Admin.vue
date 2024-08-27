@@ -24,11 +24,11 @@ import type { RouteRecordName } from 'vue-router'
 import Header from '../components/GWHeader.vue'
 import type { Tab } from '@/types/gw.props'
 
-const tabs = ref<Tab[]>([{icon:"home",name:'Home2',title:'首页'}]);
-const selectedTab = ref('Home2');
+const tabs = ref<Tab[]>([{icon:"library",name:'Library',title:'库'}]);
+const selectedTab = ref('Library');
 
-const includeRouter = ref<any>(['Home2'])
-const curRoute = ref<RouteRecordName>('Home2')
+const includeRouter = ref<any>(['Library'])
+const curRoute = ref<RouteRecordName>('Library')
 
 watch(
   () => router.currentRoute.value,
