@@ -30,7 +30,7 @@ window.blconfig = {
    */
   DOMAIN: {
     // 将该值填写为你的后台访问地址, 与 blossom 客户端登录   页面填写的地址相同
-    PRD: 'http://localhost:8081/workstation-api',
+    PRD: 'http://localhost:8081/website-api',
     // 将该值填写你开放为博客的用户ID
     USER_ID: 1
   },

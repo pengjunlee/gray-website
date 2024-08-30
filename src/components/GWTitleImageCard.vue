@@ -1,0 +1,118 @@
+<template>
+  <div
+    class="gw-card"
+    @mouseover="isHovered = true"
+    @mouseleave="isHovered = false"
+    @click="click"
+  >
+    <!-- 新建卡片 -->
+    <div
+      v-if="blankCard"
+      style="
+        align-items: center;
+        text-align: center;
+        height: 100%;
+        width: 100%;
+        display: inline-grid;
+      "
+    >
+      <div>
+        <slot name="add-btn">
+          <SvgIcon :size="50" icon-class="add" />
+        </slot>
+      </div>
+    </div>
+    <div style="width: 100%; height: 100%; position: relative" v-else>
+      <!-- 背景图片 -->
+      <div
+        class="card-image"
+        :style="{ backgroundImage: `url(http://localhost:8081/website-api/thumbnail/2/ff014e14ae5096abda426cc077ad927a.png)` }"
+      ></div>
+
+      <!-- 标题和按钮 -->
+      <div class="card-content">
+        <h3 class="card-title">{{ title }}</h3>
+      </div>
+
+      <div v-show="isHovered" class="card-btn">
+        <slot name="customize-btn"> </slot>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, toRefs } from "vue";
+
+interface CardProps {
+  blankCard: boolean;
+  image?: String;
+  title?: String;
+  cardData?: Record<string, any>; // 组件对应的数据
+  onClick?: (data: Record<string, any>) => void | Promise<void>;
+}
+
+const isHovered = ref(false);
+
+const props = defineProps<CardProps>();
+
+const { blankCard, image, title, onClick } = toRefs(props);
+
+// 点击卡片时调用父组件的回调函数
+function click() {
+  if(props.onClick){
+    props.onClick(props.cardData ? props.cardData : {});
+  }
+}
+</script>
+
+<style scoped lang="scss">
+.gw-card {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  overflow: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--gw-font-color);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.gw-card:hover {
+  transform: scale(1.05);
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  object-fit: cover; /* 保证图片按比例填充容器 */
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  background-color: var(--gw-bg-active-color-5);
+  color: var(--gw-font-color);
+  transition: all 0.3s ease;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 36px;
+  transition: transform 0.3s ease;
+}
+
+.card-btn {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  color: var(--gw-font-color);
+  display: flex;
+  flex-direction: column;
+}
+</style>

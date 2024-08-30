@@ -7,7 +7,7 @@ import type { R } from './request'
  * @returns
  */
 export const userinfoOpenApi = (params?: object): Promise<R<any>> => {
-  return rq.get<R<any>>('/user/info/open', { params })
+  return rq.get<R<any>>('http://192.168.192.66:890/user/info/open', { params })
 }
 
 /**

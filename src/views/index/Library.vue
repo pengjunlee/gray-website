@@ -1,237 +1,318 @@
 <template>
-  <div class="graython-library-root">
-    <!-- 新建相册的卡片 -->
-    <el-card class="library-card add-library" @click="createlibrary">
-      <div class="library-name"><SvgIcon :size="50" icon-class="add" /></div>
-      <div>新建</div>
-    </el-card>
-
-    <!-- 已创建相册的卡片 -->
-    <el-card
-      v-for="library in librarys"
-      :key="library.id"
-        class="library-card"
-      @click="openlibrary(library)"
+  <div class="image-gallery">
+    <div
+      class="image-card"
+      v-for="(image, index) in images"
+      :key="index"
+      @mouseleave="showOptionsIndex = -1"
     >
-      <img :src="library.cover ? library.cover:`https://via.placeholder.com/150`" alt="库封面" class="library-cover" />
-      <div class="library-name">{{ library.name }}</div>
-    </el-card>
-    
-  </div>
-  <!-- 模态框 -->
-  <el-dialog
-      style="padding: 30px;max-height: 500px;overflow: scroll;"
-      title="新建库"
-      v-model="dialogVisible"
-      width="500px"
-      @close="handleClose"
-    >
-    <el-form ref="libraryFormRef" :model="form" label-width="auto" :rules="rules" style="max-width: 500px">
-      <el-form-item label="库名称：" prop ="name">
-        <!-- 输入框 -->
-        <el-input v-model="form.name" placeholder="请输入库名称"></el-input>
-    </el-form-item>
+      <!-- 图片展示 -->
+      <img
+        :src="
+          `http://localhost:8081/website-api/thumbnail/` +
+          image.folderId +
+          `/` +
+          image.md5 +
+          '.png'
+        "
+        :alt="image.name"
+        class="image"
+        @click="openPreview(index)"
+      />
 
-    <el-form-item label="库路径：" prop="folderName">
-        <!-- 输入框 -->
-        <el-input readonly v-model="form.folderName" placeholder="请选择库路径"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <!-- 树形图 -->
-        <div style="display: inline-block;margin-left: 79px;">
-          <el-input
-          v-model="filterText"
-          style="width: 200px"
-          placeholder="查找路径"
-        />
-        <el-tree
-          ref="treeRef"
-          style="max-width: 500px;margin: 10px 0 ;"
-          class="filter-tree"
-          :data="treeData"
-          :props="defaultProps"
-          accordion
-          :filter-node-method="filterNode"
-          @node-click="handleNodeChange"
+      <!-- @click="enterFullscreen(index)"
+        :ref="el => imageRefs[index] = el" -->
+      <!-- 更多操作按钮 -->
+      <div class="more-options">
+        <button @click="toggleOptions(index)" class="more-btn">⋮</button>
+        <div v-if="showOptionsIndex === index" class="options-div">
+          <div id="triangle_bottom"></div>
+          <!-- 操作选项下拉菜单 -->
+          <div class="options-menu">
+            <ul>
+              <li>
+                <span @click="downloadImage(`http://localhost:8081/website-api/thumbnail/` +
+          image.folderId +
+          `/` +
+          image.md5 +
+          '.png')" class="iconbl bl-download--line"></span>
+                
+              </li>
+              <li><span @click="openPreview(index)" class="iconbl bl-eye-line"></span></li>
+              <!-- 可以在这里添加更多选项 -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 模态框 -->
+    <div v-if="isPreviewVisible" class="modal-overlay">
+      <div class="preview-btns">
+        <span style="font-size: 24px;" @click="closePreview" class="iconbl bl-a-closeline-line"></span>
+        <span style="font-size: 24px;" @click="downloadImage('')" class="iconbl bl-download--line"></span>
+        <span style="font-size: 24px;" @click="enterFullscreen" class="iconbl bl-expansion-line"></span>
+      </div>
+
+      <div class="modal-content" @click="closePreview">
+        <img
+          :src="
+            `http://localhost:8081/website-api/thumbnail/` +
+            currentImage.folderId +
+            `/` +
+            currentImage.md5 +
+            '.png'
+          "
+          :alt="currentImage.name"
+          class="preview-image"
+          ref="previewImageRef"
         />
       </div>
-    </el-form-item>
-
-    <!-- 操作按钮 -->
-    <el-form-item style="flex-direction: column;">
-      <el-button @click="handleClose">取消</el-button>
-      <el-button type="primary" @click="handleConfirm(libraryFormRef)">确定</el-button>
-    </el-form-item>
-    </el-form>
-  </el-dialog>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, onMounted } from 'vue';
-import { ElMessage, ElTree } from 'element-plus';
-import type {FormRules, FormInstance} from 'element-plus';
-import { resourcesDirectoriesApi, addLibraryApi, listLibraryApi } from '@/api/resources';
-import type { Library } from '@/types/gw.resources';
+import { ref, onMounted, computed } from "vue";
+import { listResourceApi } from "@/api/resources";
+import type { Resource } from "@/types/gw.resources";
+import FileSaver from 'file-saver';
+// 模拟图片数据
+const images = ref<Resource[]>();
 
+// 控制显示操作选项的图片索引
+const showOptionsIndex = ref<number | null>(null);
 
-interface Tree {
-  [key: string]: any
-}
-const libraryFormRef = ref<FormInstance>();
-// 模拟相册数据
-const librarys = ref<Library[]>([]);
+const previewImageRef = ref();
+const downloadLinkRef = ref();
 
-onMounted( async ()=>{
-  await listLibraryApi().then((rsp) => {
-    librarys.value = rsp.data;
-  });
+// 切换操作选项菜单的显示
+const toggleOptions = (index: number) => {
+  if (showOptionsIndex.value === index) {
+    showOptionsIndex.value = null; // 关闭菜单
+  } else {
+    showOptionsIndex.value = index; // 显示对应图片的菜单
+  }
+};
+
+// 下载图片的方法
+const downloadImage = (url: string) => {
+  if( !url){
+    url=`http://localhost:8081/website-api/thumbnail/` +
+            currentImage.value.folderId +
+            `/` +
+            currentImage.value.md5 +
+            '.png'
+  }
+  debugger;
+  console.log(url);
+  fetch(url)
+        .then(response => response.blob())
+        .then(blob => {
+          FileSaver.saveAs(blob, 'image.png'); // 下载后的文件名
+        })
+        .catch(error => console.error('Error fetching image:', error));
+};
+
+// 预览状态和当前图片
+const isPreviewVisible = ref(false);
+const currentIndex = ref<number | null>(null);
+
+// 计算当前预览的图片
+const currentImage = computed(() => {
+  if (currentIndex.value !== null) {
+    return images.value[currentIndex.value];
+  }
+  return { url: "", alt: "" };
 });
 
-// 打开相册函数
-const openlibrary = (library: Library): void => {
-  ElMessage.info(`打开相册: ${library.name}`);
+// 打开预览
+const openPreview = (index: number) => {
+  currentIndex.value = index;
+  isPreviewVisible.value = true;
 };
 
-// 对话框是否可见
-const dialogVisible = ref(false);
-
-// 输入框的值
-const inputValue = ref('');
-
-const filterText = ref('')
-const treeRef = ref<InstanceType<typeof ElTree>>()
-
-watch(filterText, (val) => {
-  treeRef.value!.filter(val)
-})
-
-const filterNode = (value: string, data: Tree) => {
-  if (!value) return true
-  return data.label.includes(value)
-}
-
-// 树形图数据
-const treeData = ref([]);
-
-
-const form = reactive<Library>({
-  name: ''
-})
-
-const rules = reactive<FormRules<Library>>({
-  name: [
-    {
-      required: true,
-      message: '请输入库名称',
-      trigger: 'blur',
-    },
-  ],
-  folderName: [
-    { required: true, message: '请指定库所在的文件夹', trigger: 'blur' },
-  ],
-})
-// 树形图属性配置
-const defaultProps = {
-  children: 'children',
-  label: 'name',
+// 关闭预览
+const closePreview = () => {
+  isPreviewVisible.value = false;
+  currentIndex.value = null;
 };
 
-// 选择的节点
-const checkedNodes = ref<any[]>([]);
 
-// 打开对话框
-const createlibrary = async () => {
-  
-  await resourcesDirectoriesApi().then((rsp) =>{
-    treeData.value = rsp.data;
-    dialogVisible.value = true;
-  });
-};
-
-// 关闭对话框
-const handleClose = () => {
-  dialogVisible.value = false;
-  inputValue.value = ''; // 重置输入框
-  checkedNodes.value = []; // 重置选择
-};
-
-const handleConfirm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  await formEl.validate( async (valid, fields) => {
-    if (valid) {
-      await addLibraryApi(form).then((rsp )=>{
-        handleClose();
-        librarys.value.push(rsp.data);
-        form.name = '';
-        form.folderName = '';
-        form.folderPath = '';
-      });
-
-    } else {
-      console.log('error submit!', fields)
+// 进入全屏模式的函数
+const enterFullscreen = () => {
+  const imageElement = previewImageRef.value;
+  if (imageElement) {
+    if (imageElement.requestFullscreen) {
+      imageElement.requestFullscreen();
+    } else if ((imageElement as any).webkitRequestFullscreen) {
+      (imageElement as any).webkitRequestFullscreen();
+    } else if ((imageElement as any).mozRequestFullScreen) {
+      (imageElement as any).mozRequestFullScreen();
+    } else if ((imageElement as any).msRequestFullscreen) {
+      (imageElement as any).msRequestFullscreen();
     }
-  })
-}
-
-// 处理树节点选择变更
-const handleNodeChange = (data: any) => {
-  form.folderPath = data.path;
-  form.folderName = data.name
+  }
 };
+
+onMounted(async () => {
+  await listResourceApi().then((rsp) => {
+    images.value = rsp.data;
+  });
+});
 </script>
 
 <style scoped lang="scss">
-.graython-library-root {
+.image-gallery {
   background-color: var(--gw-bg-color);
   @include box(100%, 100%);
-  padding: 10px 100px;
   position: relative;
-  overflow: hidden;
+  overflow: scroll;
   display: flex;
-  gap:20px;
+  gap: 20px;
   padding: 20px 100px;
   flex-direction: row;
   flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
-.library-card {
-  width: 150px;
+.image-card {
+  width: 200px;
   height: 200px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background-color: var(--gw-bg-color);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.image-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  .more-options {
+    display: block;
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 保证图片按比例填充容器 */
+  transition: transform 0.3s;
+}
+
+.image-card:hover .image {
+  transform: scale(1.1); /* 鼠标悬停时放大图片 */
+}
+
+.more-options {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: none;
+}
+
+.more-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  color: var(--gw-font-color);
+  &:hover {
+    background: var(--gw-bg-active-color);
+    border-radius: 50%;
+    .more-options {
+      display: inline;
+    }
+  }
+}
+
+.options-menu {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  background-color: var(--gw-bg-color);
+  color: var(--gw-font-color);
+  border: 1px solid var(--gw-bg-active-color);
+  box-shadow: 0 2px 8px var(--gw-font-color-1);
+  border-radius: 5px;
+  z-index: 100;
+}
+
+.options-menu ul {
+  list-style: none;
+  padding: 8px 0;
+  margin: 0;
+}
+
+.options-menu li {
+  padding: 3px 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.options-menu li:hover {
+  background-color: var(--gw-bg-active-color);
+}
+
+#triangle_bottom {
+  height: 0px;
+  width: 0px;
+  margin-left: 9px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid var(--gw-bg-color);
+}
+
+/* 模态框样式 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--gw-bg-active-color-5);
+  z-index: 3000;
+}
+
+.modal-content {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 45px;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+.preview-btns {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  z-index: 3999;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: transform 0.2s ease;
-  text-align: center;
-}
-
-.library-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 10px calc(--gw-border-color);
-}
-
-.add-library {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.add-icon {
-  font-size: 36px;
-  margin-bottom: 10px;
-}
-
-.library-cover {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-
-.library-name {
-  font-size: 14px;
-  font-weight: bold;
+  .iconbl {
+    &:hover {
+      background-color: var(--gw-bg-color);
+    }
+    background-color: var(--gw-bg-color-5);
+    border-radius: 50%;
+    padding: 5px;
+  }
 }
 </style>

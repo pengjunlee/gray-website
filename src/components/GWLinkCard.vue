@@ -47,7 +47,7 @@ const {title, tsize, items, isize } = toRefs(props);
     .link-item {
       height: 100px;
       padding: 10px;
-      border: 1px solid var(--gw-border-color);
+      border: 1px solid var(--gw-font-color-1);
       border-radius: 5px;
       display: flex;
       align-items: center;

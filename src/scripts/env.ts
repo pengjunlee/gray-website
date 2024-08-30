@@ -1,5 +1,4 @@
 import { isNull } from '@/assets/utils/obj'
-import { userinfoOpenApi } from '@/api/blossom'
 
 const springBaseUrl = import.meta.env.VITE_BL_API_BASE_URI
 const print = () => {

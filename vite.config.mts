@@ -35,6 +35,7 @@ export default defineConfig({
       // 第一个代理后端地址
       "*": {
         // target: "http://192.168.192.66:890",
+        target: "http://localhost:8081",
         changeOrigin: true,
         rewrite: (path) => path,
       },

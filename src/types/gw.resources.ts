@@ -14,7 +14,21 @@ type Library = {
   updateTime?: string;
 }
 
+type Resource = {
+  id: number,
+  folderId: number,
+  name: string,
+  md5: string,
+  ext: string,
+  size: number,
+  mimeType: string,
+  thumbnail: boolean,
+  lastModified: string,
+  createTime: string,
+  updateTime: string
+}
+
 export type {
-  Directory,Library
+  Directory,Library,Resource
 }
 

@@ -38,20 +38,22 @@
 /* 白天主题 */
 :root {
   --gw-html-color: #ffffff;
-  --gw-bg-color: #f8f9fb;
-  --gw-bg-active-color: #d8dbde;
-  --gw-header-color: #313131;
+  --gw-bg-color: rgb(248, 249, 250);
+  --gw-bg-active-color: rgb(216, 219, 222);
+  --gw-bg-active-color-5: rgb(216, 219, 222,0.5);
+  --gw-header-color: rgb(49, 49, 49);
   --gw-font-color: rgb(46, 52, 60);
-  --gw-border-color: rgb(46, 52, 60, 0.1);
+  --gw-font-color-1: rgb(46, 52, 60, 0.1);
 }
 /* 黑夜主题 */
 html.dark {
-  --gw-html-color: #303134;
-  --gw-bg-color: #37383c;
-  --gw-bg-active-color: #454549;
+  --gw-html-color: #000000;
+  --gw-bg-color: rgb(55, 56, 57);
+  --gw-bg-active-color: rgb(69, 69, 73);
+  --gw-bg-active-color-5: rgb(69, 69, 73,0.5);
   --gw-header-color: rgb(48, 49, 52);
-  --gw-font-color: rgb(242, 242, 243);
-  --gw-border-color: rgb(242, 242, 243, 0.1);
+  --gw-font-color: rgb(242, 242, 242);
+  --gw-font-color-1: rgb(242, 242, 242, 0.1);
 }
 
 :root {

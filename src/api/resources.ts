@@ -7,7 +7,7 @@ import type { R } from './request'
  * @returns
  */
 export const resourcesDirectoriesApi = (): Promise<R<any>> => {
-  return rq.get<R<any>>('/resourcesMgt/directories')
+  return rq.get<R<any>>('/resourceMgt/directories')
 }
 
 /**
@@ -16,7 +16,7 @@ export const resourcesDirectoriesApi = (): Promise<R<any>> => {
  * @returns
  */
 export const addLibraryApi = ( params: any ): Promise<R<any>> => {
-  return rq.post<R<any>>('/resourcesMgt/library/add', { ...params })
+  return rq.post<R<any>>('/resourceMgt/library/add', { ...params })
 }
 
 /**
@@ -25,5 +25,33 @@ export const addLibraryApi = ( params: any ): Promise<R<any>> => {
  * @returns
  */
 export const listLibraryApi = (): Promise<R<any>> => {
-  return rq.get<R<any>>('/resourcesMgt/library/list')
+  return rq.get<R<any>>('/resourceMgt/library/list')
+}
+
+/**
+ * 删除资源库
+ * @param params
+ * @returns
+ */
+export const deleteLibraryApi = ( params: any ): Promise<R<any>> => {
+  return rq.post<R<any>>('/resourceMgt/library/delete/'+params)
+}
+
+/**
+ * 同步资源库
+ * @param params
+ * @returns
+ */
+export const refreshLibraryApi = ( params: any ): Promise<R<any>> => {
+  return rq.post<R<any>>('/resourceMgt/library/refresh/'+params)
+}
+
+
+/**
+ * 获取资源列表
+ * @param params
+ * @returns
+ */
+export const listResourceApi = (): Promise<R<any>> => {
+  return rq.get<R<any>>('/resourceMgt/resource/list')
 }
