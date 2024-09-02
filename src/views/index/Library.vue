@@ -76,6 +76,7 @@ import { ref, onMounted, computed } from "vue";
 import { listResourceApi } from "@/api/resources";
 import type { Resource } from "@/types/gw.resources";
 import FileSaver from 'file-saver';
+
 // 模拟图片数据
 const images = ref<Resource[]>();
 
@@ -202,7 +203,7 @@ onMounted(async () => {
 .image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 保证图片按比例填充容器 */
+  object-fit: contain; /* 保证图片按比例填充容器 */
   transition: transform 0.3s;
 }
 

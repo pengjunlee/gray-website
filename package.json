@@ -20,9 +20,11 @@
     "pinia": "^2.1.7",
     "vite-svg-loader": "^5.1.0",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-virtual-scroll-list": "^0.2.1"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.7",
     "@types/node": "^18.19.29",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",

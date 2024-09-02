@@ -7,7 +7,7 @@ import type { R } from './request'
  * @returns
  */
 export const resourcesDirectoriesApi = (): Promise<R<any>> => {
-  return rq.get<R<any>>('/resourceMgt/directories')
+  return rq.get<R<any>>('/resource/directories')
 }
 
 /**
@@ -16,7 +16,7 @@ export const resourcesDirectoriesApi = (): Promise<R<any>> => {
  * @returns
  */
 export const addLibraryApi = ( params: any ): Promise<R<any>> => {
-  return rq.post<R<any>>('/resourceMgt/library/add', { ...params })
+  return rq.post<R<any>>('/resource/library/add', { ...params })
 }
 
 /**
@@ -25,7 +25,7 @@ export const addLibraryApi = ( params: any ): Promise<R<any>> => {
  * @returns
  */
 export const listLibraryApi = (): Promise<R<any>> => {
-  return rq.get<R<any>>('/resourceMgt/library/list')
+  return rq.get<R<any>>('/resource/library/list')
 }
 
 /**
@@ -34,7 +34,7 @@ export const listLibraryApi = (): Promise<R<any>> => {
  * @returns
  */
 export const deleteLibraryApi = ( params: any ): Promise<R<any>> => {
-  return rq.post<R<any>>('/resourceMgt/library/delete/'+params)
+  return rq.post<R<any>>('/resource/library/delete/'+params)
 }
 
 /**
@@ -43,7 +43,7 @@ export const deleteLibraryApi = ( params: any ): Promise<R<any>> => {
  * @returns
  */
 export const refreshLibraryApi = ( params: any ): Promise<R<any>> => {
-  return rq.post<R<any>>('/resourceMgt/library/refresh/'+params)
+  return rq.post<R<any>>('/resource/library/refresh/'+params)
 }
 
 
@@ -53,5 +53,5 @@ export const refreshLibraryApi = ( params: any ): Promise<R<any>> => {
  * @returns
  */
 export const listResourceApi = (): Promise<R<any>> => {
-  return rq.get<R<any>>('/resourceMgt/resource/list')
+  return rq.get<R<any>>('/resource/resource/list')
 }

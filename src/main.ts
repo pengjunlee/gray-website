@@ -17,9 +17,11 @@ import BLCol from '@/components/BLCol.vue'
 import BLTag from '@/components/BLTag.vue'
 import SvgIcon from '@/components/SvgIcon.vue'
 import 'virtual:svg-icons-register'
+import VueVirtualScroller from 'vue3-virtual-scroll-list'
 
 const app = createApp(App)
 app.use(pinia)
 app.use(router)
 app.component('bl-row', BLRow).component('bl-col', BLCol).component('bl-tag', BLTag).component('svg-icon',SvgIcon)
+app.component('vue-virtual-scroller', VueVirtualScroller)
 app.mount('#app')
