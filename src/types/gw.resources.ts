@@ -16,16 +16,18 @@ type Library = {
 
 type Resource = {
   id: number,
-  folderId: number,
+  folderId?: number,
   name: string,
-  md5: string,
-  ext: string,
-  size: number,
-  mimeType: string,
-  thumbnail: boolean,
-  lastModified: string,
-  createTime: string,
-  updateTime: string
+  md5?: string,
+  ext?: string,
+  size?: number,
+  mimeType?: string,
+  thumbnail?: boolean,
+  thumbnailUrl: string,
+  previewUrl: string,
+  lastModified?: string,
+  createTime?: string,
+  updateTime?: string
 }
 
 export type {
