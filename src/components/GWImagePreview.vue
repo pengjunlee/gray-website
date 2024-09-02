@@ -1,6 +1,6 @@
 <template>
   <!-- 模态框 用来预览-->
-  <div class="modal-overlay">
+  <div class="preview-container" @wheel="handleWheel">
     <div class="preview-btns">
       <span
         style="font-size: 24px"
@@ -9,7 +9,7 @@
       ></span>
       <span
         style="font-size: 24px"
-        @click="download"
+        @click="downloadImage"
         class="iconbl bl-download--line"
       ></span>
       <span
@@ -19,10 +19,11 @@
       ></span>
     </div>
 
-    <div class="modal-content" @click="close">
+    <div class="preview-content" @click="close">
       <img
         :src="image"
         :alt="name"
+        :style="{ transform: `scale(${scale})` }"
         class="preview-image"
         ref="previewImageRef"
       />
@@ -32,6 +33,7 @@
 
 <script setup lang="ts">
 import { ref, toRefs } from "vue";
+import FileSaver from 'file-saver';
 
 interface CardProps {
   image: string;
@@ -52,11 +54,15 @@ function close() {
   }
 }
 
-function download() {
-  if (props.onDownload) {
-    props.onDownload(props.cardData ? props.cardData : {});
-  }
-}
+// 下载图片的方法
+const downloadImage = (image: any) => {
+  fetch(image.src)
+        .then(response => response.blob())
+        .then(blob => {
+          FileSaver.saveAs(blob, name || "image.png"); // 下载后的文件名
+        })
+        .catch(error => console.error('下载图片异常:', error));
+};
 
 const previewImageRef = ref();
 
@@ -75,12 +81,47 @@ const enterFullscreen = () => {
     }
   }
 };
+
+// 缩放比例
+const scale = ref(1);
+
+// 缩放步长
+const zoomStep = 0.1;
+
+// 最小和最大缩放比例
+const minScale = 0.5;
+const maxScale = 3;
+
+
+// 处理鼠标滚轮事件进行缩放
+const handleWheel = (event: WheelEvent) => {
+  event.preventDefault(); // 阻止默认的滚动行为
+  if (event.deltaY < 0) {
+    zoomIn();
+  } else {
+    zoomOut();
+  }
+};
+
+// 放大图片
+const zoomIn = () => {
+  if (scale.value < maxScale) {
+    scale.value += zoomStep;
+  }
+};
+
+// 缩小图片
+const zoomOut = () => {
+  if (scale.value > minScale) {
+    scale.value -= zoomStep;
+  }
+};
 </script>
 
 <style scoped lang="scss">
 
 /* 模态框样式 */
-.modal-overlay {
+.preview-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -90,7 +131,7 @@ const enterFullscreen = () => {
   z-index: 3000;
 }
 
-.modal-content {
+.preview-content {
   width: 100%;
   height: 100%;
   position: relative;

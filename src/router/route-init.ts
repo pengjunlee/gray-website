@@ -11,6 +11,8 @@ const Index = () => import('../views/Index.vue')
 const Home = () => import('../views/index/Home.vue')
 const Library = () => import('../views/index/Library.vue')
 const Library2 = () => import('../views/index/Library2.vue')
+const WaterFall = () => import('../views/index/LibraryWaterFall.vue')
+const LibraryVirtual = () => import('../views/index/LibraryVirtual.vue')
 const GrayLink = () => import('../views/index/GrayLink.vue')
 const Login = () => import('@/views/index/Login.vue')
 const Articles = () => import('@/views/article/Articles.vue')
@@ -34,7 +36,7 @@ router.addRoute({
     { path: '/links', name: 'Links', component: GrayLink, meta: { keepAlive: true } },
     { path: '/login', name: 'Login', component: Login, meta: { keepAlive: true } },
     { path: '/articles', name: 'Articles', component: Articles, meta: { keepAlive: true } },
-    { path: '/library', name: 'Library', component: Library, meta: { keepAlive: true } },
+    { path: '/library', name: 'Library', component: LibraryVirtual, meta: { keepAlive: true } },
     { path: '/todo', name: 'TodoIndex', component: TodoIndex, meta: { keepAlive: true } },
     { path: '/plan', name: 'PlanIndex', component: PlanIndex, meta: { keepAlive: false } },
     { path: '/note', name: 'NoteIndex', component: NoteIndex, meta: { keepAlive: false } }

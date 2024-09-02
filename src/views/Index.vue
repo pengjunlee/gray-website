@@ -63,7 +63,7 @@ const showHeader = () => {
   return true;
 };
 
-const hideFooterArray = ["Login", "Aticles"];
+const hideFooterArray = ["Login", "Aticles", "Library"];
 const showFooter = () => {
   const currentRoute = router.currentRoute.value;
   if (
