@@ -1,8 +1,8 @@
 <template>
   <div class="virtual-waterfall-container">
-    <fs-virtual-water-fall :request="req" :gap="20" :column="5" :request-size="20">
+    <fs-virtual-water-fall :request="req" :gap="20" :column="5" :request-size="5">
       <template #item="{ item }">
-        <img class="test-item" :src="item.src" @click="openPreview(item)"/>
+        <img class="img-item" :src="item.src" @click="openPreview(item)"/>
       </template>
     </fs-virtual-water-fall>
   </div>
@@ -74,14 +74,15 @@ const closePreview = () => {
 <style scoped lang="scss">
 .virtual-waterfall-container {
   width: calc(100%);
-  height: calc(100% - 60px);
+  height: calc(100% - 50px);
   padding: 20px;
 }
-.test-item {
+.img-item {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   animation: identifier 0.25s; // 添加动画，使其出现时更加丝滑
+  border-radius: 3px;
   &:hover {
     cursor: pointer;
   }

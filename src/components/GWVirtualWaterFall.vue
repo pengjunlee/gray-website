@@ -230,6 +230,7 @@ onUnmounted(() => {
   &-list {
     position: relative;
     width: 100%;
+    min-height: calc(100vh - 50px);
   }
   &-item {
     position: absolute;
