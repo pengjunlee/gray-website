@@ -51,6 +51,7 @@ const { title, tsize, items } = toRefs(props);
 <style scoped lang="scss">
 .link-card-root {
   width: 100%;
+  margin-bottom: 20px;
 }
 .link-items {
   display: grid;
@@ -128,4 +129,5 @@ const { title, tsize, items } = toRefs(props);
   visibility: visible; /* 当悬停时显示 */
   opacity: 1; /* 设置为不透明 */
 }
+
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="virtual-waterfall-container">
-    <fs-virtual-water-fall :request="req" :gap="20" :column="5" :request-size="30">
+    <fs-virtual-water-fall :request="req" :gap="20" :column="5" :request-size="20">
       <template #item="{ item }">
         <img class="test-item" :src="item.src" @click="openPreview(item)"/>
       </template>
@@ -8,8 +8,8 @@
   </div>
   <GWImagePreview
       v-if="isPreviewVisible"
-      :image="currentImage.src"
-      :name="'1.png'"
+      :image="currentImage.previewUrl"
+      :name="currentImage.name"
       :on-close="closePreview"></GWImagePreview>
 </template>
 
@@ -17,26 +17,38 @@
 import FsVirtualWaterFall from "@/components/GWVirtualWaterFall.vue";
 import type { FsVirtualWaterfallReuqest } from "@/components/types/type";
 import { ref } from "vue";
+import { pageResourceApi } from "@/api/resources"
 
+let totalPage = 1;
 
 const req: FsVirtualWaterfallReuqest = async (page, pageSize) => {
+  if( totalPage < page ){
+    return {
+      total: 0,
+      list: [],
+    }
+  }
   // 请求，并传入分页参数
-  const rep = await fetch(
-    `https://www.vilipix.com/api/v1/picture/public?limit=${pageSize}&sort=hot&offset=${--page * pageSize}`
+  const rsp = await pageResourceApi(
+    {
+      pageNo:page,pageSize:pageSize
+    }
   );
+  
   // 数据处理
-  let {
-    data: { rows, count },
-  } = await rep.json();
-  rows = rows.map((item: any) => ({
-    id: item.picture_id, 
-    width: item.width, 
-    height: item.height, 
-    src: item.regular_url + "?x-oss-process=image/resize,w_240/format,jpg",
+  let { result, total } = rsp.data;
+  totalPage = Math.ceil(total/pageSize);
+  const rows = result.map((item: any) => ({
+    id:item.id, 
+    width: item.thumbnailWidth, 
+    height: item.thumbnailHeight, 
+    src: "http://localhost:8081/website-api/"+item.thumbnailUrl,
+    previewUrl: "http://localhost:8081/website-api/"+item.previewUrl,
+    name:item.name
   }));
 
   return {
-    total: count,
+    total: total,
     list: rows,
   };
 };

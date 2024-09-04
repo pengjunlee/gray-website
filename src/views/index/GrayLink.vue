@@ -1,7 +1,7 @@
 <template>
   <div class="gray-link-root">
     <GWLinkCard
-      v-for="(group, index) in linkGroups"
+      v-for="(group, index) in filteredLinks"
       :tsize="getFontSize(group.name)"
       :key="index"
       :title="group.name"
@@ -11,9 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import router from "@/router";
-import { ref, onMounted } from "vue";
-import type { CardLinkItem } from "@/types/gw.props";
+import { computed } from "vue";
 import GWLinkCard from "@/components/GWLinkCard.vue";
 
 const linkGroups = [
@@ -563,9 +561,13 @@ const linkGroups = [
   },
 ];
 
-onMounted(() => {});
-
-const links = ref<any>([]);
+// 使用 computed 属性来计算过滤后的列表
+const filteredLinks = linkGroups.map(group => {
+  return {
+    ...group,
+    links: group.links.filter(link => link.title.trim() !== ""),
+  };
+});
 
 const getFontSize = (name: string) => {
   if (name.length >= 10) {

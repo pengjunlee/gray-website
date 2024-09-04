@@ -55,3 +55,12 @@ export const refreshLibraryApi = ( params: any ): Promise<R<any>> => {
 export const listResourceApi = (): Promise<R<any>> => {
   return rq.get<R<any>>('/resource/resource/list')
 }
+
+/**
+ * 分页获取资源列表
+ * @param params
+ * @returns
+ */
+export const pageResourceApi = (params:any): Promise<R<any>> => {
+  return rq.post<R<any>>('/resource/page',{...params})
+}

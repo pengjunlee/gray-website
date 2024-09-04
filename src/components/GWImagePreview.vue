@@ -40,7 +40,6 @@ interface CardProps {
   name: string;
   cardData?: Record<string, any>; // 组件对应的数据
   onClose?: () => void | Promise<void>;
-  onDownload?: (data: any) => void | Promise<void>;
 }
 
 const props = defineProps<CardProps>();
@@ -55,11 +54,11 @@ function close() {
 }
 
 // 下载图片的方法
-const downloadImage = (image: any) => {
-  fetch(image.src)
+const downloadImage = () => {
+  fetch(image.value)
         .then(response => response.blob())
         .then(blob => {
-          FileSaver.saveAs(blob, name || "image.png"); // 下载后的文件名
+          FileSaver.saveAs(blob, name.value || "image.png"); // 下载后的文件名
         })
         .catch(error => console.error('下载图片异常:', error));
 };

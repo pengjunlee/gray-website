@@ -28,7 +28,7 @@ const tabs = ref<Tab[]>([
   { icon: "home", name: "Home", title: "首页" },
   { icon: "blog", name: "Articles", title: "博文" },
   { icon: "location", name: "Links", title: "导航" },
-  { icon: "location", name: "Library", title: "图库" },
+  { icon: "image", name: "Library", title: "图库" },
 ]);
 const selectedTab = ref("Home");
 

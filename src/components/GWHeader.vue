@@ -225,7 +225,7 @@ const handlLogout = () => {
   font-weight: bold;
 }
 /* 在屏幕宽度小于 400px 时隐藏文字，只显示图标 */
-@media (max-width: 750px) {
+@media (max-width: 900px) {
   .tab-text {
     display: none;
   }
