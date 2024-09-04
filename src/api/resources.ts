@@ -1,5 +1,5 @@
-import { defaultRequest as rq } from './request'
-import type { R } from './request'
+import { defaultRequest as rq } from './request_website'
+import type { R } from './request_website'
 
 /**
  * 获取资源目录列表

@@ -1,5 +1,5 @@
-import { defaultRequest as rq } from './request'
-import type { R } from './request'
+import { defaultRequest as rq } from './request_blossom'
+import type { R } from './request_blossom'
 
 /**
  * 用户信息
@@ -7,7 +7,7 @@ import type { R } from './request'
  * @returns
  */
 export const userinfoOpenApi = (params?: object): Promise<R<any>> => {
-  return rq.get<R<any>>('http://192.168.192.66:890/user/info/open', { params })
+  return rq.get<R<any>>('/user/info/open', { params })
 }
 
 /**

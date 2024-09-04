@@ -33,7 +33,7 @@ export default defineConfig({
     hmr: true,
     proxy: {
       // 第一个代理后端地址
-      "*": {
+      "/website-api": {
         // target: "http://192.168.192.66:890",
         target: "http://localhost:8081",
         changeOrigin: true,

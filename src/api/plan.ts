@@ -1,5 +1,5 @@
-import { defaultRequest as rq } from './request'
-import type { R } from './request'
+import { defaultRequest as rq } from './request_blossom'
+import type { R } from './request_blossom'
 
 export const planListDayApi = (params?: object): Promise<R<any>> => {
   return rq.get<R<any>>('/plan/list/day', { params })
