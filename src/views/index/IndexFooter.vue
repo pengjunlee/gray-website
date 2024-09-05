@@ -14,8 +14,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useUserStore } from '@/stores/user'
-import { isNotBlank } from '@/assets/utils/obj'
-import { getGwab, getIpc } from '@/scripts/env'
+import { isNotBlank } from '@/utils/obj'
+import { getGwab, getIpc } from '@/utils/env'
 
 const userStore = useUserStore()
 const ChartLineWordsRef = ref()

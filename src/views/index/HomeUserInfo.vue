@@ -32,9 +32,9 @@
 <script setup lang="ts">
 import { toRoute } from '@/router'
 import { useUserStore } from '@/stores/user'
-import { toView } from '@/assets/utils/util'
-import { getLinks } from '@/scripts/env'
-import { isNotBlank } from '@/assets/utils/obj'
+import { toView } from '@/utils/util'
+import { getLinks } from '@/utils/env'
+import { isNotBlank } from '@/utils/obj'
 import ChartHeatmap from './ChartHeatmap.vue'
 
 const userStore = useUserStore()

@@ -23,8 +23,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { toRoute } from '@/router'
-import { login } from '@/scripts/auth'
-import { getSysName, getThemeLogoStyle } from '@/scripts/env'
+import { login } from '@/utils/auth'
+import { getSysName, getThemeLogoStyle } from '@/utils/env'
 
 const formLogin = ref({ username: '', password: '' })
 

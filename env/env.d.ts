@@ -4,7 +4,7 @@ interface ImportMetaEnv {
   /**
    * API 的基础 URL
    */
-  readonly VITE_BL_API_BASE_URI: string
+  readonly VITE_API_BASE_URI: string
 }
 
 interface ImportMeta {

@@ -71,7 +71,7 @@ import { onMounted, ref, watch } from 'vue'
 import { Document } from '@element-plus/icons-vue'
 import { ElMessageBox, type CalendarDateType, type CalendarInstance } from 'element-plus'
 import { planListDayApi, planDelApi, planUpdDayApi } from '@/api/plan'
-import { getDateTimeFormat, timestampToDatetime } from '@/assets/utils/util'
+import { getDateTimeFormat, timestampToDatetime } from '@/utils/util'
 import PlanDayInfo from './PlanDayInfo.vue'
 
 onMounted(() => {

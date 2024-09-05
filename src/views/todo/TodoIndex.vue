@@ -161,7 +161,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import type { CalendarDateType, CalendarInstance } from 'element-plus'
 import { tasksApi, todosApi, toWaitingApi, toProcessingApi, toCompletedApi, addTaskApi, updTaskApi, delTaskApi } from '@/api/todo'
 import type { TodoList, TaskInfo, TodoType, TaskStatus } from './scripts/types'
-import { isBlank } from '@/assets/utils/obj'
+import { isBlank } from '@/utils/obj'
 
 onMounted(() => {
   getTodos()

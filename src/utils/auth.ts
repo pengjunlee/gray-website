@@ -1,7 +1,7 @@
 import { storeToRefs } from 'pinia'
 import { AuthStatus, storeKey, userinfoKey, useUserStore } from '@/stores/user'
 import { checkApi, loginApi, userinfoApi } from '@/api/auth'
-import { Local } from '@/assets/utils/storage'
+import { Local } from '@/utils/storage'
 import { toRoute } from '@/router'
 
 const userStore = useUserStore()

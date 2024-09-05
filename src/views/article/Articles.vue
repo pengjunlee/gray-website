@@ -112,7 +112,7 @@
 import { useRoute } from 'vue-router'
 import { ref, onUnmounted, nextTick } from 'vue'
 import { useUserStore } from '@/stores/user'
-import { useLifecycle } from '@/scripts/lifecycle'
+import { useLifecycle } from '@/utils/lifecycle'
 // element plus
 import { ArrowRightBold, Setting } from '@element-plus/icons-vue'
 // ts
@@ -123,7 +123,7 @@ import { isShowImg, isShowSvg, tags } from './scripts/doc-tree-detail'
 import { onHtmlEventDispatch } from './scripts/doc-content-event-dispatch'
 import { articleInfoOpenApi, articleInfoApi, docTreeOpenApi, docTreeApi } from '@/api/blossom'
 // utils
-import { isNull, isNotNull, isNotBlank } from '@/assets/utils/obj'
+import { isNull, isNotNull, isNotBlank } from '@/utils/obj'
 // components
 import ArticleSetting from './ArticleSetting.vue'
 
@@ -239,7 +239,7 @@ const clickCurDoc = async (tree: DocTree) => {
 const getCurEditArticle = async (id: string) => {
   if (id === '-999') {
     article.value.html = `<div style="color:#C6C6C6;font-weight: 300;width:100%;height:300px;padding:150px 20px;font-size:25px;text-align:center">
-      该博客所配置的 USER_ID 为<br/><span style="color:#e3a300; border-bottom: 5px solid #e3a300;border-radius:5px">${window.blconfig.DOMAIN.USER_ID}</span>
+      该博客所配置的 USER_ID 为<br/><span style="color:#e3a300; border-bottom: 5px solid #e3a300;border-radius:5px">${window.blconfig.SYS.USER_ID}</span>
       </div>`
     return
   }

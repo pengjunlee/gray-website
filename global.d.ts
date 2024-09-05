@@ -9,16 +9,13 @@ declare global {
         GONG_WANG_AN_BEI: string
         ICP_BEI_AN_HAO: string
         EMAIL: string
+        USER_ID: string
       }
       THEME: {
         LOGO_STYLE: {
           'border-radius': string
         }
         SUBJECT_TITLE: string
-      }
-      DOMAIN: {
-        PRD: string
-        USER_ID: string
       }
       LINKS: [
         {

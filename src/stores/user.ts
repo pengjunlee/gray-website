@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { Local } from '@/assets/utils/storage'
+import { Local } from '@/utils/storage'
 import { userinfoOpenApi } from '@/api/blossom'
 
 export const storeKey = 'token'

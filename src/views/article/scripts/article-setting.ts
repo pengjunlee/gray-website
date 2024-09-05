@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { Local } from '@/assets/utils/storage'
+import { Local } from '@/utils/storage'
 
 const FONT_SIZE_KEY = 'BLOSSOM-ARTICLE-FONT-SZIE'
 

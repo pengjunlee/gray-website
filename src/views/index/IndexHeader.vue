@@ -52,11 +52,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { toRoute } from '@/router'
-import { toView } from '@/assets/utils/util'
+import { toView } from '@/utils/util'
 import { useUserStore } from '@/stores/user'
-import { logout } from '@/scripts/auth'
-import { getLinks, getSysName, getThemeLogoStyle } from '@/scripts/env'
-import { isNotBlank } from '@/assets/utils/obj'
+import { logout } from '@/utils/auth'
+import { getLinks, getSysName, getThemeLogoStyle } from '@/utils/env'
+import { isNotBlank } from '@/utils/obj'
 import type { RouteRecordName } from 'vue-router'
 import DayNightSwitch from "@/components/DayNight.vue";
 import {useDark} from "@vueuse/core";

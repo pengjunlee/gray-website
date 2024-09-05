@@ -1,4 +1,4 @@
-import { isNotBlank } from '@/assets/utils/obj'
+import { isNotBlank } from '@/utils/obj'
 
 /**
  * 文章图标是否是链接

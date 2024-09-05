@@ -8,7 +8,7 @@
 import { onMounted, type StyleHTMLAttributes } from 'vue'
 import { useUserStore } from '@/stores/user'
 import { ElConfigProvider } from 'element-plus'
-import { isNotBlank } from './assets/utils/obj'
+import { isNotBlank } from '@/utils/obj'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 const userStore = useUserStore()

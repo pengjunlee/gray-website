@@ -27,8 +27,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useUserStore } from '@/stores/user'
-import { isNotBlank } from '@/assets/utils/obj'
-import { getGwab, getIpc, getEmail } from '@/scripts/env'
+import { isNotBlank } from '@/utils/obj'
+import { getGwab, getIpc, getEmail } from '@/utils/env'
 
 import UserInfo from './HomeUserInfo.vue'
 import ChartLineWords from './ChartLineWords.vue'

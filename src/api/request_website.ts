@@ -2,11 +2,11 @@ import axios from 'axios'
 import { toRoute } from '@/router'
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ElMessage } from 'element-plus'
-import { Local } from '@/assets/utils/storage'
-import { isNotNull } from '@/assets/utils/obj'
+import { Local } from '@/utils/storage'
+import { isNotNull } from '@/utils/obj'
 import pinia from '@/stores/store-config'
 import { storeKey as authKey, useUserStore } from '@/stores/user'
-import { getApiBaseUrl, getUserId } from '@/scripts/env'
+import { getApiBaseUrl, getUserId } from '@/utils/env'
 
 const userId = getUserId()
 const baseUrl = getApiBaseUrl()

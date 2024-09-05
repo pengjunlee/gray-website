@@ -45,9 +45,9 @@
 import { ref, toRefs } from 'vue'
 import { toRoute } from '@/router'
 import { useUserStore } from '@/stores/user'
-import { logout } from '@/scripts/auth'
-import { getSysName, getThemeLogoStyle } from '@/scripts/env'
-import { isNotBlank } from '@/assets/utils/obj'
+import { logout } from '@/utils/auth'
+import { getSysName, getThemeLogoStyle } from '@/utils/env'
+import { isNotBlank } from '@/utils/obj'
 import DayNightSwitch from "@/components/DayNight.vue";
 import {useDark} from "@vueuse/core";
 import type { Tab } from '@/types/gw.props'

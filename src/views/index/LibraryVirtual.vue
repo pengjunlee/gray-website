@@ -42,8 +42,8 @@ const req: FsVirtualWaterfallReuqest = async (page, pageSize) => {
     id:item.id, 
     width: item.thumbnailWidth, 
     height: item.thumbnailHeight, 
-    src: "http://localhost:8081/website-api/"+item.thumbnailUrl,
-    previewUrl: "http://localhost:8081/website-api/"+item.previewUrl,
+    src: "https://8g76m0325.vicp.fun/website-api/"+item.thumbnailUrl,
+    previewUrl: "https://8g76m0325.vicp.fun/website-api/"+item.previewUrl,
     name:item.name
   }));
 
