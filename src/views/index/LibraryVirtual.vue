@@ -18,6 +18,7 @@ import FsVirtualWaterFall from "@/components/GWVirtualWaterFall.vue";
 import type { FsVirtualWaterfallReuqest } from "@/components/types/type";
 import { ref } from "vue";
 import { pageResourceApi } from "@/api/resources"
+import { getApiBaseUrl } from '@/utils/env'
 
 let totalPage = 1;
 
@@ -42,8 +43,8 @@ const req: FsVirtualWaterfallReuqest = async (page, pageSize) => {
     id:item.id, 
     width: item.thumbnailWidth, 
     height: item.thumbnailHeight, 
-    src: "https://8g76m0325.vicp.fun/website-api/"+item.thumbnailUrl,
-    previewUrl: "https://8g76m0325.vicp.fun/website-api/"+item.previewUrl,
+    src:getApiBaseUrl()+item.thumbnailUrl,
+    previewUrl: getApiBaseUrl()+item.previewUrl,
     name:item.name
   }));
 

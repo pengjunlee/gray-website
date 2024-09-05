@@ -5,7 +5,7 @@ const router = createRouter({
   routes: []
 })
 
-export const toRoute = (path: string): void => {
+export const toRoute = (path: any ): void => {
   router.push(path)
 }
 

@@ -33,7 +33,6 @@ import { getGwab, getIpc, getEmail } from '@/utils/env'
 import UserInfo from './HomeUserInfo.vue'
 import ChartLineWords from './ChartLineWords.vue'
 import HomeSubject from './HomeSubject.vue'
-import blossom from '@/assets/constants/blossom'
 
 const userStore = useUserStore()
 const ChartLineWordsRef = ref()

@@ -137,11 +137,12 @@ const clickTab = (event: MouseEvent) => {
     tab.classList.remove('active');
   });
 
+  const target = event.currentTarget as HTMLElement;
   // 为当前点击的按钮添加 'active' 类
-  event.currentTarget?.classList.add('active');
+  target?.classList.add('active');
 
   // 获取当前点击按钮的 path 属性值
-  const name = event.currentTarget?.getAttribute('name');
+  const name = target.getAttribute('name');
   toRoute(name);
 }
 </script>

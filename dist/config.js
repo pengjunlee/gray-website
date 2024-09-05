@@ -10,7 +10,9 @@ window.blconfig = {
     // ICP 备案号
     ICP_BEI_AN_HAO: '',
     // 邮箱
-    EMAIL: ''
+    EMAIL: '',
+    // 将该值填写你开放为博客的用户ID
+    USER_ID: 1
   },
   /**
    * 博客样式，当前可设置样式如下：
@@ -24,15 +26,6 @@ window.blconfig = {
     },
     // 是否以特殊样式显示专题文件夹
     SUBJECT_TITLE: true
-  },
-  /**
-   * 服务器的地址
-   */
-  SYS: {
-    // 将该值填写为你的后台访问地址, 与 blossom 客户端登录   页面填写的地址相同
-    PRD: 'http://localhost:8081/website-api',
-    // 将该值填写你开放为博客的用户ID
-    USER_ID: 1
   },
   /**
    * 可以填写你自己的网站，该信息会展示在右上角的【更多】按钮中，以及首页的【所有文章】下
