@@ -16,6 +16,7 @@ export class Request {
   /** 基础配置，url和超时时间 */
   baseConfig: AxiosRequestConfig = {
     baseURL: "http://192.168.192.66:890/",
+    // baseURL: "https://8g76m0325.vicp.fun/blossom-api/",
     timeout: 60000
   }
   /**
