@@ -7,11 +7,9 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    AudioPlayer: typeof import('./src/components/AudioPlayer.vue')['default']
     BLCol: typeof import('./src/components/BLCol.vue')['default']
     BLRow: typeof import('./src/components/BLRow.vue')['default']
     BLTag: typeof import('./src/components/BLTag.vue')['default']
-    copy: typeof import('./src/components/GWImagePreview copy.vue')['default']
     DayNight: typeof import('./src/components/DayNight.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
@@ -23,7 +21,6 @@ declare module 'vue' {
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
-    ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
     ElPopover: typeof import('element-plus/es')['ElPopover']
@@ -36,12 +33,13 @@ declare module 'vue' {
     ElWatermark: typeof import('element-plus/es')['ElWatermark']
     FsEstimatedVirtualList: typeof import('./src/components/FsEstimatedVirtualList.vue')['default']
     FsVirtualList: typeof import('./src/components/FsVirtualList.vue')['default']
+    GWAudioPlayer: typeof import('./src/components/GWAudioPlayer.vue')['default']
     GWHeader: typeof import('./src/components/GWHeader.vue')['default']
     GWImageCard: typeof import('./src/components/GWImageCard.vue')['default']
-    GWImagePreview: typeof import('./src/components/GWImagePreview.vue')['default']
     GWLinkCard: typeof import('./src/components/GWLinkCard.vue')['default']
+    GWPreviewImage: typeof import('./src/components/GWPreviewImage.vue')['default']
+    GWPreviewVideo: typeof import('./src/components/GWPreviewVideo.vue')['default']
     GWTitleImageCard: typeof import('./src/components/GWTitleImageCard.vue')['default']
-    GWVideoPreview: typeof import('./src/components/GWVideoPreview.vue')['default']
     GWVirtualWaterFall: typeof import('./src/components/GWVirtualWaterFall.vue')['default']
     GWWaterFall: typeof import('./src/components/GWWaterFall.vue')['default']
     ListItem: typeof import('./src/components/ListItem.vue')['default']
@@ -50,8 +48,5 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./src/components/SvgIcon.vue')['default']
     Template: typeof import('./src/components/Template.vue')['default']
-  }
-  export interface ComponentCustomProperties {
-    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

@@ -24,7 +24,7 @@ import { listResourceApi } from "@/api/resources";
 import type { Resource } from "@/types/gw.resources";
 import FileSaver from 'file-saver';
 import GWImageCard from "@/components/GWImageCard.vue";
-import GWImagePreview from "@/components/GWImagePreview.vue"
+import GWImagePreview from "@/components/GWPreviewImage.vue"
 
 // 模拟图片数据
 // const images = ref<Resource[]>();

@@ -26,7 +26,7 @@
       <!-- 背景图片 -->
       <div
         class="card-image"
-        :style="{ backgroundImage: `url(http://localhost:8081/website-api/thumbnail/2/ff014e14ae5096abda426cc077ad927a.png)` }"
+        :style="{ backgroundImage: 'url(' + getApiBaseUrl() + image + ')' }"
       ></div>
 
       <!-- 标题和按钮 -->
@@ -42,6 +42,7 @@
 </template>
 
 <script setup lang="ts">
+import { getApiBaseUrl } from "@/utils/env";
 import { ref, toRefs } from "vue";
 
 interface CardProps {
@@ -60,7 +61,7 @@ const { blankCard, image, title, onClick } = toRefs(props);
 
 // 点击卡片时调用父组件的回调函数
 function click() {
-  if(props.onClick){
+  if (props.onClick) {
     props.onClick(props.cardData ? props.cardData : {});
   }
 }

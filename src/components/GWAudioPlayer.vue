@@ -4,7 +4,7 @@
     @mouseover="showOverlay = true"
     @mouseleave="showOverlay = false"
   >
-    <div class="nowrap file-name">{{ name }}</div>
+    <div class="audio-name">{{ name }}</div>
     <div v-if="isPlaying" class="audio-visualizer">
       <div
         v-for="(bar, index) in bars"
@@ -31,13 +31,13 @@
 
     <!-- 遮罩层 -->
     <div v-if="showOverlay" class="overlay">
-      <button @click="togglePlay">{{ isPlaying ? "⏸️" : "▶️" }}</button>
+      <div class="play-button" @click="togglePlay">{{ isPlaying ? "⏸️" : "▶️" }}</div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, watch, toRefs } from "vue";
+import { ref, toRefs } from "vue";
 import audioIcon from "@/assets/icons/audio.svg";
 
 interface AudioProps {
@@ -74,16 +74,16 @@ import { onBeforeUnmount } from "vue";
 // 模拟音频频谱的条数
 const bars = Array.from({ length: 10 });
 
-let audioContext: AudioContext | null = null; // Moved to be initialized after user interaction
+let audioContext: AudioContext | null ; // Moved to be initialized after user interaction
 const audioBuffer = ref<AudioBuffer | null>(null);
 const audioSource = ref<AudioBufferSourceNode | null>(null);
-const status = ref("准备播放");
+
 let updateInterval: any | undefined;
 
 // Initialize AudioContext on user gesture
 const initializeAudioContext = async () => {
   if (!audioContext) {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    audioContext = new (window.AudioContext)();
   }
 
   if (audioContext.state === "suspended") {
@@ -130,7 +130,7 @@ const playAudio = async () => {
       audioSource.value.buffer = audioBuffer.value;
       audioSource.value.connect(audioContext!.destination);
       audioSource.value.start();
-      status.value = "播放中...";
+      console.log("播放中...");
       isPlaying.value = true;
       // 继续更新播放进度
       updateInterval = setInterval(() => {
@@ -144,11 +144,11 @@ const playAudio = async () => {
         clearInterval(updateInterval);
         currentTime.value = 0;
         audioContext = null;
-       if(audioSource.value){
-        audioSource.value.stop(); // 停止当前音频
-        audioSource.value = null; // 重置 sourceNode
-       }
-       isFirstPlay.value = true;
+        if (audioSource.value) {
+          audioSource.value.stop(); // 停止当前音频
+          audioSource.value = null; // 重置 sourceNode
+        }
+        isFirstPlay.value = true;
       };
     }
   }
@@ -204,11 +204,15 @@ onBeforeUnmount(() => {
   background-color: var(--gw-bg-color);
 }
 
-.file-name {
+.audio-name {
   width: 100%;
   font-size: 18px;
-  margin-bottom: 10px;
+  padding: 6px;
   text-align: center;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  white-space-collapse: collapse;
+  overflow: hidden;
 }
 
 .controls {
@@ -249,14 +253,6 @@ onBeforeUnmount(() => {
   align-items: center;
 }
 
-.overlay button {
-  background-color: transparent;
-  border: none;
-  font-size: 48px;
-  color: var(--gw-font-color);
-  cursor: pointer;
-}
-
 /* 在屏幕宽度小于 400px 时隐藏文字，只显示图标 */
 @media (max-width: 1200px) {
   .controls .time-info span {
@@ -287,11 +283,13 @@ onBeforeUnmount(() => {
     transform: scaleY(1);
   }
 }
-.nowrap {
-  width: 150px;
-  text-overflow: ellipsis;
-  text-wrap: nowrap;
-  white-space-collapse: collapse;
-  overflow: hidden;
+
+/* 视频logo(播放按钮) */
+.play-button {
+  font-size: 30px; /* 调整按钮大小 */
+  color: var(--gw-font-color); /* 按钮颜色 */
+  cursor: pointer;
+  text-align: center;
+  background-color: transparent;
 }
 </style>

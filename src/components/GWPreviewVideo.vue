@@ -9,11 +9,11 @@
       ></span>
     </div>
 
-        <!-- 通过 v-if 判断是否有视频资源 -->
-      <div class="preview-content" v-if="url">
+    <!-- 通过 v-if 判断是否有视频资源 -->
+    <div class="preview-content" v-if="url">
       <video
-        controls  
-        :src="url" 
+        controls
+        :src="url"
         width="800px"
         @pause="handleVideoPause"
         @ended="handleVideoEnd"
@@ -47,21 +47,20 @@ function close() {
 }
 
 // 处理视频暂停事件
-const handleVideoPause = ()=> {
-  console.log('视频暂停');
-}
+const handleVideoPause = () => {
+  console.log("视频暂停");
+};
 // 处理视频播放结束事件
-const handleVideoEnd = ()=> {
-  console.log('视频播放结束');
-}
+const handleVideoEnd = () => {
+  console.log("视频播放结束");
+};
 // 处理视频加载中止事件
 const handleVideoAbort = () => {
-  console.log('视频加载被中止');
-}
+  console.log("视频加载被中止");
+};
 </script>
 
 <style scoped lang="scss">
-
 /* 模态框样式 */
 .preview-container {
   position: fixed;
