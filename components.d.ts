@@ -7,9 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AudioPlayer: typeof import('./src/components/AudioPlayer.vue')['default']
     BLCol: typeof import('./src/components/BLCol.vue')['default']
     BLRow: typeof import('./src/components/BLRow.vue')['default']
     BLTag: typeof import('./src/components/BLTag.vue')['default']
+    copy: typeof import('./src/components/GWImagePreview copy.vue')['default']
     DayNight: typeof import('./src/components/DayNight.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
@@ -39,6 +41,7 @@ declare module 'vue' {
     GWImagePreview: typeof import('./src/components/GWImagePreview.vue')['default']
     GWLinkCard: typeof import('./src/components/GWLinkCard.vue')['default']
     GWTitleImageCard: typeof import('./src/components/GWTitleImageCard.vue')['default']
+    GWVideoPreview: typeof import('./src/components/GWVideoPreview.vue')['default']
     GWVirtualWaterFall: typeof import('./src/components/GWVirtualWaterFall.vue')['default']
     GWWaterFall: typeof import('./src/components/GWWaterFall.vue')['default']
     ListItem: typeof import('./src/components/ListItem.vue')['default']
