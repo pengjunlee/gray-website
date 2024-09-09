@@ -15,16 +15,16 @@
       </template>
     </fs-virtual-water-fall>
   </div>
-  <GWImagePreview
+  <GWPreviewImage
       v-if="isPreviewImageVisible"
       :image="currentImage.previewUrl"
       :name="currentImage.name"
-      :on-close="closePreview"></GWImagePreview>
-    <GWVideoPreview
+      :on-close="closePreview"></GWPreviewImage>
+    <GWPreviewVideo
     v-if="isPreviewVideoVisible"
     :url="currentImage.previewUrl"
     :name="currentImage.name"
-    :on-close="closePreview"></GWVideoPreview>
+    :on-close="closePreview"></GWPreviewVideo>
 </template>
 
 <script setup lang="ts">
