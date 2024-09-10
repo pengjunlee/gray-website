@@ -113,7 +113,7 @@ interface Tree {
 const libraryFormRef = ref<FormInstance>();
 
 // 库数据
-const librarys = ref<Library[]>([]);
+const librarys = ref<Library[]>();
 
 onMounted(() => {
   refreshData();
