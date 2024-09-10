@@ -3,7 +3,7 @@
     <!-- 类型选择框 -->
     <div class="search-item">
       <el-select
-        v-model="resourceTypes"
+        v-model="selectedResourceTypes"
         multiple
         collapse-tags
         placeholder="资源类型"
@@ -21,10 +21,10 @@
     <!-- 库选择下拉框 -->
     <div class="search-item">
       <el-select
-        v-model="libraryId"
+        v-model="selectedLibraryId"
         clearable
         placeholder="库"
-        style="width: 120px"
+        style="width: 150px"
       >
         <el-option
           v-for="item in libraries"
@@ -38,44 +38,45 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, ref, onMounted, watch, toRaw } from 'vue';
-import type { ResourceSearch,Library, IntEnumOption } from '@/types/gw.resources'
-import { listLibraryApi ,resourcesTypesApi } from '@/api/resources'
+import { ref, onMounted, watch, toRaw } from "vue";
+import type {
+  ResourceSearch,
+  Library,
+  IntEnumOption,
+} from "@/types/gw.resources";
+import { listLibraryApi, resourcesTypesApi } from "@/api/resources";
 
-const types = ref<IntEnumOption[]>()
+const types = ref<IntEnumOption[]>();
 const libraries = ref<Library[]>();
 
-const resourceTypes= ref<number[]>();
-const libraryId = ref();
+const selectedResourceTypes = ref<number[]>();
+const selectedLibraryId = ref();
 
 const emit = defineEmits<{
-  (event: 'change:search', value: ResourceSearch): void;
+  (event: "change", value: ResourceSearch): void;
 }>();
 
-// const { resourceTypes, collection, library } = toRefs(props.search);
-const fetchTypes = () =>{
-
-}
-onMounted(async() => {
+onMounted(async () => {
   await listLibraryApi().then((rsp) => {
-    libraries.value = rsp.data
-  })
+    libraries.value = rsp.data;
+  });
 
-  await resourcesTypesApi().then((rsp)=>{
+  await resourcesTypesApi().then((rsp) => {
     types.value = rsp.data;
   });
-}
-);
+});
 
 watch(
-  () => [resourceTypes.value,libraryId.value],
-  ([newTypes,newLibrary]) => {
+  () => [selectedResourceTypes.value, selectedLibraryId.value],
+  ([newTypes, newLibrary]) => {
     // 在这里可以执行一些逻辑，例如检查新值是否满足某些条件
-    emit('change:search', { resourceTypes:toRaw(newTypes),libraryId:newLibrary });
+    emit("change", {
+      resourceTypes: toRaw(newTypes),
+      libraryId: newLibrary,
+    });
   },
   { deep: true, immediate: true }
 );
-
 </script>
 
 <style type="scss" scoped>

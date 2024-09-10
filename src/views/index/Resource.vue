@@ -1,6 +1,6 @@
 <template>
   <div class="virtual-waterfall-container">
-    <GWResourceSearch :data="searchCondition" @change:search="pageSearch"></GWResourceSearch>
+    <GWResourceSearch :data="searchCondition" @change="pageSearch"></GWResourceSearch>
     <fs-virtual-water-fall ref="waterFallRef" :request="req" :gap="20" :column="5" :request-size="10">
       <template #item="{ item }">
         <img v-if="item.resourceType === '图片'" class="img-item" :src="item.src" @click="openPreview(item)"/>
@@ -43,7 +43,6 @@ let searchCondition:ResourceSearch = {};
 const waterFallRef = ref<InstanceType<typeof FsVirtualWaterFall> | null>(null);
 
 const req: FsVirtualWaterfallReuqest = async (page, pageSize) => {
-  debugger;
   if( totalPage < page ){
     return {
       total: 0,
@@ -104,7 +103,6 @@ const closePreview = () => {
 };
 
 const pageSearch = async (params:any) =>{
-  console.log(params);
   searchCondition = { ...params};
   totalPage = 1;
   if(waterFallRef.value){
