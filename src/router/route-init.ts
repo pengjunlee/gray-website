@@ -12,7 +12,7 @@ const Home = () => import('../views/index/Home.vue')
 const Library = () => import('../views/resource/Library.vue')
 const Collection = () => import('../views/resource/Collection.vue')
 const Resource = () => import('../views/resource/Resource.vue')
-const GrayLink = () => import('../views/index/GrayLink.vue')
+const Links = () => import('../views/link/Links.vue')
 const Login = () => import('@/views/index/Login.vue')
 const Articles = () => import('@/views/article/Articles.vue')
 const TodoIndex = () => import('@/views/todo/TodoIndex.vue')
@@ -32,7 +32,7 @@ router.addRoute({
   meta: { keepAlive: true },
   children: [
     { path: '/home', name: 'Home', component: Home, meta: { keepAlive: true } },
-    { path: '/links', name: 'Links', component: GrayLink, meta: { keepAlive: true } },
+    { path: '/links', name: 'Links', component: Links, meta: { keepAlive: true } },
     { path: '/login', name: 'Login', component: Login, meta: { keepAlive: true } },
     { path: '/articles', name: 'Articles', component: Articles, meta: { keepAlive: true } },
     { path: '/resource', name: 'Resource', component: Resource, meta: { keepAlive: true } },

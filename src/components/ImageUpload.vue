@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 import { ref, onUnmounted, onMounted } from 'vue';
+import { getApiBaseUrl } from '@/utils/env'
 
 interface ImageProps {
   imageUrl?: string; 
@@ -56,7 +57,7 @@ onUnmounted(() =>{
 onMounted(()=>{
   debugger;
   if(props.imageUrl){
-    imagePreview.value =props.imageUrl;
+    imagePreview.value =getApiBaseUrl() + props.imageUrl;
   }
 });
 

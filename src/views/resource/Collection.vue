@@ -41,7 +41,7 @@
       label-width="auto"
       :rules="rules"
     >
-      <ImageUpload :image-url="getApiBaseUrl() + form.thumbnailUrl" @select-file="onFileChange"></ImageUpload>
+      <ImageUpload :image-url="form.thumbnailUrl" @select-file="onFileChange"></ImageUpload>
       <el-form-item label="合集名称：" prop="name">
         <!-- 库名称 -->
         <el-input v-model="form.name" placeholder="请输入合集名称"></el-input>
@@ -70,7 +70,7 @@ import {
 import type { Collection } from "@/types/gw.resources";
 import GWTitleImageCard from "@/components/GWTitleImageCard.vue";
 import ImageUpload from "@/components/ImageUpload.vue";
-import { getApiBaseUrl } from '@/utils/env'
+
 
 interface Tree {
   [key: string]: any;
@@ -220,10 +220,10 @@ const onFileChange = (f: File) => {
   overflow: scroll;
   display: flex;
   gap: 20px;
-  padding: 20px 100px;
+  padding: 20px;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .Collection-card {

@@ -290,7 +290,7 @@ const handleNodeChange = (data: any) => {
   overflow: scroll;
   display: flex;
   gap: 20px;
-  padding: 20px 100px;
+  padding: 20px;
   flex-direction: row;
   flex-wrap: wrap;
 }
