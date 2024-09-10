@@ -15,6 +15,7 @@
         
       </template>
     </fs-virtual-water-fall>
+    <div style="width: 100%;height: 20px;display: hidden;"></div>
   </div>
   <GWPreviewImage
       v-if="isPreviewImageVisible"
