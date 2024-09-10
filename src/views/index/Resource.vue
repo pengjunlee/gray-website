@@ -1,6 +1,7 @@
 <template>
   <div class="virtual-waterfall-container">
-    <fs-virtual-water-fall :request="req" :gap="20" :column="5" :request-size="5">
+    <GWResourceSearch :data="searchCondition" @change:search="pageSearch"></GWResourceSearch>
+    <fs-virtual-water-fall ref="waterFallRef" :request="req" :gap="20" :column="5" :request-size="10">
       <template #item="{ item }">
         <img v-if="item.resourceType === '图片'" class="img-item" :src="item.src" @click="openPreview(item)"/>
         <GWAudioPlayer  v-else-if="item.resourceType === '音频'" :name="item.name" :duration="item.duration" :url="item.previewUrl" class="img-item"></GWAudioPlayer>
@@ -30,13 +31,19 @@
 <script setup lang="ts">
 import FsVirtualWaterFall from "@/components/GWVirtualWaterFall.vue";
 import type { FsVirtualWaterfallReuqest } from "@/components/types/type";
-import { ref } from "vue";
+import { ref, toRaw } from "vue";
 import { pageResourceApi } from "@/api/resources"
 import { getApiBaseUrl } from '@/utils/env'
+import type { ResourceSearch } from "@/types/gw.resources";
+import { reactive } from "vue";
 
 let totalPage = 1;
+let searchCondition:ResourceSearch = {};
+// 使用 ref 引用子组件实例
+const waterFallRef = ref<InstanceType<typeof FsVirtualWaterFall> | null>(null);
 
 const req: FsVirtualWaterfallReuqest = async (page, pageSize) => {
+  debugger;
   if( totalPage < page ){
     return {
       total: 0,
@@ -46,7 +53,7 @@ const req: FsVirtualWaterfallReuqest = async (page, pageSize) => {
   // 请求，并传入分页参数
   const rsp = await pageResourceApi(
     {
-      pageNo:page,pageSize:pageSize
+      ...searchCondition,pageNo:page,pageSize:pageSize
     }
   );
   
@@ -95,13 +102,22 @@ const closePreview = () => {
   isPreviewImageVisible.value = false;
   isPreviewVideoVisible.value = false;
 };
+
+const pageSearch = async (params:any) =>{
+  console.log(params);
+  searchCondition = { ...params};
+  totalPage = 1;
+  if(waterFallRef.value){
+   await waterFallRef.value.reset();
+  }
+}
 </script>
 
 <style scoped lang="scss">
 .virtual-waterfall-container {
   width: calc(100%);
   height: calc(100% - 50px);
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 }
 .img-item {
   width: 100%;

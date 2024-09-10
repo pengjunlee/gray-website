@@ -1,3 +1,4 @@
+import type { Library, IntEnumOption } from '@/types/gw.resources'
 import { defaultRequest as rq } from './request_website'
 import type { R } from './request_website'
 
@@ -7,7 +8,16 @@ import type { R } from './request_website'
  * @returns
  */
 export const resourcesDirectoriesApi = (): Promise<R<any>> => {
-  return rq.get<R<any>>('/resource/directories')
+  return rq.get<any>('/resource/directories')
+}
+
+/**
+ * 获取资源类型列表
+ * @param params
+ * @returns
+ */
+export const resourcesTypesApi = (): Promise<R<IntEnumOption[]>> => {
+  return rq.get<IntEnumOption[]>('/resource/types')
 }
 
 /**
@@ -24,8 +34,8 @@ export const addLibraryApi = ( params: any ): Promise<R<any>> => {
  * @param params
  * @returns
  */
-export const listLibraryApi = (): Promise<R<any>> => {
-  return rq.get<R<any>>('/resource/library/list')
+export const listLibraryApi = (): Promise<R<Library[]>> => {
+  return rq.get<Library[]>('/resource/library/list')
 }
 
 /**

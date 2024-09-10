@@ -30,7 +30,18 @@ type Resource = {
   updateTime?: string
 }
 
+interface ResourceSearch {
+  resourceTypes?: number[]|number;
+  collectionId?: number[]|number;
+  libraryId?: number[]|number;
+}
+
+interface IntEnumOption {
+  value: number;
+  name: string;
+}
+
 export type {
-  Directory,Library,Resource
+  Directory,Library,Resource,ResourceSearch,IntEnumOption
 }
 

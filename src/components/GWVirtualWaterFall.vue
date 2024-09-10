@@ -2,7 +2,12 @@
   <div class="fs-virtual-waterfall-container">
     <div class="fs-virtual-waterfall-content" ref="contentRef">
       <div class="fs-virtual-waterfall-list" :style="contentStyle">
-        <div class="fs-virtual-waterfall-item" v-for="{ item, style } in renderList" :key="item.id" :style="style">
+        <div
+          class="fs-virtual-waterfall-item"
+          v-for="{ item, style } in renderList"
+          :key="item.id"
+          :style="style"
+        >
           <slot name="item" :item="item"></slot>
         </div>
       </div>
@@ -11,8 +16,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, markRaw, reactive, onMounted, onUnmounted, type CSSProperties } from "vue";
-import type { IColumnQueue, IDataItem, IItemRect, IRenderItem, IVirtualWaterFallProps } from "./types/type";
+import {
+  ref,
+  computed,
+  markRaw,
+  reactive,
+  onMounted,
+  onUnmounted,
+  type CSSProperties,
+} from "vue";
+import type {
+  IColumnQueue,
+  IDataItem,
+  IItemRect,
+  IRenderItem,
+  IVirtualWaterFallProps,
+} from "./types/type";
 import { debounce, rafThrottle } from "./types/tool";
 
 const props = withDefaults(defineProps<IVirtualWaterFallProps>(), {
@@ -57,12 +76,21 @@ const scrollState = reactive({
   },
 });
 
-const contentStyle = computed(() => ({ height: `${computedHeight.value.maxHeight}px` } as CSSProperties));
+const contentStyle = computed(
+  () => ({ height: `${computedHeight.value.maxHeight}px` } as CSSProperties)
+);
 
-const columnList = computed(() => columnState.queue.reduce<IRenderItem[]>((pre, { list }) => pre.concat(list), []));
+const columnList = computed(() =>
+  columnState.queue.reduce<IRenderItem[]>(
+    (pre, { list }) => pre.concat(list),
+    []
+  )
+);
 
 const renderList = computed(() =>
-  columnList.value.filter((i) => i.h + i.y > scrollState.start && i.y < scrollState.end)
+  columnList.value.filter(
+    (i) => i.h + i.y > scrollState.start && i.y < scrollState.end
+  )
 );
 
 const computedHeight = computed(() => {
@@ -91,7 +119,9 @@ const computedHeight = computed(() => {
 
 const itemSizeInfo = computed(() =>
   dataState.list.reduce<Map<IDataItem["id"], IItemRect>>((pre, current) => {
-    const itemWidth = Math.floor((scrollState.viewWidth - (props.column - 1) * props.gap) / props.column);
+    const itemWidth = Math.floor(
+      (scrollState.viewWidth - (props.column - 1) * props.gap) / props.column
+    );
     pre.set(current.id, {
       width: itemWidth,
       height: Math.floor((itemWidth * current.height) / current.width),
@@ -100,14 +130,19 @@ const itemSizeInfo = computed(() =>
   }, new Map())
 );
 
-const requestSize = computed(() => props.requestSize || props.column * props.columnItemCount);
+const requestSize = computed(
+  () => props.requestSize || props.column * props.columnItemCount
+);
 
 const hasMoreData = computed(() => columnState.len < dataState.list.length);
 
 const loadDataList = async () => {
   if (dataState.isFinish) return;
   dataState.loading = true;
-  const { list, total } = await props.request(dataState.currentPage++, requestSize.value);
+  const { list, total } = await props.request(
+    dataState.currentPage++,
+    requestSize.value
+  );
   if (!list.length) {
     dataState.isFinish = true;
     emit("finishGetList");
@@ -132,7 +167,11 @@ const addInQueue = (size = props.column) => {
   }
 };
 
-const generatorItem = (item: IDataItem, before: IRenderItem | null, index: number): IRenderItem => {
+const generatorItem = (
+  item: IDataItem,
+  before: IRenderItem | null,
+  index: number
+): IRenderItem => {
   const rect = itemSizeInfo.value.get(item.id);
   const width = rect?.width || 0;
   const height = rect?.height || 0;
@@ -146,7 +185,9 @@ const generatorItem = (item: IDataItem, before: IRenderItem | null, index: numbe
     style: {
       width: `${width}px`,
       height: `${height}px`,
-      transform: `translate3d(${index === 0 ? 0 : (width + props.gap) * index}px, ${y}px, 0)`,
+      transform: `translate3d(${
+        index === 0 ? 0 : (width + props.gap) * index
+      }px, ${y}px, 0)`,
     },
   });
 };
@@ -211,6 +252,25 @@ onMounted(() => {
 
 onUnmounted(() => {
   destory();
+});
+
+// 定义一个方法，用于动态修改子组件中的值
+const reset = async () => {
+  dataState.total = 0;
+  dataState.currentPage = 1;
+  dataState.list = [];
+  dataState.isFinish = false;
+  (columnState.queue = Array(props.column)
+    .fill(0)
+    .map<IColumnQueue>(() => ({ list: [], height: 0 }))),
+    (columnState.len = 0);
+  destory();
+  init();
+};
+
+// 使用 defineExpose 暴露方法给父组件
+defineExpose({
+  reset,
 });
 </script>
 
