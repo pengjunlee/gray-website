@@ -35,7 +35,7 @@ import { ref, toRaw } from "vue";
 import { pageResourceApi } from "@/api/resources"
 import { getApiBaseUrl } from '@/utils/env'
 import type { ResourceSearch } from "@/types/gw.resources";
-import { reactive } from "vue";
+import GWResourceSearch from "./ResourceSearch.vue";
 
 let totalPage = 1;
 let searchCondition:ResourceSearch = {};
