@@ -50,6 +50,22 @@
         <!-- 库名称 -->
         <el-input v-model="form.name" placeholder="请输入库名称"></el-input>
       </el-form-item>
+      <el-form-item label="合集：" prop="collectionId">
+        <el-select
+        v-model="form.collectionId"
+        filterable
+        placeholder="请选择库所属的合集"
+        style="width: 200px"
+      >
+        <el-option
+          v-for="item in collections"
+          :key="item.id"
+          :label="item.name"
+          :value="item.id"
+        />
+      </el-select>
+      </el-form-item>
+      
 
       <el-form-item label="库地址：" prop="folderName">
         <!-- 输入框 -->
@@ -100,10 +116,11 @@ import {
   resourcesDirectoriesApi,
   addLibraryApi,
   listLibraryApi,
+  listCollectionApi,
   deleteLibraryApi,
   refreshLibraryApi
 } from "@/api/resources";
-import type { Library } from "@/types/gw.resources";
+import type { Library,Collection } from "@/types/gw.resources";
 import GWTitleImageCard from "@/components/GWTitleImageCard.vue";
 
 interface Tree {
@@ -114,6 +131,7 @@ const libraryFormRef = ref<FormInstance>();
 
 // 库数据
 const librarys = ref<Library[]>();
+const collections = ref<Collection[]>();
 
 onMounted(() => {
   refreshData();
@@ -122,6 +140,9 @@ onMounted(() => {
 const refreshData = async () => {
   await listLibraryApi().then((rsp) => {
     librarys.value = rsp.data;
+  });
+  await listCollectionApi().then((rsp) => {
+    collections.value = rsp.data;
   });
 };
 
@@ -172,11 +193,13 @@ const resetForm = (library?: Library) => {
     form.name = library.name;
     form.folderName = library.folderName;
     form.folderPath = library.folderPath;
+    form.collectionId = library.collectionId;
   } else {
     form.id = undefined;
     form.name = "";
     form.folderName = "";
     form.folderPath = "";
+    form.collectionId = undefined;
   }
 };
 

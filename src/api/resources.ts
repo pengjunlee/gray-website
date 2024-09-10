@@ -1,4 +1,4 @@
-import type { Library, IntEnumOption } from '@/types/gw.resources'
+import type { Library,Collection, IntEnumOption } from '@/types/gw.resources'
 import { defaultRequest as rq } from './request_website'
 import type { R } from './request_website'
 
@@ -73,4 +73,38 @@ export const listResourceApi = (): Promise<R<any>> => {
  */
 export const pageResourceApi = (params:any): Promise<R<any>> => {
   return rq.post<R<any>>('/resource/page',{...params})
+}
+
+
+/**
+ * 新增资源库
+ * @param params
+ * @returns
+ */
+export const addCollectionApi = ( params: FormData ): Promise<R<any>> => {
+  // 定义请求的配置
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  };
+  return rq.post<R<any>>('/resource/collection/add', params,config)
+}
+
+/**
+ * 获取资源库列表
+ * @param params
+ * @returns
+ */
+export const listCollectionApi = (): Promise<R<Collection[]>> => {
+  return rq.get<Collection[]>('/resource/collection/list')
+}
+
+/**
+ * 删除资源库
+ * @param params
+ * @returns
+ */
+export const deleteCollectionApi = ( params: any ): Promise<R<any>> => {
+  return rq.post<R<any>>('/resource/collection/delete/'+params)
 }

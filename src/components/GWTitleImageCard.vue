@@ -70,7 +70,7 @@ function click() {
 <style scoped lang="scss">
 .gw-card {
   position: relative;
-  width: 300px;
+  width: 250px;
   height: 200px;
   overflow: auto;
   border-radius: 8px;
@@ -106,6 +106,10 @@ function click() {
   margin: 0;
   font-size: 36px;
   transition: transform 0.3s ease;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  white-space-collapse: collapse;
+  overflow: hidden;
 }
 
 .card-btn {

@@ -36,7 +36,6 @@
 
 <script setup lang="ts">
 import { ref, toRefs } from "vue";
-import FileSaver from 'file-saver';
 
 interface CardProps {
   cardData?: any; // 组件对应的数据

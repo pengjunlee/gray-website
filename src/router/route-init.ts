@@ -9,8 +9,9 @@ const NotFound = () => import('@/components/NotFound.vue')
 // 前端页面
 const Index = () => import('../views/Index.vue')
 const Home = () => import('../views/index/Home.vue')
-const Library2 = () => import('../views/index/Library2.vue')
-const Resource = () => import('../views/index/Resource.vue')
+const Library = () => import('../views/resource/Library.vue')
+const Collection = () => import('../views/resource/Collection.vue')
+const Resource = () => import('../views/resource/Resource.vue')
 const GrayLink = () => import('../views/index/GrayLink.vue')
 const Login = () => import('@/views/index/Login.vue')
 const Articles = () => import('@/views/article/Articles.vue')
@@ -42,11 +43,12 @@ router.addRoute({
 })
 router.addRoute({
   path: '/admin',
-  redirect: '/library2',
+  redirect: '/collection',
   name: 'Admin',
   component: Admin,
   meta: { keepAlive: true },
   children: [
-    { path: '/library2', name: 'Library2', component: Library2, meta: { keepAlive: true } },
+    { path: '/collection', name: 'Collection', component: Collection, meta: { keepAlive: true } },
+    { path: '/library', name: 'Library', component: Library, meta: { keepAlive: true } },
   ]
 })

@@ -4,10 +4,18 @@ type Directory = {
   children: Directory[]
 }
 
+type Collection = {
+  id?: number;
+  name: string;
+  thumbnailUrl?: string;
+}
+
 type Library = {
   id?: number;
   folderId?: number;
+  collectionId?: number;
   folderName?:string;
+  collectionName?:string;
   folderPath?:string;
   name: string;
   cover?: string;
@@ -42,6 +50,6 @@ interface IntEnumOption {
 }
 
 export type {
-  Directory,Library,Resource,ResourceSearch,IntEnumOption
+  Directory,Library,Resource,ResourceSearch,IntEnumOption,Collection
 }
 
