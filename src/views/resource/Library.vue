@@ -9,7 +9,7 @@
       :blankCard="false"
       v-for="(library, index) in librarys"
       :key="index"
-      :image="library.cover"
+      :image="library.coverUrl"
       :title="library.name"
       :card-data="library"
     >
@@ -266,12 +266,11 @@ const handleConfirm = async (formEl: FormInstance | undefined) => {
 };
 
 // 刷新库
-const refreshLibrary = async (library: Library) => {
-  await refreshLibraryApi(library.id).then((rsp) => {
-    ElMessage({
-        type: "success",
-        message: "开始同步!",
-      });
+const refreshLibrary = (library: Library) => {
+  refreshLibraryApi(library.id);
+  ElMessage({
+    type: "success",
+    message: "开始同步!",
   });
 };
 

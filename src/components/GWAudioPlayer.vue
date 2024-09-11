@@ -100,7 +100,6 @@ const initializeAudioContext = async () => {
 
 // 切换播放和暂停
 const togglePlay = () => {
-  debugger;
   if (isFirstPlay.value) {
     initializeAudioContext();
     isFirstPlay.value = false;

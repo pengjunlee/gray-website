@@ -11,6 +11,7 @@ const Index = () => import('../views/Index.vue')
 const Home = () => import('../views/index/Home.vue')
 const Library = () => import('../views/resource/Library.vue')
 const Collection = () => import('../views/resource/Collection.vue')
+const Upload = () => import('../views/resource/Upload.vue')
 const Resource = () => import('../views/resource/Resource.vue')
 const Links = () => import('../views/link/Links.vue')
 const Login = () => import('@/views/index/Login.vue')
@@ -21,6 +22,9 @@ const NoteIndex = () => import('@/views/note/NoteIndex.vue')
 
 // 管理后台
 const Admin = () => import('../views/Admin.vue')
+
+// 编辑页面
+const Manage = () => import('../views/Manage.vue')
 
 router.addRoute({ path: '/404', component: NotFound })
 router.addRoute({ path: '/:pathMatch(.*)', redirect: '/404' })
@@ -50,5 +54,17 @@ router.addRoute({
   children: [
     { path: '/collection', name: 'Collection', component: Collection, meta: { keepAlive: true } },
     { path: '/library', name: 'Library', component: Library, meta: { keepAlive: true } },
+    { path: '/upload', name: 'Upload', component: Upload, meta: { keepAlive: true } },
+  ]
+})
+
+router.addRoute({
+  path: '/manage',
+  redirect: '/mgtLibrary',
+  name: 'Manage',
+  component: Manage,
+  meta: { keepAlive: true },
+  children: [
+    { path: '/mgtLibrary', name: 'Upload', component: Upload, meta: { keepAlive: true } },
   ]
 })

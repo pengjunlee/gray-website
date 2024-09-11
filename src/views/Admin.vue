@@ -24,7 +24,7 @@ import type { RouteRecordName } from 'vue-router'
 import Header from '../components/GWHeader.vue'
 import type { Tab } from '@/types/gw.props'
 
-const tabs = ref<Tab[]>([{icon:"collection",name:'Collection',title:'合集'},{icon:"library",name:'Library',title:'库'}]);
+const tabs = ref<Tab[]>([{icon:"collection",name:'Collection',title:'合集'},{icon:"library",name:'Library',title:'库'},{icon:"library",name:'Upload',title:'测试'}]);
 const selectedTab = ref('Library');
 
 const includeRouter = ref<any>(['Library'])

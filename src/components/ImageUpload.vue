@@ -55,7 +55,6 @@ onUnmounted(() =>{
 });
 
 onMounted(()=>{
-  debugger;
   if(props.imageUrl){
     imagePreview.value =getApiBaseUrl() + props.imageUrl;
   }

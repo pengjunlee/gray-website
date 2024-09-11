@@ -48,6 +48,15 @@ export const deleteLibraryApi = ( params: any ): Promise<R<any>> => {
 }
 
 /**
+ * 设置资源库封面
+ * @param params
+ * @returns
+ */
+export const setLibraryCoverApi = ( params: any ): Promise<R<any>> => {
+  return rq.post<R<any>>('/resource/library/cover',params)
+}
+
+/**
  * 同步资源库
  * @param params
  * @returns
@@ -92,7 +101,7 @@ export const addCollectionApi = ( params: FormData ): Promise<R<any>> => {
 }
 
 /**
- * 获取资源库列表
+ * 获取资源合集列表
  * @param params
  * @returns
  */
@@ -101,10 +110,20 @@ export const listCollectionApi = (): Promise<R<Collection[]>> => {
 }
 
 /**
- * 删除资源库
+ * 删除资源合集
  * @param params
  * @returns
  */
 export const deleteCollectionApi = ( params: any ): Promise<R<any>> => {
   return rq.post<R<any>>('/resource/collection/delete/'+params)
+}
+
+
+/**
+ * 删除资源
+ * @param params
+ * @returns
+ */
+export const deleteResourceApi = ( params: any ): Promise<R<any>> => {
+  return rq.post<R<any>>('/resource/delete/'+params)
 }

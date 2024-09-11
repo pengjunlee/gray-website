@@ -18,9 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import VirtualList from 'vue3-virtual-scroll-list';
-import { ref, onMounted, computed } from "vue";
-import { listResourceApi } from "@/api/resources";
+import { ref } from "vue";
 import type { Resource } from "@/types/gw.resources";
 import FileSaver from 'file-saver';
 import GWImageCard from "@/components/GWImageCard.vue";

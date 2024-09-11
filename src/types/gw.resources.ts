@@ -18,7 +18,8 @@ type Library = {
   collectionName?:string;
   folderPath?:string;
   name: string;
-  cover?: string;
+  cover?: number;
+  coverUrl?: string;
   updateTime?: string;
 }
 

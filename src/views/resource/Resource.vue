@@ -3,10 +3,10 @@
     <GWResourceSearch :data="searchCondition" @change="pageSearch"></GWResourceSearch>
     <fs-virtual-water-fall ref="waterFallRef" :request="req" :gap="20" :column="5" :request-size="10">
       <template #item="{ item }">
-        <img v-if="item.resourceType === '图片'" class="img-item" :src="item.src" @click="openPreview(item)"/>
-        <GWAudioPlayer  v-else-if="item.resourceType === '音频'" :name="item.name" :duration="item.duration" :url="item.previewUrl" class="img-item"></GWAudioPlayer>
+        <img v-if="item.resourceType === '图片'" class="img-item" :src="getApiBaseUrl() + item.src" @click="openPreview(item)"/>
+        <GWAudioPlayer  v-else-if="item.resourceType === '音频'" :name="item.name" :duration="item.duration" :url=" getApiBaseUrl() + item.previewUrl" class="img-item"></GWAudioPlayer>
         <div class="video-container" v-if="item.resourceType === '视频'"> 
-          <img  class="video-item" :src="item.src" />
+          <img  class="video-item" :src="getApiBaseUrl() + item.src" />
           <!-- 视频logo（播放按钮） -->
           <div class="play-button" @click="openVideo(item)">
             ▶️
@@ -65,8 +65,8 @@ const req: FsVirtualWaterfallReuqest = async (page, pageSize) => {
     duration: item.duration,
     width: item.thumbnailWidth?item.thumbnailWidth:400, 
     height: item.thumbnailHeight?item.thumbnailHeight:200, 
-    src:getApiBaseUrl()+item.thumbnailUrl,
-    previewUrl: getApiBaseUrl()+item.previewUrl,
+    src: item.thumbnailUrl,
+    previewUrl: item.previewUrl,
     name:item.name
   }));
   return {

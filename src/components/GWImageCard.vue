@@ -1,49 +1,65 @@
 <template>
   <div
-      class="image-card"
-      @mouseover="isHovered = true"
-      @mouseleave="mouseLeave"
-    >
-      <!-- 图片展示 -->
-      <img
-        :src="cardData.previewUrl"
-        :alt="cardData.name"
-        class="image"
-        @click="click"
-      />
+    class="image-card"
+    @mouseover="isHovered = true"
+    @mouseleave="mouseLeave"
+  >
+    <!-- 图片展示 -->
+    <img
+      :src="getApiBaseUrl() + cardData.thumbnailUrl"
+      :alt="cardData.name"
+      class="image"
+      @click="click"
+    />
 
-      <!-- @click="enterFullscreen(index)"
+    <!-- @click="enterFullscreen(index)"
         :ref="el => imageRefs[index] = el" -->
-      <!-- 更多操作按钮 -->
-      <div class="more-options" >
-        <button @click="toggleOptions" class="more-btn">⋮</button>
-        <div v-if="isOptions" class="options-div">
-          <div id="triangle_bottom"></div>
-          <!-- 操作选项下拉菜单 -->
-          <div class="options-menu">
-            <ul>
-              <li>
-                <span @click="download" class="iconbl bl-download--line"></span>
-              </li>
-              <li><span @click="enterFullscreen" class="iconbl bl-eye-line"></span></li>
-              <!-- 可以在这里添加更多选项 -->
-            </ul>
-          </div>
+    <!-- 更多操作按钮 -->
+    <div class="more-options">
+      <button @click="toggleOptions" class="more-btn">⋮</button>
+      <div v-if="isOptions" class="options-div">
+        <div id="triangle_bottom"></div>
+        <!-- 操作选项下拉菜单 -->
+        <div class="options-menu">
+          <ul>
+            <li>
+              <el-tooltip
+                class="box-item"
+                effect="dark"
+                content="设为库封面"
+                placement="right"
+              >
+                <span @click="cover" class="iconbl bl-star-fill"></span>
+              </el-tooltip>
+            </li>
+            <!-- 可以在这里添加更多选项 -->
+            <li>
+              <el-tooltip
+                class="box-item"
+                effect="dark"
+                content="删除文件"
+                placement="right"
+              >
+                <span @click="deleteThis" class="iconbl bl-delete-line"></span>
+              </el-tooltip>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from "vue";
-
+import { ref, toRefs, onMounted } from "vue";
+import { getApiBaseUrl } from "@/utils/env";
+import { ElMessage } from "element-plus";
+import { deleteResourceApi } from "@/api/resources"
 interface CardProps {
   cardData?: any; // 组件对应的数据
   onClick?: (data: any) => void | Promise<void>;
-  onDownload?:(data: any) => void | Promise<void>;
+  onCover?: (data: any) => void | Promise<void>;
 }
-
-const previewImageRef = ref();
 
 const isHovered = ref(false);
 
@@ -51,21 +67,23 @@ const isOptions = ref(false);
 
 const props = defineProps<CardProps>();
 
-const { onClick, onDownload } = toRefs(props);
+const { cardData } = toRefs(props);
+onMounted(() => {
+});
 
 // 点击卡片时调用父组件的回调函数
 function click() {
-  if(props.onClick){
+  if (props.onClick) {
     props.onClick(props.cardData ? props.cardData : {});
   }
 }
 // 点击卡片时调用父组件的回调函数
-function download() {
-  if(props.onDownload){
-    props.onDownload(props.cardData ? props.cardData : {});
+function cover() {
+  if (props.onCover) {
+    props.onCover(props.cardData ? props.cardData : {});
   }
 }
-function mouseLeave(){
+function mouseLeave() {
   isHovered.value = false;
   isOptions.value = false;
 }
@@ -75,27 +93,30 @@ const toggleOptions = () => {
   isOptions.value = !isOptions.value;
 };
 
-// 进入全屏模式的函数
-const enterFullscreen = () => {
-  const imageElement = previewImageRef.value;
-  if (imageElement) {
-    if (imageElement.requestFullscreen) {
-      imageElement.requestFullscreen();
-    } else if ((imageElement as any).webkitRequestFullscreen) {
-      (imageElement as any).webkitRequestFullscreen();
-    } else if ((imageElement as any).mozRequestFullScreen) {
-      (imageElement as any).mozRequestFullScreen();
-    } else if ((imageElement as any).msRequestFullscreen) {
-      (imageElement as any).msRequestFullscreen();
-    }
+const deleteThis = async () => {
+  if(props.cardData.id){
+    await deleteResourceApi(props.cardData.id).then((rsp)=>{
+      if(rsp.data > 0 ){
+        ElMessage({
+          type: "info",
+          message: "删除成功",
+        });
+      }else {
+        ElMessage({
+          type: "info",
+          message: "删除失败",
+        });
+      }
+
+    });
   }
 };
 </script>
 
 <style scoped lang="scss">
 .image-card {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -110,6 +131,7 @@ const enterFullscreen = () => {
 .image-card:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
   .more-options {
     display: block;
   }
