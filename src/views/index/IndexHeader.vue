@@ -58,6 +58,7 @@ import { logout } from '@/utils/auth'
 import { getLinks, getSysName, getThemeLogoStyle } from '@/utils/env'
 import { isNotBlank } from '@/utils/obj'
 import type { RouteRecordName } from 'vue-router'
+import { useRoute } from 'vue-router'
 import DayNightSwitch from "@/components/DayNight.vue";
 import {useDark} from "@vueuse/core";
 import homeIcon from '@/assets/icons/home.svg'
@@ -65,6 +66,7 @@ import locationIcon from '@/assets/icons/location.svg'
 import blogIcon from '@/assets/icons/blog.svg'
 
 let isDark = useDark();
+const route = useRoute();
 
 const curRoute = ref<RouteRecordName>('Home')
 const tabClass = (name:string) => {
@@ -125,7 +127,8 @@ const links = () => {
 
 const handlLogout = () => {
   logout();
-  toRoute('Home')
+  const redirectTo = route.name || 'Home';
+  toRoute(redirectTo)
 }
 
 const clickTab = (event: MouseEvent) => {
