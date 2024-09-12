@@ -31,6 +31,7 @@ type Resource = {
   ext?: string,
   size?: number,
   mimeType?: string,
+  resourceType?: string,
   thumbnail?: string,
   thumbnailUrl: string,
   previewUrl: string,

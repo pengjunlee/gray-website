@@ -62,7 +62,6 @@ import { ref, reactive, watch, onMounted } from "vue";
 import { ElMessage, ElTree, ElMessageBox } from "element-plus";
 import type { FormRules, FormInstance } from "element-plus";
 import {
-  resourcesDirectoriesApi,
   addCollectionApi,
   listCollectionApi,
   deleteCollectionApi,
@@ -75,6 +74,8 @@ import ImageUpload from "@/components/ImageUpload.vue";
 interface Tree {
   [key: string]: any;
 }
+
+const isCanRequest = ref(true);
 
 const collectionFormRef = ref<FormInstance>();
 
@@ -165,17 +166,22 @@ const handleClose = () => {
 };
 
 const handleConfirm = async (formEl: FormInstance | undefined) => {
+  if (! isCanRequest.value) return;
   if (!formEl) return;
   await formEl.validate(async (valid, fields) => {
     if (valid) {
+      isCanRequest.value = false;
       let formData = new FormData();
       formData.append('file', file);
       formData.append('entity', JSON.stringify({id:form.id,name:form.name}));
 
       await addCollectionApi(formData).then((rsp) => {
+        isCanRequest.value = true;
         resetForm();
         handleClose();
         refreshData();
+      }).finally(()=>{
+        isCanRequest.value = true;
       });
     } else {
       console.log("error submit!", fields);

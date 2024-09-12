@@ -5,15 +5,7 @@
     @mouseleave="showOverlay = false"
   >
     <div class="audio-name">{{ name }}</div>
-    <div v-if="isPlaying" class="audio-visualizer">
-      <div
-        v-for="(bar, index) in bars"
-        :key="index"
-        class="audio-bar"
-        :style="{ animationPlayState: isPlaying ? 'running' : 'paused' }"
-      ></div>
-    </div>
-    <audioIcon v-else></audioIcon>
+    <audioIcon></audioIcon>
     <!-- 控制条 -->
     <div class="controls">
       <div class="time-info">
@@ -189,6 +181,26 @@ onBeforeUnmount(() => {
     clearInterval(updateInterval);
   }
 });
+
+const reset = () => {
+
+  isFirstPlay.value = true;
+  if(audioContext){
+    audioContext.close();
+    audioContext = null;
+  }
+  isPlaying.value =false;
+  currentTime.value = 0;
+  showOverlay.value = false;
+  audioBuffer.value = null;
+  audioSource.value = null;
+  
+}
+
+// 使用 defineExpose 暴露方法给父组件
+defineExpose({
+  reset,
+});
 </script>
 
 <style scoped>
@@ -251,13 +263,6 @@ onBeforeUnmount(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-/* 在屏幕宽度小于 400px 时隐藏文字，只显示图标 */
-@media (max-width: 1200px) {
-  .controls .time-info span {
-    display: none;
-  }
 }
 
 .audio-visualizer {

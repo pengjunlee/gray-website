@@ -42,6 +42,7 @@ declare module 'vue' {
     FsEstimatedVirtualList: typeof import('./src/components/FsEstimatedVirtualList.vue')['default']
     FsVirtualList: typeof import('./src/components/FsVirtualList.vue')['default']
     GWAudioPlayer: typeof import('./src/components/GWAudioPlayer.vue')['default']
+    GWAudioPreview: typeof import('./src/components/GWAudioPreview.vue')['default']
     GWClassifyImage: typeof import('./src/components/GWClassifyImage.vue')['default']
     GWHeader: typeof import('./src/components/GWHeader.vue')['default']
     GWLinkCard: typeof import('./src/components/GWLinkCard.vue')['default']

@@ -3,12 +3,12 @@
     <GWResourceSearch :data="searchCondition" @change="pageSearch"></GWResourceSearch>
     <fs-virtual-water-fall ref="waterFallRef" :request="req" :gap="20" :column="5" :request-size="10">
       <template #item="{ item }">
-        <img v-if="item.resourceType === '图片'" class="img-item" :src="getApiBaseUrl() + item.src" @click="openPreview(item)"/>
+        <img v-if="item.resourceType === '图片'" class="img-item" :src="getApiBaseUrl() + item.src" @click="previewImage(item)"/>
         <GWAudioPlayer  v-else-if="item.resourceType === '音频'" :name="item.name" :duration="item.duration" :url=" getApiBaseUrl() + item.previewUrl" class="img-item"></GWAudioPlayer>
         <div class="video-container" v-if="item.resourceType === '视频'"> 
           <img  class="video-item" :src="getApiBaseUrl() + item.src" />
           <!-- 视频logo（播放按钮） -->
-          <div class="play-button" @click="openVideo(item)">
+          <div class="play-button" @click="previewVideo(item)">
             ▶️
           </div>
         </div>
@@ -18,13 +18,13 @@
   </div>
   <GWPreviewImage
       v-if="isPreviewImageVisible"
-      :image="currentImage.previewUrl"
-      :name="currentImage.name"
+      :image="currentResource.previewUrl"
+      :name="currentResource.name"
       :on-close="closePreview"></GWPreviewImage>
     <GWPreviewVideo
     v-if="isPreviewVideoVisible"
-    :url="currentImage.previewUrl"
-    :name="currentImage.name"
+    :url="currentResource.previewUrl"
+    :name="currentResource.name"
     :on-close="closePreview"></GWPreviewVideo>
 </template>
 
@@ -79,21 +79,19 @@ const req: FsVirtualWaterfallReuqest = async (page, pageSize) => {
 const isPreviewImageVisible = ref(false);
 const isPreviewVideoVisible = ref(false);
 
-
-
 // 计算当前预览的图片
-const currentImage = ref<any>({});
+const currentResource = ref<any>({});
 
 // 打开预览
-const openPreview = (image: any) => {
-  currentImage.value = image;
+const previewImage = (image: any) => {
+  currentResource.value = image;
   isPreviewImageVisible.value = true;
 };
 
 // 打开预览
-const openVideo = (video: any) => {
+const previewVideo = (video: any) => {
   isPreviewVideoVisible.value = true;
-  currentImage.value = video;
+  currentResource.value = video;
 };
 
 // 关闭预览
