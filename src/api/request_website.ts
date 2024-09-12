@@ -7,6 +7,9 @@ import { isNotNull } from '@/utils/obj'
 import pinia from '@/stores/store-config'
 import { storeKey as authKey, useUserStore } from '@/stores/user'
 import { getApiBaseUrl, getUserId } from '@/utils/env'
+import router from '@/router';  // 引入 Vue Router 实例
+
+
 
 const userId = getUserId()
 const baseUrl = getApiBaseUrl()
@@ -71,15 +74,17 @@ export class Request {
         if (isSuccessRCode(res.data.code)) {
           isSuccess = true
         }
-
+        debugger;
         if (isSuccess) {
           return res.data
-        } else if (res.data.code === 'AUTH-40101') {
+        } else if (res.data.code === '20002' || res.data.code === 20002) {
           /* 授权被拦截, 则需要退回登录页请求 */
           console.log('授权失败, 重置登录状态')
           const userStore = useUserStore()
           userStore.reset()
-          toRoute('/home')
+// 获取当前路由信息
+const currentRoute = router.currentRoute.value;
+          toRoute({ name: 'Login', query: { redirect: currentRoute.name } })
           return Promise.reject(res)
         } else {
           /*
@@ -88,7 +93,7 @@ export class Request {
           let errorResponse = res.data
           errorResponse['url'] = res.config.url
           // 其他情况拒绝
-          ElMessage({ message: res.data.msg, duration: 9999 })
+          ElMessage({ message: res.data.message, duration: 9999 })
           return Promise.reject(res)
         }
         // 直接返回res，当然你也可以只返回res.data

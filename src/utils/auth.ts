@@ -3,6 +3,7 @@ import { AuthStatus, storeKey, userinfoKey, useUserStore } from '@/stores/user'
 import { checkApi, loginApi, userinfoApi } from '@/api/auth'
 import { Local } from '@/utils/storage'
 import { toRoute } from '@/router'
+import router from '@/router'
 
 const userStore = useUserStore()
 const { auth } = storeToRefs(userStore)
@@ -18,7 +19,9 @@ export const login = async (username: string, password: string) => {
     .then((resp: any) => {
       auth.value = { token: resp.data.token, status: AuthStatus.Succ }
       Local.set(storeKey, auth.value)
-      toRoute('/home')
+      // 登录成功后，检查是否有重定向路径
+    const redirectTo = router.currentRoute.value.query.redirect || '/home';
+      toRoute(redirectTo as string)
     })
     .catch((_e) => {
       userStore.reset()

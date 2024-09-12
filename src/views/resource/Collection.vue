@@ -93,22 +93,6 @@ const refreshData = async () => {
 
 // 对话框是否可见
 const dialogVisible = ref(false);
-// 搜索文件夹关键词
-const filterText = ref("");
-const treeRef = ref<InstanceType<typeof ElTree>>();
-
-watch(filterText, (val) => {
-  treeRef.value!.filter(val);
-});
-
-const filterNode = (value: string, data: Tree) => {
-  if (!value) return true;
-  return data.label.includes(value);
-};
-
-// 树形图数据
-const treeData = ref([]);
-
 const form = reactive<Collection>({
   name: "",
 });
@@ -140,21 +124,15 @@ const resetForm = (collection?: Collection) => {
 };
 
 // 新建库
-const createCollection = async () => {
+const createCollection = () => {
   resetForm();
-  await resourcesDirectoriesApi().then((rsp) => {
-    treeData.value = rsp.data;
-    dialogVisible.value = true;
-  });
+  dialogVisible.value = true;
 };
 
 // 编辑库
-const editCollection = async (Collection: Collection) => {
+const editCollection = (Collection: Collection) => {
   resetForm(Collection);
-  await resourcesDirectoriesApi().then((rsp) => {
-    treeData.value = rsp.data;
-    dialogVisible.value = true;
-  });
+  dialogVisible.value = true;
 };
 
 // 删除库
