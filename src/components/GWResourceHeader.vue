@@ -1,69 +1,64 @@
 <template>
   <div class="gw-header-root">
     <bl-row class="head-row" width="auto" height="100%">
-      <div class="gw-logo" @click="toRoute('Home')">
+      <div class="gw-logo" @click="toRoute('/home')">
         <img :src="logo()" :style="getThemeLogoStyle()" />
       </div>
-      <div class="project-name" @click="toRoute('Home')">{{ sysName() }}</div>
+      <div class="project-name" @click="toRoute('/home')">{{ sysName() }}</div>
     </bl-row>
 
     <bl-row class="head-row" width="auto" height="100%">
       <day-night-switch :size="60" v-model="isDark"></day-night-switch>
+      <div class="iconbl-circle">
+        <span
+          @click="handlLogout"
+          v-if="userStore.auth && userStore.auth.status === '已登录'"
+          class="iconbl bl-logout-circle-line popper-target"
+        ></span>
+        <span
+          v-else
+          @click="toRoute('/login')"
+          class="iconbl bl-login-circle-line popper-target"
+        ></span>
+      </div>
     </bl-row>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue'
-import { toRoute } from '@/router'
-import { useUserStore } from '@/stores/user'
-import { logout } from '@/utils/auth'
-import { getSysName, getThemeLogoStyle } from '@/utils/env'
-import { isNotBlank } from '@/utils/obj'
+import { toRoute } from "@/router";
+import { useUserStore } from "@/stores/user";
+import { logout } from "@/utils/auth";
+import { getSysName, getThemeLogoStyle } from "@/utils/env";
+import { isNotBlank } from "@/utils/obj";
 import DayNightSwitch from "@/components/DayNight.vue";
-import {useDark} from "@vueuse/core";
-import type { Tab } from '@/types/gw.props'
+import { useDark } from "@vueuse/core";
 
 let isDark = useDark();
 
-interface TabProps {
-  tabs: Tab[];
-  selectedTab: string;
-}
-
-const props = defineProps<TabProps>();
-
-const {tabs , selectedTab} = toRefs(props);
-
-const emit = defineEmits<{
-  (event: 'update:selectedTab', value: string): void;
-}>();
-
-function selectTab(index: number, tab: string) {
-  emit('update:selectedTab', tab);
-}
-
-const userStore = useUserStore()
+const userStore = useUserStore();
 
 const sysName = () => {
   if (userStore.userParams.WEB_LOGO_NAME) {
-    return userStore.userParams.WEB_LOGO_NAME
+    return userStore.userParams.WEB_LOGO_NAME;
   }
-  return getSysName()
-}
+  return getSysName();
+};
 
 const logo = () => {
-  if (userStore.userParams.WEB_LOGO_URL && isNotBlank(userStore.userParams.WEB_LOGO_URL)) {
-    return userStore.userParams.WEB_LOGO_URL
+  if (
+    userStore.userParams.WEB_LOGO_URL &&
+    isNotBlank(userStore.userParams.WEB_LOGO_URL)
+  ) {
+    return userStore.userParams.WEB_LOGO_URL;
   }
-  return 'favicon.png'
-}
+  return "favicon.png";
+};
 
 const handlLogout = () => {
   logout();
-  toRoute('Home')
-}
-
+  toRoute("/home");
+};
 </script>
 
 <style lang="scss">
@@ -95,7 +90,12 @@ const handlLogout = () => {
     color: transparent;
     font-family: current, sans-serif;
     letter-spacing: 1px;
-    background: linear-gradient(90deg, var(--gw-header-color), var(--gw-font-color), var(--gw-header-color));
+    background: linear-gradient(
+      90deg,
+      var(--gw-header-color),
+      var(--gw-font-color),
+      var(--gw-header-color)
+    );
     background-clip: text;
     animation: glow 10s linear infinite;
     transition: 1.5s;
@@ -172,34 +172,5 @@ const handlLogout = () => {
 
 .gw-header-bg {
   box-shadow: 0 1px 8px 1px var(--gw-bg-color);
-}
-
-.head-row.tabs {
-  margin: 0 80px;
-}
-
-.tab {
-  font-family: QianTuXiaoTu;
-  font-weight: 400;
-  border-radius: 5px;
-  padding: 3px 20px;
-  margin: 0 5px;
-  cursor: pointer;
-  transition: 0.3s;
-  &:hover {
-    background: var(--gw-bg-active-color);
-  }
-}
-
-.tab.active {
-  background: var(--gw-bg-active-color);
-  color: var(--gw-font-color);
-  font-weight: bold;
-}
-/* 在屏幕宽度小于 400px 时隐藏文字，只显示图标 */
-@media (max-width: 900px) {
-  .tab-text {
-    display: none;
-  }
 }
 </style>

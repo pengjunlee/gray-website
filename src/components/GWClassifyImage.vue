@@ -53,7 +53,6 @@ const slideRef = ref();
 const contaionerRef = ref();
 
 const left = () => {
-  debugger;
   if (openClick) {
     openClick = false; // 触发点击后，禁用按钮
     const items = document.querySelectorAll(".item");
@@ -84,7 +83,6 @@ const handleKeydown = async (event: KeyboardEvent) => {
       if (images.value.length === 5) {
         await pageResourceApi({ pageNo: 2, pageSize: 10, LibraryId: 3 }).then(
           (rsp) => {
-            debugger;
             images.value?.push(...rsp.data.result);
           }
         );

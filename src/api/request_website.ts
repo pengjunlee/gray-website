@@ -74,7 +74,6 @@ export class Request {
         if (isSuccessRCode(res.data.code)) {
           isSuccess = true
         }
-        debugger;
         if (isSuccess) {
           return res.data
         } else if (res.data.code === '20002' || res.data.code === 20002) {

@@ -31,6 +31,8 @@
           <div class="item" @click="toRoute('/todo')"><span class="iconbl bl-a-labellist-line"></span>待办事项</div>
           <div class="item" @click="toRoute('/plan')"><span class="iconbl bl-calendar-line"></span>日历计划</div>
           <div class="item" @click="toRoute('/note')"><span class="iconbl bl-note-line"></span>便签</div>
+          <div class="item-divider"></div>
+          <div class="item" @click="toRoute('/collection')"><span class="iconbl bl-user-line"></span>管理后台</div>
         </div>
       </el-popover>
       <div class="iconbl-circle">
@@ -194,8 +196,8 @@ const handlLogout = () => {
 
 .item-divider {
   border-top: 1px solid #5c5c5c;
-  margin-top: 5px;
-  padding-bottom: 5px;
+  margin: 5px;
+  width: calc(100% - 10px);
 }
 
 .gw-header-bg {

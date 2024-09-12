@@ -1,0 +1,203 @@
+<template>
+  <div class="root-container">
+    <el-container class="layout-container-demo">
+      <el-aside width="200px">
+        <el-menu :default-active="activeIndex" @select="handleSelect">
+          <el-menu-item
+            index="1"
+            :class="activeIndex === '1' ? 'selectTab' : ''"
+          >
+            <template #title>
+              <el-icon><List /></el-icon>全部
+              <span
+                style="text-align: right; display: inline-block; width: 100%"
+                >{{ total }}</span
+              >
+            </template></el-menu-item
+          >
+          <el-menu-item
+            index="2"
+            :class="activeIndex === '2' ? 'selectTab' : ''"
+            ><template #title>
+              <el-icon><Collection /></el-icon>待分类图片
+            </template></el-menu-item
+          >
+        </el-menu>
+      </el-aside>
+
+      <el-container class="right-container">
+        <div v-if="activeIndex === '1'" class="resource-gallery">
+          <GWResourceCard
+            v-for="(resource, index) in resources"
+            :key="index"
+            :resource="resource"
+            :on-preview="openPreview"
+            :on-cover="setCover"
+            :on-delete="refreshData"
+          ></GWResourceCard>
+
+          <div style="width: 100%">
+            <el-pagination
+              style="flex-direction: row-reverse"
+              background
+              layout="prev, pager, next"
+              :total="total"
+              pager-count="5"
+              :page-size="pageSize"
+              :current-page = "pageNo"
+              @current-change="handlePageChange"
+            />
+          </div>
+          <GWPreviewImage
+            v-if="isPreviewImageVisible"
+            :resource="currentImage.previewUrl"
+            :name="currentImage.name"
+            :on-close="closePreview"
+          ></GWPreviewImage>
+        </div>
+        <GWClassifyImage v-else></GWClassifyImage>
+      </el-container>
+    </el-container>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref, onMounted } from "vue";
+import { pageResourceApi, setLibraryCoverApi } from "@/api/resources";
+import {
+  Menu as IconMenu,
+  List,
+  Collection,
+  Setting,
+} from "@element-plus/icons-vue";
+import type { Resource } from "@/types/gw.resources";
+import GWImageCard from "@/components/GWResourceCard.vue";
+import { useRoute } from 'vue-router';
+import { ElMessage } from "element-plus";
+
+// 获取路由对象
+const route = useRoute();
+
+// 获取路径参数 (在路由配置中用 :id 表示)
+const libraryId = route.params.id;
+
+
+const activeIndex = ref("1");
+const total = ref(0);
+const pageNo = ref(1);
+const pageSize = ref(20);
+
+// 选择菜单
+const handleSelect = function (key: any, keyPath: any) {
+  activeIndex.value = key;
+};
+
+// 资源数据
+const resources = ref<Resource[]>();
+
+// 预览状态和当前图片
+const isPreviewImageVisible = ref(false);
+
+
+// 计算当前预览的图片
+const currentImage = ref<Resource>({
+  thumbnailUrl: "",
+  name: "",
+  id: 0,
+  previewUrl: "",
+});
+
+// 打开预览
+const openPreview = (resource: Resource) => {
+  currentImage.value = resource;
+  isPreviewImageVisible.value = true;
+};
+
+// 关闭预览
+const closePreview = () => {
+  isPreviewImageVisible.value = false;
+};
+
+// 设置库封面
+const setCover = async (resource: Resource) => {
+  let params = { id: libraryId, cover: resource.id };
+  await setLibraryCoverApi(params).then((rsp: any) => {
+    ElMessage({
+          type: "info",
+          message: "库封面设置成功",
+        });
+  });
+};
+
+const refreshData = async () => {
+  await pageResourceApi({ pageNo: pageNo.value, pageSize: pageSize.value, LibraryId: libraryId }).then(
+    (rsp) => {
+      resources.value = rsp.data.result;
+      total.value = rsp.data.total;
+    }
+  );
+}
+
+const handlePageChange = (newPage:number) => {
+  pageNo.value = newPage;
+  refreshData();
+}
+
+// 挂载处理
+onMounted(async () => {
+  refreshData();
+});
+</script>
+
+<style scoped lang="scss">
+.root-container {
+  background-color: var(--gw-bg-color);
+  @include box(100%, 100%);
+  position: relative;
+  overflow: scroll;
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.selectTab {
+  background-color: var(--gw-bg-active-color);
+}
+
+.layout-container-demo .el-aside {
+  color: var(--gw-font-color);
+  background: var(--gw-bg-color);
+  border-right: 1px solid var(--gw-bg-active-color);
+  width: 200px;
+  height: calc(100vh - 65px);
+}
+.layout-container-demo {
+  height: 100%;
+  .el-menu {
+    border-right: none;
+  }
+}
+.right-container {
+  position: relative;
+  color: var(--gw-font-color);
+  background: var(--gw-bg-color);
+  border-right: 1px solid var(--gw-bg-active-color);
+  height: 100%;
+}
+
+.resource-gallery {
+  background-color: var(--gw-bg-color);
+  @include box(100%, 100%);
+  position: relative;
+  overflow: scroll;
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+</style>

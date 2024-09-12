@@ -12,20 +12,21 @@
       :image="library.coverUrl"
       :title="library.name"
       :card-data="library"
+      :click-t="goToManage"
     >
       <template v-slot:customize-btn>
         <span
-          @click="editLibrary(library)"
+          @click.stop="editLibrary(library)"
           style="color: green"
           class="customize-btn iconbl bl-a-fileedit-line"
         ></span>
         <span
-          @click="refreshLibrary(library)"
+          @click.stop="refreshLibrary(library)"
           style="color: #13aeff"
           class="customize-btn iconbl bl-refresh-line"
         ></span>
         <span
-          @click="deleteLibrary(library)"
+          @click.stop="deleteLibrary(library)"
           style="color: red"
           class="customize-btn iconbl bl-delete-line"
         ></span>
@@ -109,6 +110,7 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from "vue-router";
 import { ref, reactive, watch, onMounted } from "vue";
 import { ElMessage, ElTree, ElMessageBox } from "element-plus";
 import type { FormRules, FormInstance } from "element-plus";
@@ -123,6 +125,8 @@ import {
 import type { Library,Collection } from "@/types/gw.resources";
 import GWTitleImageCard from "@/components/GWTitleImageCard.vue";
 
+const router = useRouter();
+
 interface Tree {
   [key: string]: any;
 }
@@ -136,6 +140,14 @@ const collections = ref<Collection[]>();
 onMounted(() => {
   refreshData();
 });
+
+// 跳转到详情页函数
+const goToManage = (library: Record<string, any>) => {
+  debugger;
+  if(library?.id){
+    router.push({ name: 'MgtLibrary', params: { id:library.id } });
+  }
+};
 
 const refreshData = async () => {
   await listLibraryApi().then((rsp) => {

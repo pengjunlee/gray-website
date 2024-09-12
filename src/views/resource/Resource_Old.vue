@@ -4,7 +4,7 @@
     <GWImageCard 
       v-for="(image, index) in images"
       :key="index"
-      :card-data="image"
+      :resource="image"
       :on-click="openPreview"
     ></GWImageCard>
     
@@ -12,7 +12,7 @@
       v-if="isPreviewVisible"
       :image="currentImage.thumbnailUrl"
       :name="currentImage.name"
-      :card-data="currentImage"
+      :resource="currentImage"
       :on-close="closePreview" :on-download="downloadImage"></GWImagePreview>
   </div>
 </template>
@@ -21,7 +21,7 @@
 import { ref } from "vue";
 import type { Resource } from "@/types/gw.resources";
 import FileSaver from 'file-saver';
-import GWImageCard from "@/components/GWImageCard.vue";
+import GWImageCard from "@/components/GWResourceCard.vue";
 import GWImagePreview from "@/components/GWPreviewImage.vue"
 
 // 模拟图片数据

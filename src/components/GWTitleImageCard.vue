@@ -3,7 +3,7 @@
     class="gw-card"
     @mouseover="isHovered = true"
     @mouseleave="isHovered = false"
-    @click="click"
+    @click="clickThis"
   >
     <!-- 新建卡片 -->
     <div
@@ -34,7 +34,7 @@
         <h3 class="card-title">{{ title }}</h3>
       </div>
 
-      <div v-show="isHovered" class="card-btn">
+      <div v-show="isHovered" class="card-btn" >
         <slot name="customize-btn"> </slot>
       </div>
     </div>
@@ -43,26 +43,28 @@
 
 <script setup lang="ts">
 import { getApiBaseUrl } from "@/utils/env";
-import { ref, toRefs } from "vue";
+import { ref, toRefs, toRaw } from "vue";
 
 interface CardProps {
   blankCard: boolean;
   image?: String;
   title?: String;
   cardData?: Record<string, any>; // 组件对应的数据
-  onClick?: (data: Record<string, any>) => void | Promise<void>;
+  clickT?: (data: Record<string, any>) => void | Promise<void>;
 }
 
 const isHovered = ref(false);
 
 const props = defineProps<CardProps>();
 
-const { blankCard, image, title, onClick } = toRefs(props);
+const { blankCard, image, title } = toRefs(props);
 
 // 点击卡片时调用父组件的回调函数
-function click() {
-  if (props.onClick) {
-    props.onClick(props.cardData ? props.cardData : {});
+function clickThis() {
+  debugger;
+  if (props?.clickT) {
+    const param = props.cardData ? toRaw(props.cardData) : {};
+    props?.clickT(param);
   }
 }
 </script>
