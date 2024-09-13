@@ -1,12 +1,12 @@
 {
-  "name": "blossom-web",
+  "name": "gray-website",
   "version": "1.16.0",
   "private": true,
   "scripts": {
     "dev": "vite",
-    "dev:spring": "vite --mode spring",
+    "dev:test": "vite --mode test",
     "build": "run-p type-check build-only",
-    "build:spring": "vite build --mode spring",
+    "build:test": "vite build --mode test",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit --skipLibCheck"
