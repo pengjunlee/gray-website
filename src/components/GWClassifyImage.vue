@@ -95,7 +95,7 @@ const handleKeydown = async (event: KeyboardEvent) => {
 };
 
 const refreshData = async (pageNo:number, pageSize: number) =>{
-  await pageResourceApi({ pageNo: pageNo, pageSize: pageSize, LibraryId: libraryId, resourceTypes: [0,3],unclassified: true }).then(
+  await pageResourceApi({ pageNo: pageNo, pageSize: pageSize, libraryId: libraryId, resourceTypes: [0,3],unclassified: true }).then(
     (rsp) => {
       images.value?.push(...rsp.data.result);
 

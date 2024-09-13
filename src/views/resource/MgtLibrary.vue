@@ -201,7 +201,7 @@ const handlePageChange = (newPage: number) => {
 onMounted(async () => {
   refreshData();
   // 更新统计数据
-  await statisticsLibraryApi({ LibraryId: libraryId, resourceTypes: [0,3],unclassified: true }).then((rsp) => {
+  await statisticsLibraryApi({ libraryId: libraryId, resourceTypes: [0,3],unclassified: true }).then((rsp) => {
     unclassified.value = rsp.data.unclassified;
   });
 });
