@@ -4,7 +4,6 @@ import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ElMessage } from 'element-plus'
 import { Local } from '@/utils/storage'
 import { isNotNull } from '@/utils/obj'
-import pinia from '@/stores/store-config'
 import { storeKey as authKey, useUserStore } from '@/stores/user'
 import { getApiBaseUrl, getUserId } from '@/utils/env'
 import router from '@/router';  // 引入 Vue Router 实例
