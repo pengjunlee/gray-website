@@ -66,9 +66,9 @@ const toToc = (articleId: number) => {
     padding: 5px 10px;
     margin: 15px 16px;
     transition: border 0.3s, box-shadow 0.3s;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 12px var(--gw-font-color-1);
     overflow: hidden;
-
+    background-color: var(--gw-bg-active-color);
     .iconbl {
       font-size: 12px;
       margin-right: 5px;

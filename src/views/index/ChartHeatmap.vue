@@ -17,6 +17,7 @@ import { HeatmapChart } from 'echarts/charts'
 import { CanvasRenderer } from 'echarts/renderers'
 import { ScatterChart, EffectScatterChart } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
+import { getParseTreeNode } from 'typescript'
 echarts.use([
   TitleComponent,
   CalendarComponent,
@@ -64,23 +65,24 @@ const getBlossomHeatmap = () => {
 
 const renderChart = (callback?: any) => {
   chartHeatmap.setOption({
+    backgroundColor: 'transparent', // 设置背景颜色为透明
     // 越靠下的数值越高
     gradientColor: [
-      // '#494949',
-      // '#b0be83',
-      // '#698f14',
+      '#494949',
+      '#b0be83',
+      '#698f14',
       '#494949',
       '#9b9b9b',
-      '#b3b3b3'
-      // '#494949',
-      // '#835947',
-      // '#aa725a',
+      '#b3b3b3',
+      '#494949',
+      '#835947',
+      '#aa725a',
     ],
     tooltip: {
-      backgroundColor: '#2d3239',
-      borderColor: '#1f1f1f',
+      backgroundColor: 'var(--gw-bg-active-color)',
+      borderColor: 'var(--gw-font-color-1)',
       textStyle: {
-        color: '#7a7a7a'
+        color: 'var(--gw-font-color)'
       },
       formatter: (params: any) => {
         let date = params.data[0]
@@ -99,21 +101,21 @@ const renderChart = (callback?: any) => {
         splitLine: {
           show: true,
           lineStyle: {
-            color: '#3F3F3F',
+            color: 'var(--gw-font-color)',
             width: 2,
             type: 'solid'
           }
         },
         itemStyle: {
-          color: '#31363a',
+          color: 'transparent',
           borderWidth: 1,
-          borderColor: '#3F3F3F'
+          borderColor: '#1cbc9d'
         },
         yearLabel: { show: false },
         // 月份轴
-        monthLabel: { nameMap: 'ZH', color: '#747375' },
+        monthLabel: { nameMap: 'ZH', color: 'var(--gw-font-color)' },
         // 天份轴
-        dayLabel: { nameMap: 'ZH', firstDay: 1, color: '#747375' }
+        dayLabel: { nameMap: 'ZH', firstDay: 1, color: 'var(--gw-font-color)' }
       }
     ],
     visualMap: [
@@ -193,19 +195,19 @@ $info-margin-left: 130px;
   .heatmap-type-content {
     @include box(85px, 30px);
     @include font(12px, 700);
-    color: #616060;
+    color: var(--gw-font-color);
   }
 
   .heatmap-type-choice-btn {
     @include box(30px, 30px);
-    @include border(1px, #3f3f3f, 3px);
+    @include border(1px, var(--gw-bg-active-color), 3px);
     margin: 0 20px 0 25px;
     padding: 5px 3px;
     transition: box-shadow 0.4s;
     cursor: pointer;
 
     &:hover {
-      box-shadow: 0 0 10px 1px rgba(24, 18, 18, 0.5);
+      box-shadow: 0 0 10px 1px var(--gw-bg-active-color-5);
     }
 
     svg {

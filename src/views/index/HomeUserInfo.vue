@@ -1,13 +1,11 @@
 <template>
   <div class="home-userinfo-root">
     <div class="userinfo-desc">
-      <div class="avatar" v-if="userStore.userinfo.avatar !== ''">
-        <img :src="userStore.userinfo.avatar" alt="头像" />
+      <div class="avatar">
+        <img :src="userStore.userinfo.avatar ? userStore.userinfo.avatar:'/favicon.png'" alt="头像" />
       </div>
       <div class="info">
         <div class="name">{{ userStore.userinfo.nickName }}</div>
-        <div class="desc">{{ userStore.userinfo.remark }}</div>
-        <div class="desc">Doc:{{ userStore.userinfo.articleCount }} | Words:{{ userStore.userinfo.articleWords }}</div>
       </div>
     </div>
 
@@ -17,6 +15,11 @@
           <li @click="toRoute('/articles')">所有文章 <span class="iconbl bl-sendmail-line"></span></li>
           <li v-for="link in links()" @click="toView(link.URL)">
             {{ link.NAME }}
+          </li>
+          <li>
+
+            <div class="desc">文章数:{{ userStore.userinfo.articleCount }} | 总字数:{{ userStore.userinfo.articleWords }}</div>
+
           </li>
         </ul>
       </div>
@@ -53,14 +56,13 @@ const links = () => {
   @include box(100%, 100%);
   @include flex(column, center, center);
   font-family: 'Jetbrains Mono';
-
+  color: var(--gw-font-color);
   .userinfo-desc {
     @include flex(row, flex-start, flex-end);
 
     .avatar {
       img {
         @include box(100px, 100px);
-        box-shadow: -3px -3px 5px #585858, 5px 5px 10px 1px #000000, 9px 9px 10px 1px #2b2b2b, 15px 15px 10px 1px #414141;
         border-radius: 10px;
         object-fit: cover;
       }
@@ -75,7 +77,7 @@ const links = () => {
         height: 65px;
         
         letter-spacing: 5px;
-        text-shadow: 3px 3px 5px rgb(24, 24, 24);
+        text-shadow: 3px 3px 5px var(--gw-bg-active-color-5);
       }
 
       .desc {
@@ -100,7 +102,6 @@ const links = () => {
       ol,
       ul {
         @include font(15px, 300);
-        color: #7a7a7a;
         text-align: left;
 
         li {
@@ -109,8 +110,8 @@ const links = () => {
           line-height: 25px;
 
           &:hover {
-            color: #f3f3f3;
-            text-shadow: 3px 3px 10px #cccccc;
+            color: var(--gw-font-color);
+            text-shadow: 3px 3px 10px var(--gw-bg-active-color);
           }
         }
       }
