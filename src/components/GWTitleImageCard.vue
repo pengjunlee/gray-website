@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { getApiBaseUrl } from "@/utils/env";
+import { getApiBaseUrl } from "@/utils/website";
 import { ref, toRefs, toRaw } from "vue";
 
 interface CardProps {

@@ -11,8 +11,7 @@
               <el-icon><List /></el-icon>全部
               <span
                 style="text-align: right; display: inline-block; width: 100%"
-                >{{ total }}</span
-              >
+                >{{ total }}</span>
             </template></el-menu-item
           >
           <el-menu-item
@@ -20,6 +19,10 @@
             :class="activeIndex === '2' ? 'selectTab' : ''"
             ><template #title>
               <el-icon><Collection /></el-icon>待分类图片
+              <span
+                style="text-align: right; display: inline-block; width: 100%"
+                >{{ unclassified }}</span
+              >
             </template></el-menu-item
           >
         </el-menu>
@@ -61,7 +64,7 @@
             :on-close="closePreview"
           ></GWPreviewVideo>
           <el-dialog
-            style="padding: 30px; min-height: 200px;"
+            style="padding: 30px; min-height: 200px"
             title="音频预览"
             v-model="isPreviewAudioVisible"
             @close="closeDialog()"
@@ -83,7 +86,11 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
-import { pageResourceApi, setLibraryCoverApi } from "@/api/resources";
+import {
+  pageResourceApi,
+  setLibraryCoverApi,
+  statisticsLibraryApi,
+} from "@/api/resources";
 import {
   Menu as IconMenu,
   List,
@@ -103,6 +110,7 @@ const libraryId = route.params.id;
 
 const activeIndex = ref("1");
 const total = ref(0);
+const unclassified = ref(0);
 const pageNo = ref(1);
 const pageSize = ref(20);
 
@@ -158,9 +166,9 @@ const closePreview = () => {
 };
 
 const closeDialog = () => {
- audioPreviewRef.value.reset();
+  audioPreviewRef.value.reset();
   isPreviewAudioVisible.value = false;
-} 
+};
 
 // 设置库封面
 const setCover = async (resource: Resource) => {
@@ -192,6 +200,10 @@ const handlePageChange = (newPage: number) => {
 // 挂载处理
 onMounted(async () => {
   refreshData();
+  // 更新统计数据
+  await statisticsLibraryApi({ LibraryId: libraryId, resourceTypes: [0,3],unclassified: true }).then((rsp) => {
+    unclassified.value = rsp.data.unclassified;
+  });
 });
 </script>
 

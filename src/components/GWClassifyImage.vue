@@ -10,17 +10,7 @@
     <br/>
     -------
     <br/>
-      <div>[ 0 ] 风景</div>
-      <div>[ 0 ] 风景</div>
-      <div>[ 0 ] 风景</div>
-      <div>[ 0 ] 风景</div>
-      <div>[ 0 ] 风景</div>
-      <div>[ 0 ] 风景</div>
-      <div>[ 0 ] 风景</div>
-      <div>[ 0 ] 风景</div>
-      <div>[ 0 ] 风景</div>
-      <div>[ P ] Prev</div>
-      <div>[ N ] Next</div>
+      <div v-for="classification in classifications" :key="classification.value" >[ {{ classification.value }} ] {{ classification.name }}</div>
     </div>
     <div ref="slideRef" id="slide">
       <div
@@ -41,16 +31,27 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import type { Resource } from "@/types/gw.resources";
-import { getApiBaseUrl } from "@/utils/env";
-import { pageResourceApi } from "@/api/resources";
+import type { Resource, IntEnumOption } from "@/types/gw.resources";
+import { getApiBaseUrl } from "@/utils/website";
+import { pageResourceApi, resourcesClassificationsApi, resourceClassifyApi } from "@/api/resources";
+import { useRoute } from "vue-router";
+import { ElMessage } from "element-plus";
+
+// 获取路由对象
+const route = useRoute();
 
 // 模拟图片数据
-const images = ref<Resource[]>();
+const images = ref<Resource[]>([]);
 let openClick = true; // 节流处理 (保证动画执行过程，按钮不被重复点击)
+
+// 获取路径参数 (在路由配置中用 :id 表示)
+const libraryId = route.params.id;
+const pageNo = ref(1);
 
 const slideRef = ref();
 const contaionerRef = ref();
+const classifications = ref<IntEnumOption[]>();
+let classificationMap: Map<number, string>;
 
 const left = () => {
   if (openClick) {
@@ -79,13 +80,11 @@ const handleKeydown = async (event: KeyboardEvent) => {
     console.log(`按下了数字键：${key}`);
     if (images.value) {
       // 调用后台接口处理数据
+      let params = { id: images.value[0].id, classification: classificationMap.get(Number.parseInt(key)) };
+      await resourceClassifyApi(params);
       images.value.shift();
       if (images.value.length === 5) {
-        await pageResourceApi({ pageNo: 2, pageSize: 10, LibraryId: 3 }).then(
-          (rsp) => {
-            images.value?.push(...rsp.data.result);
-          }
-        );
+        refreshData(2,5);
       }
     }
   }else if(event.key.toLowerCase() === 'n'){
@@ -95,16 +94,31 @@ const handleKeydown = async (event: KeyboardEvent) => {
   }
 };
 
+const refreshData = async (pageNo:number, pageSize: number) =>{
+  await pageResourceApi({ pageNo: pageNo, pageSize: pageSize, LibraryId: libraryId, resourceTypes: [0,3],unclassified: true }).then(
+    (rsp) => {
+      images.value?.push(...rsp.data.result);
+
+    }
+  );
+}
+
 // 使 div 能够监听键盘事件，需要添加 tabindex
 onMounted(async () => {
   if (contaionerRef.value) {
     slideRef.value.focus(); // 让 div 获取焦点，保证键盘事件能够被捕获
   }
-  await pageResourceApi({ pageNo: 1, pageSize: 10, LibraryId: 3 }).then(
-    (rsp) => {
-      images.value = rsp.data.result;
+
+  refreshData(1,10);
+
+  await resourcesClassificationsApi().then((rsp) => {
+    if(rsp.data){
+      classifications.value = rsp.data;
+    // 使用 reduce 将对象数组转换为 Map
+    classificationMap = new Map(classifications.value.map(item => [item.value, item.name]));
     }
-  );
+
+  });
 });
 </script>
 

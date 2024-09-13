@@ -39,7 +39,7 @@
 <script lang="ts" setup>
 import { ref, toRefs } from "vue";
 import audioIcon from "@/assets/icons/audio.svg";
-import { getApiBaseUrl } from "@/utils/env";
+import { getApiBaseUrl } from "@/utils/website";
 
 interface AudioProps {
   url: string;

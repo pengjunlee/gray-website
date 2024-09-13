@@ -28,6 +28,20 @@ window.blconfig = {
     SUBJECT_TITLE: true
   },
   /**
+   * 不同env环境下的特殊配置
+   */
+  ENVS: {
+    DEV: {
+      VITE_API_BASE_URI: "http://localhost:8081/website-api/"
+    },
+    TEST: {
+      VITE_API_BASE_URI: "http://192.168.192.66:8081/website-api/"
+    },
+    PROD: {
+      VITE_API_BASE_URI: "https://8g76m0325.vicp.fun/website-api/"
+    }
+  },
+  /**
    * 可以填写你自己的网站，该信息会展示在右上角的【更多】按钮中，以及首页的【所有文章】下
    * NAME: 网站名称
    * URL: 网站地址

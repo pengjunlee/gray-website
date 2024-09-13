@@ -1,5 +1,9 @@
 export {}
 
+interface envMeta {
+  VITE_API_BASE_URI:string
+}
+
 declare global {
   interface Window {
     blconfig: {
@@ -17,13 +21,19 @@ declare global {
         }
         SUBJECT_TITLE: string
       }
-      LINKS: [
+      ENVS: 
         {
-          NAME: string
-          URL: string
-          LOGO: string
+          DEV: envMeta
+          TEST: envMeta
+          PROD: envMeta
         }
-      ]
+        LINKS: [
+          {
+            NAME: string
+            URL: string
+            LOGO: string
+          }
+        ]
     }
   }
 }

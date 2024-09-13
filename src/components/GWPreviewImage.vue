@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { ref, toRefs } from "vue";
 import FileSaver from 'file-saver';
-import { getApiBaseUrl } from '@/utils/env'
+import { getApiBaseUrl } from '@/utils/website'
 
 interface CardProps {
   image: string;

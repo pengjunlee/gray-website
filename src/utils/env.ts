@@ -11,35 +11,6 @@ const print = () => {
 
 print();
 
-export const getApiBaseUrl = () => {
-  const { protocol, hostname, port } = window.location;
-
-  // 判断是否是 localhost
-  if (hostname === "localhost") {
-    return "http://localhost:8081/website-api/";
-  }
-
-  if (isIPHostname(hostname)) {
-    return "http://192.168.192.66:8081/website-api/";
-  }
-  return "https://8g76m0325.vicp.fun/website-api/";
-  
-};
-
-// 判断是否是 localhost 或 IP 地址
-const isIPHostname = (hostname: string) => {
-  // 判断是否是 IP 地址（IPv4）
-  const ipPattern =
-    /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-
-  // 判断 hostname 是否符合 IP 地址格式
-  if (ipPattern.test(hostname)) {
-    return true;
-  }
-
-  return false;
-};
-
 export const getUserId = () => {
   if (isNull(window.blconfig.SYS.USER_ID)) {
     return 1;

@@ -33,7 +33,7 @@ import FsVirtualWaterFall from "@/components/GWVirtualWaterFall.vue";
 import type { FsVirtualWaterfallReuqest } from "@/components/types/type";
 import { ref, toRaw } from "vue";
 import { pageResourceApi } from "@/api/resources"
-import { getApiBaseUrl } from '@/utils/env'
+import { getApiBaseUrl } from '@/utils/website'
 import type { ResourceSearch } from "@/types/gw.resources";
 import GWResourceSearch from "./ResourceSearch.vue";
 

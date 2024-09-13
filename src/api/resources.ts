@@ -21,6 +21,15 @@ export const resourcesTypesApi = (): Promise<R<IntEnumOption[]>> => {
 }
 
 /**
+ * 获取资源分类列表
+ * @param params
+ * @returns
+ */
+export const resourcesClassificationsApi = (): Promise<R<IntEnumOption[]>> => {
+  return rq.get<IntEnumOption[]>('/resource/classifications')
+}
+
+/**
  * 新增资源库
  * @param params
  * @returns
@@ -47,6 +56,17 @@ export const deleteLibraryApi = ( params: any ): Promise<R<any>> => {
   return rq.post<R<any>>('/resource/library/delete/'+params)
 }
 
+
+/**
+ * 统计资源库
+ * @param params
+ * @returns
+ */
+export const statisticsLibraryApi = ( params: any ): Promise<R<any>> => {
+  return rq.post<R<any>>('/resource/library/statistics', params)
+}
+
+
 /**
  * 设置资源库封面
  * @param params
@@ -54,6 +74,15 @@ export const deleteLibraryApi = ( params: any ): Promise<R<any>> => {
  */
 export const setLibraryCoverApi = ( params: any ): Promise<R<any>> => {
   return rq.post<R<any>>('/resource/library/cover',params)
+}
+
+/**
+ * 设置资源分类
+ * @param params
+ * @returns
+ */
+export const resourceClassifyApi = ( params: any ): Promise<R<any>> => {
+  return rq.post<R<any>>('/resource/classify',params)
 }
 
 /**

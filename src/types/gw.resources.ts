@@ -32,12 +32,14 @@ type Resource = {
   size?: number,
   mimeType?: string,
   resourceType?: string,
+  classification?:string,
   thumbnail?: string,
   thumbnailUrl: string,
   previewUrl: string,
   lastModified?: string,
   createTime?: string,
-  updateTime?: string
+  updateTime?: string,
+  unclassified?: boolean;
 }
 
 interface ResourceSearch {

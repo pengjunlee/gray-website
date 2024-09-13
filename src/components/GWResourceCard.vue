@@ -67,7 +67,7 @@
 <script setup lang="ts">
 import FileSaver from "file-saver";
 import { ref, toRefs, onMounted } from "vue";
-import { getApiBaseUrl } from "@/utils/env";
+import { getApiBaseUrl } from "@/utils/website";
 import { ElMessage } from "element-plus";
 import type { Resource } from "@/types/gw.resources";
 import { deleteResourceApi } from "@/api/resources";

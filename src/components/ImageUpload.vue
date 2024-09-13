@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { ref, onUnmounted, onMounted } from 'vue';
-import { getApiBaseUrl } from '@/utils/env'
+import { getApiBaseUrl } from '@/utils/website'
 
 interface ImageProps {
   imageUrl?: string; 
