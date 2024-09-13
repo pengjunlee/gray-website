@@ -177,7 +177,7 @@ const refreshData = async () => {
   await pageResourceApi({
     pageNo: pageNo.value,
     pageSize: pageSize.value,
-    LibraryId: libraryId,
+    libraryId: libraryId,
   }).then((rsp) => {
     resources.value = rsp.data.result;
     total.value = rsp.data.total;
