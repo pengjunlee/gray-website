@@ -61,7 +61,6 @@ const { blankCard, image, title } = toRefs(props);
 
 // 点击卡片时调用父组件的回调函数
 function clickThis() {
-  debugger;
   if (props?.clickT) {
     const param = props.cardData ? toRaw(props.cardData) : {};
     props?.clickT(param);

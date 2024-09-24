@@ -4,7 +4,7 @@
     <fs-virtual-water-fall ref="waterFallRef" :request="req" :gap="20" :column="5" :request-size="10">
       <template #item="{ item }">
         <img v-if="item.resourceType === '图片'" class="img-item" :src="getApiBaseUrl() + item.src" @click="previewImage(item)"/>
-        <GWAudioPlayer  v-else-if="item.resourceType === '音频'" :name="item.name" :duration="item.duration" :url=" getApiBaseUrl() + item.previewUrl" class="img-item"></GWAudioPlayer>
+        <GWAudioPlayer  v-else-if="item.resourceType === '音频'" :name="item.name" :duration="item.duration" :url="item.previewUrl" class="img-item"></GWAudioPlayer>
         <div class="video-container" v-if="item.resourceType === '视频'"> 
           <img  class="video-item" :src="getApiBaseUrl() + item.src" />
           <!-- 视频logo（播放按钮） -->

@@ -143,7 +143,6 @@ onMounted(() => {
 
 // 跳转到详情页函数
 const goToManage = (library: Record<string, any>) => {
-  debugger;
   if(library?.id){
     router.push({ name: 'MgtLibrary', params: { id:library.id } });
   }
