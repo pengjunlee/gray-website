@@ -3,10 +3,10 @@
     <GWResourceSearch :data="searchCondition" @change="pageSearch"></GWResourceSearch>
     <fs-virtual-water-fall ref="waterFallRef" :request="req" :gap="20" :column="5" :request-size="10">
       <template #item="{ item }">
-        <img v-if="item.resourceType === '图片'" class="img-item" :src="getApiBaseUrl() + item.src" @click="previewImage(item)"/>
+        <img v-if="item.resourceType === '图片'" class="img-item" :src="getWebsiteApiBaseUrl() + item.src" @click="previewImage(item)"/>
         <GWAudioPlayer  v-else-if="item.resourceType === '音频'" :name="item.name" :duration="item.duration" :url="item.previewUrl" class="img-item"></GWAudioPlayer>
         <div class="video-container" v-if="item.resourceType === '视频'"> 
-          <img  class="video-item" :src="getApiBaseUrl() + item.src" />
+          <img  class="video-item" :src="getWebsiteApiBaseUrl() + item.src" />
           <!-- 视频logo（播放按钮） -->
           <div class="play-button" @click="previewVideo(item)">
             ▶️
@@ -33,7 +33,7 @@ import FsVirtualWaterFall from "@/components/GWVirtualWaterFall.vue";
 import type { FsVirtualWaterfallReuqest } from "@/components/types/type";
 import { ref, toRaw } from "vue";
 import { pageResourceApi } from "@/api/resources"
-import { getApiBaseUrl } from '@/utils/website'
+import { getWebsiteApiBaseUrl } from '@/utils/website'
 import type { ResourceSearch } from "@/types/gw.resources";
 import GWResourceSearch from "./ResourceSearch.vue";
 

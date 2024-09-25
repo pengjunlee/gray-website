@@ -1,16 +1,31 @@
 
-export const getApiBaseUrl = () => {
+export const getWebsiteApiBaseUrl = () => {
   const { protocol, hostname, port } = window.location;
-
+  debugger;
   // 判断是否是 localhost
   if (hostname === "localhost") {
-    return window.blconfig.ENVS.DEV.VITE_API_BASE_URI;
+    return window.blconfig.ENVS.DEV.WEBSITE_API_BASE_URI;
   }
 
   if (isIPHostname(hostname)) {
-    return window.blconfig.ENVS.TEST.VITE_API_BASE_URI;
+    return window.blconfig.ENVS.TEST.WEBSITE_API_BASE_URI;
   }
-  return window.blconfig.ENVS.PROD.VITE_API_BASE_URI;
+  return window.blconfig.ENVS.PROD.WEBSITE_API_BASE_URI;
+  
+};
+
+export const getBlossomApiBaseUrl = () => {
+  const { protocol, hostname, port } = window.location;
+  debugger;
+  // 判断是否是 localhost
+  if (hostname === "localhost") {
+    return window.blconfig.ENVS.DEV.BLOSSOM_API_BASE_URI;
+  }
+
+  if (isIPHostname(hostname)) {
+    return window.blconfig.ENVS.TEST.BLOSSOM_API_BASE_URI;
+  }
+  return window.blconfig.ENVS.PROD.BLOSSOM_API_BASE_URI;
   
 };
 

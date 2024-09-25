@@ -26,7 +26,7 @@
       <!-- 背景图片 -->
       <div
         class="card-image"
-        :style="{ backgroundImage: 'url(' + getApiBaseUrl() + image + ')' }"
+        :style="{ backgroundImage: 'url(' + getWebsiteApiBaseUrl() + image + ')' }"
       ></div>
 
       <!-- 标题和按钮 -->
@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { getApiBaseUrl } from "@/utils/website";
+import { getWebsiteApiBaseUrl } from "@/utils/website";
 import { ref, toRefs, toRaw } from "vue";
 
 interface CardProps {

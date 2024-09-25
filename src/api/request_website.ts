@@ -6,13 +6,13 @@ import { Local } from '@/utils/storage'
 import { isNotNull } from '@/utils/obj'
 import { storeKey as authKey, useUserStore } from '@/stores/user'
 import { getUserId } from '@/utils/env'
-import { getApiBaseUrl } from '@/utils/website'
+import { getWebsiteApiBaseUrl } from '@/utils/website'
 import router from '@/router';  // 引入 Vue Router 实例
 
 
 
 const userId = getUserId()
-const baseUrl = getApiBaseUrl()
+const baseUrl = getWebsiteApiBaseUrl()
 
 export class Request {
   /** axios 实例 */

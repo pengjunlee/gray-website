@@ -21,7 +21,7 @@
 
     <div class="preview-content" @click="close">
       <img
-        :src="getApiBaseUrl() + image"
+        :src="getWebsiteApiBaseUrl() + image"
         :alt="name"
         :style="{ transform: `scale(${scale})` }"
         class="preview-image"
@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { ref, toRefs } from "vue";
 import FileSaver from 'file-saver';
-import { getApiBaseUrl } from '@/utils/website'
+import { getWebsiteApiBaseUrl } from '@/utils/website'
 
 interface CardProps {
   image: string;

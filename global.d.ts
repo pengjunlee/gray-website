@@ -1,7 +1,8 @@
 export {}
 
 interface envMeta {
-  VITE_API_BASE_URI:string
+  WEBSITE_API_BASE_URI:string
+  BLOSSOM_API_BASE_URI:string
 }
 
 declare global {

@@ -39,7 +39,7 @@
                 <span
                   @click="
                     downloadImage(
-                      getApiBaseUrl() + resource.previewUrl,
+                      getWebsiteApiBaseUrl() + resource.previewUrl,
                       resource.name
                     )
                   "
@@ -67,7 +67,7 @@
 <script setup lang="ts">
 import FileSaver from "file-saver";
 import { ref, toRefs, onMounted } from "vue";
-import { getApiBaseUrl } from "@/utils/website";
+import { getWebsiteApiBaseUrl } from "@/utils/website";
 import { ElMessage } from "element-plus";
 import type { Resource } from "@/types/gw.resources";
 import { deleteResourceApi } from "@/api/resources";
@@ -90,7 +90,7 @@ onMounted(() => {});
 
 const getThumbnailUrl = () => {
   if (resource.value.thumbnailUrl) {
-    return getApiBaseUrl() + resource.value.thumbnailUrl;
+    return getWebsiteApiBaseUrl() + resource.value.thumbnailUrl;
   }
   return "/music.jpeg";
 };

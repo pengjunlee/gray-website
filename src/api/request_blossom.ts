@@ -6,16 +6,17 @@ import { Local } from "@/utils/storage";
 import { isNotNull } from "@/utils/obj";
 import { storeKey as authKey, useUserStore } from "@/stores/user";
 import { getUserId } from "@/utils/env";
+import { getBlossomApiBaseUrl } from '@/utils/website'
 
 const userId = getUserId();
-
+const baseUrl = getBlossomApiBaseUrl();
 export class Request {
   /** axios 实例 */
   instance: AxiosInstance;
   /** 基础配置，url和超时时间 */
   baseConfig: AxiosRequestConfig = {
     // baseURL: "http://192.168.192.66:890/",
-    baseURL: "https://8g76m0325.vicp.fun/blossom-api/",
+    baseURL: baseUrl,
     timeout: 60000,
   };
   /**

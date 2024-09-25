@@ -1,6 +1,6 @@
 import { isNull } from "@/utils/obj";
 
-const viteBaseUrl = import.meta.env.VITE_API_BASE_URI;
+const viteBaseUrl = import.meta.env.WEBSITE_API_BASE_URI;
 const print = () => {
   console.log("Graython-Website ===> 环境:", import.meta.env.MODE);
   console.log("Graython-Website ===> viteBaseUrl:", viteBaseUrl);

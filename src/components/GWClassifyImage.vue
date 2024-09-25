@@ -17,7 +17,7 @@
         class="item"
         v-for="image in images"
         :style="{
-          backgroundImage: `url('${getApiBaseUrl() + image.previewUrl}')`,
+          backgroundImage: `url('${getWebsiteApiBaseUrl() + image.previewUrl}')`,
         }"
       ></div>
       <div class="buttons">
@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import type { Resource, IntEnumOption } from "@/types/gw.resources";
-import { getApiBaseUrl } from "@/utils/website";
+import { getWebsiteApiBaseUrl } from "@/utils/website";
 import { pageResourceApi, resourcesClassificationsApi, resourceClassifyApi } from "@/api/resources";
 import { useRoute } from "vue-router";
 import { ElMessage } from "element-plus";
