@@ -3,6 +3,7 @@ export {}
 interface envMeta {
   WEBSITE_API_BASE_URI:string
   BLOSSOM_API_BASE_URI:string
+  DOC_PREVIEW_BASE_URI:string
 }
 
 declare global {

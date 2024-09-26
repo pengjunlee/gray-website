@@ -5,14 +5,16 @@
       <template #item="{ item }">
         <img v-if="item.resourceType === '图片'" class="img-item" :src="getWebsiteApiBaseUrl() + item.src" @click="previewImage(item)"/>
         <GWAudioPlayer  v-else-if="item.resourceType === '音频'" :name="item.name" :duration="item.duration" :url="item.previewUrl" class="img-item"></GWAudioPlayer>
-        <div class="video-container" v-if="item.resourceType === '视频'"> 
+        <div class="video-container" v-else-if="item.resourceType === '视频'"> 
           <img  class="video-item" :src="getWebsiteApiBaseUrl() + item.src" />
           <!-- 视频logo（播放按钮） -->
           <div class="play-button" @click="previewVideo(item)">
             ▶️
           </div>
         </div>
-        
+        <div class="video-container" v-else-if="item.resourceType === '文档'"> 
+          <img  class="video-item" :src="getWebsiteApiBaseUrl() + item.src" @click="previewDoc(item)"/>
+        </div>
       </template>
     </fs-virtual-water-fall>
   </div>
@@ -26,6 +28,8 @@
     :url="currentResource.previewUrl"
     :name="currentResource.name"
     :on-close="closePreview"></GWPreviewVideo>
+
+    <GWPdfViewer v-if="isPreviewDocVisible" :title="currentResource.name" pages="6" :url="getWebsiteApiBaseUrl() + currentResource.previewUrl" :on-close="closePreview" />
 </template>
 
 <script setup lang="ts">
@@ -33,7 +37,7 @@ import FsVirtualWaterFall from "@/components/GWVirtualWaterFall.vue";
 import type { FsVirtualWaterfallReuqest } from "@/components/types/type";
 import { ref, toRaw } from "vue";
 import { pageResourceApi } from "@/api/resources"
-import { getWebsiteApiBaseUrl } from '@/utils/website'
+import { getWebsiteApiBaseUrl, getDocPreviewBaseUrl } from '@/utils/website'
 import type { ResourceSearch } from "@/types/gw.resources";
 import GWResourceSearch from "./ResourceSearch.vue";
 
@@ -78,7 +82,7 @@ const req: FsVirtualWaterfallReuqest = async (page, pageSize) => {
 // 预览状态和当前图片
 const isPreviewImageVisible = ref(false);
 const isPreviewVideoVisible = ref(false);
-
+const isPreviewDocVisible = ref(false);
 // 计算当前预览的图片
 const currentResource = ref<any>({});
 
@@ -86,6 +90,12 @@ const currentResource = ref<any>({});
 const previewImage = (image: any) => {
   currentResource.value = image;
   isPreviewImageVisible.value = true;
+};
+
+// 打开预览
+const previewDoc = (doc: any) => {
+  isPreviewDocVisible.value = true;
+  currentResource.value = doc;
 };
 
 // 打开预览
@@ -98,6 +108,7 @@ const previewVideo = (video: any) => {
 const closePreview = () => {
   isPreviewImageVisible.value = false;
   isPreviewVideoVisible.value = false;
+  isPreviewDocVisible.value = false;
 };
 
 const pageSearch = async (params:any) =>{

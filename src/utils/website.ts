@@ -1,7 +1,6 @@
 
 export const getWebsiteApiBaseUrl = () => {
   const { protocol, hostname, port } = window.location;
-  debugger;
   // 判断是否是 localhost
   if (hostname === "localhost") {
     return window.blconfig.ENVS.DEV.WEBSITE_API_BASE_URI;
@@ -16,7 +15,6 @@ export const getWebsiteApiBaseUrl = () => {
 
 export const getBlossomApiBaseUrl = () => {
   const { protocol, hostname, port } = window.location;
-  debugger;
   // 判断是否是 localhost
   if (hostname === "localhost") {
     return window.blconfig.ENVS.DEV.BLOSSOM_API_BASE_URI;
@@ -26,6 +24,20 @@ export const getBlossomApiBaseUrl = () => {
     return window.blconfig.ENVS.TEST.BLOSSOM_API_BASE_URI;
   }
   return window.blconfig.ENVS.PROD.BLOSSOM_API_BASE_URI;
+  
+};
+
+export const getDocPreviewBaseUrl = () => {
+  const { protocol, hostname, port } = window.location;
+  // 判断是否是 localhost
+  if (hostname === "localhost") {
+    return window.blconfig.ENVS.DEV.DOC_PREVIEW_BASE_URI;
+  }
+
+  if (isIPHostname(hostname)) {
+    return window.blconfig.ENVS.TEST.DOC_PREVIEW_BASE_URI;
+  }
+  return window.blconfig.ENVS.PROD.DOC_PREVIEW_BASE_URI;
   
 };
 

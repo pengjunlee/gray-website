@@ -6,7 +6,7 @@
     "src/**/*.vue",
     "src/**/*.d.ts",
     "declaration.d.ts",
-    "global.d.ts"
+    "public/global.d.ts"
   ],
   "compilerOptions": {
     "baseUrl": "./",
