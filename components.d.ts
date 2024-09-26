@@ -10,7 +10,6 @@ declare module 'vue' {
     BLCol: typeof import('./src/components/BLCol.vue')['default']
     BLRow: typeof import('./src/components/BLRow.vue')['default']
     BLTag: typeof import('./src/components/BLTag.vue')['default']
-    copy: typeof import('./src/components/GWPdfViewer copy.vue')['default']
     DayNight: typeof import('./src/components/DayNight.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
