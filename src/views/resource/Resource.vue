@@ -29,7 +29,7 @@
     :name="currentResource.name"
     :on-close="closePreview"></GWPreviewVideo>
 
-    <GWPdfViewer v-if="isPreviewDocVisible" :title="currentResource.name" :pages="currentResource.pageCount" :url="getWebsiteApiBaseUrl() + currentResource.previewUrl" :on-close="closePreview" />
+    <GWPdfViewer v-if="isPreviewDocVisible" :title="currentResource.name" :pages="currentResource.pageCount" :url="currentResource.previewUrl" :on-close="closePreview" />
 </template>
 
 <script setup lang="ts">
@@ -70,7 +70,7 @@ const req: FsVirtualWaterfallReuqest = async (page, pageSize) => {
     width: item.thumbnailWidth?item.thumbnailWidth:400, 
     height: item.thumbnailHeight?item.thumbnailHeight:200, 
     src: item.thumbnailUrl,
-    previewUrl: getWebsiteApiBaseUrl + item.previewUrl,
+    previewUrl: getWebsiteApiBaseUrl() + item.previewUrl,
     name:item.name,
     pageCount: item.pageCount?item.pageCount:0
   }));
