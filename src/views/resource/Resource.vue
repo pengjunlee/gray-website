@@ -70,7 +70,7 @@ const req: FsVirtualWaterfallReuqest = async (page, pageSize) => {
     width: item.thumbnailWidth?item.thumbnailWidth:400, 
     height: item.thumbnailHeight?item.thumbnailHeight:200, 
     src: item.thumbnailUrl,
-    previewUrl: item.previewUrl,
+    previewUrl: getWebsiteApiBaseUrl + item.previewUrl,
     name:item.name,
     pageCount: item.pageCount?item.pageCount:0
   }));

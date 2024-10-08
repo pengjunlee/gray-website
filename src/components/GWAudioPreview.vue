@@ -31,7 +31,6 @@
 <script lang="ts" setup>
 import { ref, toRefs } from "vue";
 import audioIcon from "@/assets/icons/audio.svg";
-import { getWebsiteApiBaseUrl } from "@/utils/website";
 
 interface AudioProps {
   url: string;
@@ -158,7 +157,7 @@ const pauseAudio = () => {
 
 // 加载远程音频文件
 const loadAudio = async (url: string) => {
-  const response = await fetch(getWebsiteApiBaseUrl() + url);
+  const response = await fetch(url);
   const arrayBuffer = await response.arrayBuffer();
   audioBuffer.value = await new Promise<AudioBuffer>((resolve, reject) => {
     audioContext!.decodeAudioData(arrayBuffer, (buffer) => {
