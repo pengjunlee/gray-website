@@ -12,7 +12,7 @@
             ▶️
           </div>
         </div>
-        <div class="video-container" v-else-if="item.resourceType === '文档'"> 
+        <div class="video-container" v-else-if="item.resourceType === 'PDF'"> 
           <img  class="video-item" :src="getWebsiteApiBaseUrl() + item.src" @click="previewDoc(item)"/>
         </div>
       </template>
