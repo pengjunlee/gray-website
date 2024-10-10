@@ -7,7 +7,7 @@
     "src/**/*.d.ts",
     "declaration.d.ts",
     "public/global.d.ts"
-  ],
+, "public/player"  ],
   "compilerOptions": {
     "baseUrl": "./",
     "types": [
