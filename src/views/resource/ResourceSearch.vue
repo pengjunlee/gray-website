@@ -17,7 +17,23 @@
         />
       </el-select>
     </div>
-
+<!-- 合集选择下拉框 -->
+<div class="search-item">
+      <el-select
+        v-model="selectedCollectionId"
+        clearable
+        placeholder="合集"
+        style="width: 150px"
+        @change="handleCollectionChange"
+      >
+        <el-option
+          v-for="item in collections"
+          :key="item.id"
+          :label="item.name"
+          :value="item.id"
+        />
+      </el-select>
+    </div>
     <!-- 库选择下拉框 -->
     <div class="search-item">
       <el-select
@@ -42,22 +58,38 @@ import { ref, onMounted, watch, toRaw } from "vue";
 import type {
   ResourceSearch,
   Library,
+  Collection,
   IntEnumOption,
 } from "@/types/gw.resources";
-import { listLibraryApi, resourcesTypesApi } from "@/api/resources";
+import { listLibraryApi, resourcesTypesApi, listCollectionApi } from "@/api/resources";
 
 const types = ref<IntEnumOption[]>();
 const libraries = ref<Library[]>();
+const collections = ref<Collection[]>();
 
 const selectedResourceTypes = ref<number[]>();
 const selectedLibraryId = ref();
-
+const selectedCollectionId = ref<number>();
 const emit = defineEmits<{
   (event: "change", value: ResourceSearch): void;
 }>();
 
+const handleCollectionChange = async ( )=> {
+  if(selectedCollectionId.value){
+    selectedLibraryId.value = null;
+    await listLibraryApi(selectedCollectionId.value).then((rsp) => {
+    libraries.value = rsp.data;
+  });
+  }
+
+}
 onMounted(async () => {
-  await listLibraryApi().then((rsp) => {
+  await listCollectionApi().then((rsp) => {
+    if(rsp.data){
+      collections.value = rsp.data;
+    }
+  });
+  await listLibraryApi(0).then((rsp) => {
     libraries.value = rsp.data;
   });
 
@@ -67,11 +99,12 @@ onMounted(async () => {
 });
 
 watch(
-  () => [selectedResourceTypes.value, selectedLibraryId.value],
-  ([newTypes, newLibrary]) => {
+  () => [selectedResourceTypes.value, selectedCollectionId.value, selectedLibraryId.value],
+  ([newTypes, newCollection, newLibrary]) => {
     // 在这里可以执行一些逻辑，例如检查新值是否满足某些条件
     emit("change", {
       resourceTypes: toRaw(newTypes),
+      collectionId: newCollection,
       libraryId: newLibrary,
     });
   },

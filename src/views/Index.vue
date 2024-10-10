@@ -16,13 +16,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from "vue";
+import { ref, watch, onMounted } from "vue";
 import router from "@/router";
 import { toRoute } from "@/router";
 import IndexFooter from "./index/IndexFooter.vue";
+import { randomMusicApi } from "@/api/resources"
 import type { RouteRecordName } from "vue-router";
 import Header from "../components/GWHeader.vue";
 import type { Tab } from "@/types/gw.props";
+import { getWebsiteApiBaseUrl, getDocPreviewBaseUrl } from '@/utils/website'
+import type { Resource } from "@/types/gw.resources";
 
 const tabs = ref<Tab[]>([
   { icon: "home", name: "Home", title: "首页" },
@@ -34,6 +37,24 @@ const selectedTab = ref("Home");
 
 const includeRouter = ref<any>(["Home"]);
 const curRoute = ref<RouteRecordName>("Home");
+
+onMounted( async ()=>{
+  const core = window._PlayerCore
+  await randomMusicApi(5).then((rsp =>{
+    debugger;
+    if(rsp.data){
+      core.AppendSongList(rsp.data.map((music: Resource) => {
+        return {
+          id: music.id,
+          name: music.title,
+          src: getWebsiteApiBaseUrl() + music.previewUrl,
+          img: music.thumbnailUrl ? getWebsiteApiBaseUrl() + music.thumbnailUrl:""
+        }
+      }))
+      core.Play();
+    }
+  }));
+});
 
 watch(
   () => router.currentRoute.value,
@@ -63,7 +84,8 @@ const showHeader = () => {
   return true;
 };
 
-const hideFooterArray = ["Login", "Aticles", "Resource"];
+const hideFooterArray = ["Login", "Aticles", "Resource", "TodoIndex", "PlanIndex", "NoteIndex"];
+
 const showFooter = () => {
   const currentRoute = router.currentRoute.value;
   if (

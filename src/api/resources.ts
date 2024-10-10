@@ -43,8 +43,8 @@ export const addLibraryApi = ( params: any ): Promise<R<any>> => {
  * @param params
  * @returns
  */
-export const listLibraryApi = (): Promise<R<Library[]>> => {
-  return rq.get<Library[]>('/resource/library/list')
+export const listLibraryApi = (params: any): Promise<R<Library[]>> => {
+  return rq.get<Library[]>('/resource/library/list/'+ params)
 }
 
 /**
@@ -96,12 +96,12 @@ export const refreshLibraryApi = ( params: any ): Promise<R<any>> => {
 
 
 /**
- * 获取资源列表
+ * 获取随机音乐
  * @param params
  * @returns
  */
-export const listResourceApi = (): Promise<R<any>> => {
-  return rq.get<R<any>>('/resource/resource/list')
+export const randomMusicApi = (): Promise<R<any>> => {
+  return rq.get<R<any>>('/resource/music/5')
 }
 
 /**

@@ -405,7 +405,7 @@ const addTag = () => {
 
 <style scoped lang="scss">
 .todo-root {
-  @include box(100%, 100%);
+  @include box(100%, calc(100% - 60px));
   @include flex(column, flex-start, center);
   overflow: hidden;
   position: relative;

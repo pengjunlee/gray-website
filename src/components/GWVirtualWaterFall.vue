@@ -264,8 +264,8 @@ const reset = async () => {
     .fill(0)
     .map<IColumnQueue>(() => ({ list: [], height: 0 }))),
     (columnState.len = 0);
-  destory();
-  init();
+    await loadDataList();
+    addInQueue(requestSize.value);
 };
 
 // 使用 defineExpose 暴露方法给父组件

@@ -36,6 +36,7 @@ declare global {
             LOGO: string
           }
         ]
-    }
+    };
+    _PlayerCore: any; // 或者指定更具体的类型
   }
 }

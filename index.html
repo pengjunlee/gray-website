@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.png" />
+    <!-- .css file path -->
+    <link
+      rel="stylesheet"
+      href="./src/assets/styles/css/player/index.bundle.css"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="referrer" content="no-referrer" />
     <script src="/config.js"></script>
@@ -61,7 +66,7 @@
       }
 
       .index-html-loading-div::after {
-        content: '';
+        content: "";
         position: absolute;
         left: 50%;
         top: 50%;
@@ -82,5 +87,9 @@
       </div>
       <script type="module" src="/src/main.ts"></script>
     </div>
+    <!-- petite-vue CDN -->
+    <script src="./src/assets/styles/css/player/player.js"></script>
+    <!-- .js file path -->
+    <script src="./src/assets/styles/css/player/index.bundle.js"></script>
   </body>
 </html>

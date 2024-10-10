@@ -3,33 +3,33 @@
     <GWResourceSearch :data="searchCondition" @change="pageSearch"></GWResourceSearch>
     <fs-virtual-water-fall ref="waterFallRef" :request="req" :gap="20" :column="5" :request-size="10">
       <template #item="{ item }">
-        <img v-if="item.resourceType === '图片'" class="img-item" :src="getWebsiteApiBaseUrl() + item.src" @click="previewImage(item)"/>
-        <GWAudioPlayer  v-else-if="item.resourceType === '音频'" :name="item.name" :duration="item.duration" :url="item.previewUrl" class="img-item"></GWAudioPlayer>
+        <img v-if="item.resourceType === '图片'" class="img-item" :src="item.src" @click="previewImage(item)"/>
+        <GWAudioPlayer  v-else-if="item.resourceType === '音频' || item.resourceType === '歌曲'" :name="item.name" :duration="item.duration" :url="item.previewUrl" class="img-item"></GWAudioPlayer>
         <div class="video-container" v-else-if="item.resourceType === '视频'"> 
-          <img  class="video-item" :src="getWebsiteApiBaseUrl() + item.src" />
+          <img  class="video-item" :src="item.src" />
           <!-- 视频logo（播放按钮） -->
           <div class="play-button" @click="previewVideo(item)">
             ▶️
           </div>
         </div>
         <div class="video-container" v-else-if="item.resourceType === 'PDF'"> 
-          <img  class="video-item" :src="getWebsiteApiBaseUrl() + item.src" @click="previewDoc(item)"/>
+          <img  class="video-item" :src="item.src" @click="previewPdf(item)"/>
         </div>
       </template>
     </fs-virtual-water-fall>
   </div>
   <GWPreviewImage
-      v-if="isPreviewImageVisible"
+      v-if="previewShow == 0 "
       :image="currentResource.previewUrl"
       :name="currentResource.name"
       :on-close="closePreview"></GWPreviewImage>
     <GWPreviewVideo
-    v-if="isPreviewVideoVisible"
+    v-if="previewShow == 1"
     :url="currentResource.previewUrl"
     :name="currentResource.name"
     :on-close="closePreview"></GWPreviewVideo>
 
-    <GWPdfViewer v-if="isPreviewDocVisible" :title="currentResource.name" :pages="currentResource.pageCount" :url="currentResource.previewUrl" :on-close="closePreview" />
+    <GWPdfViewer v-if="previewShow == 4" :title="currentResource.name" :pages="currentResource.pageCount" :url="currentResource.previewUrl" :on-close="closePreview" />
 </template>
 
 <script setup lang="ts">
@@ -69,7 +69,7 @@ const req: FsVirtualWaterfallReuqest = async (page, pageSize) => {
     duration: item.duration,
     width: item.thumbnailWidth?item.thumbnailWidth:400, 
     height: item.thumbnailHeight?item.thumbnailHeight:200, 
-    src: item.thumbnailUrl,
+    src: getWebsiteApiBaseUrl() + item.thumbnailUrl,
     previewUrl: getWebsiteApiBaseUrl() + item.previewUrl,
     name:item.name,
     pageCount: item.pageCount?item.pageCount:0
@@ -81,35 +81,31 @@ const req: FsVirtualWaterfallReuqest = async (page, pageSize) => {
 };
 
 // 预览状态和当前图片
-const isPreviewImageVisible = ref(false);
-const isPreviewVideoVisible = ref(false);
-const isPreviewDocVisible = ref(false);
+const previewShow = ref<number>(-1);
 // 计算当前预览的图片
 const currentResource = ref<any>({});
 
 // 打开预览
 const previewImage = (image: any) => {
   currentResource.value = image;
-  isPreviewImageVisible.value = true;
+  previewShow.value = 0;
 };
 
 // 打开预览
-const previewDoc = (doc: any) => {
-  isPreviewDocVisible.value = true;
+const previewPdf = (doc: any) => {
+  previewShow.value = 4;
   currentResource.value = doc;
 };
 
 // 打开预览
 const previewVideo = (video: any) => {
-  isPreviewVideoVisible.value = true;
+  previewShow.value = 1;
   currentResource.value = video;
 };
 
 // 关闭预览
 const closePreview = () => {
-  isPreviewImageVisible.value = false;
-  isPreviewVideoVisible.value = false;
-  isPreviewDocVisible.value = false;
+  previewShow.value = -1;
 };
 
 const pageSearch = async (params:any) =>{

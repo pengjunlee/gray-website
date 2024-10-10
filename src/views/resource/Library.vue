@@ -149,7 +149,7 @@ const goToManage = (library: Record<string, any>) => {
 };
 
 const refreshData = async () => {
-  await listLibraryApi().then((rsp) => {
+  await listLibraryApi(0).then((rsp) => {
     librarys.value = rsp.data;
   });
   await listCollectionApi().then((rsp) => {
