@@ -100,8 +100,8 @@ export const refreshLibraryApi = ( params: any ): Promise<R<any>> => {
  * @param params
  * @returns
  */
-export const randomMusicApi = (): Promise<R<any>> => {
-  return rq.get<R<any>>('/resource/music/5')
+export const randomMusicApi = (param: any ): Promise<R<any>> => {
+  return rq.get<R<any>>('/resource/music/' + param )
 }
 
 /**
