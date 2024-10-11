@@ -8,6 +8,7 @@
         <div class="page-tool-item">
           {{ pageNum }}/{{ pages }}
         </div>
+        <div class="page-tool-item" @click="download">下载</div>
         <div class="page-tool-item" @click="close">关闭</div>
       </div>
     </div>
@@ -23,22 +24,30 @@
 <script setup lang="ts">
 import { ref, onMounted, toRefs } from "vue";
 import VuePdfEmbed from "vue-pdf-embed";
-
+import FileSaver from 'file-saver';
 interface PdfProps {
   title: string;
   url: string;
+  doc: string;
   pages: number;
   onClose: () => void | Promise<void>;
 }
 const props = defineProps<PdfProps>();
 
-const { title, url, pages } = toRefs(props);
+const { title, url, doc, pages } = toRefs(props);
 
 // 点击图片时调用父组件的回调函数
 function close() {
     props.onClose();
 }
-
+function download() {
+  fetch(doc.value)
+        .then(response => response.blob())
+        .then(blob => {
+          FileSaver.saveAs(blob, title.value); // 下载后的文件名
+        })
+        .catch(error => console.error('下载图片异常:', error));
+}
 const pageNum =  ref(1);
 
 onMounted(() => {});

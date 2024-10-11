@@ -70,12 +70,13 @@ function clickThis() {
 
 <style scoped lang="scss">
 .gw-card {
+  border: 1px solid var(--gw-font-color);
   position: relative;
   width: 250px;
   height: 200px;
   overflow: auto;
   border-radius: 8px;
-  box-shadow: 0 4px 8px var(--gw-font-color);
+  box-shadow: 0 4px 8px var(--gw-bg-active-color);
   cursor: pointer;
   transition: transform 0.3s ease;
 }

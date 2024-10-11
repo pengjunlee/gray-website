@@ -3,17 +3,17 @@
     <GWResourceSearch :data="searchCondition" @change="pageSearch"></GWResourceSearch>
     <fs-virtual-water-fall ref="waterFallRef" :request="req" :gap="20" :column="5" :request-size="10">
       <template #item="{ item }">
-        <img v-if="item.resourceType === '图片'" class="img-item" :src="item.src" @click="previewImage(item)"/>
+        <img v-if="item.resourceType === '图片'" class="img-item" :src="item.thumbnailUrl" @click="previewImage(item)"/>
         <GWAudioPlayer  v-else-if="item.resourceType === '音频' || item.resourceType === '歌曲'" :name="item.name" :duration="item.duration" :url="item.previewUrl" class="img-item"></GWAudioPlayer>
         <div class="video-container" v-else-if="item.resourceType === '视频'"> 
-          <img  class="video-item" :src="item.src" />
+          <img  class="video-item" :src="item.thumbnailUrl" />
           <!-- 视频logo（播放按钮） -->
           <div class="play-button" @click="previewVideo(item)">
             ▶️
           </div>
         </div>
         <div class="video-container" v-else-if="item.resourceType === 'PDF' || item.resourceType === 'PPT' || item.resourceType === 'WORD' || item.resourceType === 'EXCEL'"> 
-          <img  class="video-item" :src="item.src" @click="previewPdf(item)"/>
+          <img  class="video-item" :src="item.thumbnailUrl" @click="previewPdf(item)"/>
         </div>
       </template>
     </fs-virtual-water-fall>
@@ -29,7 +29,7 @@
     :name="currentResource.name"
     :on-close="closePreview"></GWPreviewVideo>
 
-    <GWPdfViewer v-if="previewShow == 4" :title="currentResource.name" :pages="currentResource.pageCount" :url="currentResource.previewUrl" :on-close="closePreview" />
+    <GWPdfViewer v-if="previewShow == 4" :title="currentResource.name" :pages="currentResource.pageCount" :url="currentResource.previewUrl"  :doc="currentResource.fileUrl" :on-close="closePreview" />
 </template>
 
 <script setup lang="ts">
@@ -69,8 +69,9 @@ const req: FsVirtualWaterfallReuqest = async (page, pageSize) => {
     duration: item.duration,
     width: item.thumbnailWidth?item.thumbnailWidth:400, 
     height: item.thumbnailHeight?item.thumbnailHeight:200, 
-    src: getWebsiteApiBaseUrl() + item.thumbnailUrl,
-    previewUrl: getWebsiteApiBaseUrl() + item.previewUrl,
+    thumbnailUrl: getWebsiteApiBaseUrl() + item.thumbnailUrl,
+    previewUrl: item.pdfUrl ? getWebsiteApiBaseUrl() + item.pdfUrl: getWebsiteApiBaseUrl() + item.previewUrl,
+    fileUrl: getWebsiteApiBaseUrl() + item.previewUrl,
     name:item.name,
     pageCount: item.pageCount?item.pageCount:0
   }));

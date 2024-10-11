@@ -1,112 +1,116 @@
 <template>
-  <div class="graython-library-root">
-    <GWTitleImageCard :blankCard="true" :onClick="createLibrary">
-      <!-- <template v-slot:add-btn>
-        <p>这里是插槽内容。</p>
-      </template> -->
-    </GWTitleImageCard>
-    <GWTitleImageCard
-      :blankCard="false"
-      v-for="(library, index) in librarys"
-      :key="index"
-      :image="library.coverUrl"
-      :title="library.name"
-      :card-data="library"
-      :click-t="goToManage"
-    >
-      <template v-slot:customize-btn>
-        <span
-          @click.stop="editLibrary(library)"
-          style="color: green"
-          class="customize-btn iconbl bl-a-fileedit-line"
-        ></span>
-        <span
-          @click.stop="refreshLibrary(library)"
-          style="color: #13aeff"
-          class="customize-btn iconbl bl-refresh-line"
-        ></span>
-        <span
-          @click.stop="deleteLibrary(library)"
-          style="color: red"
-          class="customize-btn iconbl bl-delete-line"
-        ></span>
-      </template>
-    </GWTitleImageCard>
+  <div class="library-container">
+    <LibrarySearch @change="librarySearch"></LibrarySearch>
+    <div class="graython-library-root">
+   
+   <GWTitleImageCard :blankCard="true" :onClick="createLibrary">
+     <!-- <template v-slot:add-btn>
+       <p>这里是插槽内容。</p>
+     </template> -->
+   </GWTitleImageCard>
+   <GWTitleImageCard
+     :blankCard="false"
+     v-for="(library, index) in librarys"
+     :key="index"
+     :image="library.coverUrl"
+     :title="library.name"
+     :card-data="library"
+     :click-t="goToManage"
+   >
+     <template v-slot:customize-btn>
+       <span
+         @click.stop="editLibrary(library)"
+         style="color: green"
+         class="customize-btn iconbl bl-a-fileedit-line"
+       ></span>
+       <span
+         @click.stop="refreshLibrary(library)"
+         style="color: #13aeff"
+         class="customize-btn iconbl bl-refresh-line"
+       ></span>
+       <span
+         @click.stop="deleteLibrary(library)"
+         style="color: red"
+         class="customize-btn iconbl bl-delete-line"
+       ></span>
+     </template>
+   </GWTitleImageCard>
+ </div>
+ <!-- 模态框 -->
+ <el-dialog
+   style="padding: 30px; max-height: 500px; overflow: scroll"
+   title="管理库"
+   v-model="dialogVisible"
+   width="500px"
+   @close="handleClose"
+ >
+   <el-form
+     ref="libraryFormRef"
+     :model="form"
+     label-width="auto"
+     :rules="rules"
+   >
+     <el-form-item label="库名称：" prop="name">
+       <!-- 库名称 -->
+       <el-input v-model="form.name" placeholder="请输入库名称"></el-input>
+     </el-form-item>
+     <el-form-item label="合集：" prop="collectionId">
+       <el-select
+         v-model="form.collectionId"
+         filterable
+         placeholder="请选择库所属的合集"
+         style="width: 200px"
+       >
+         <el-option
+           v-for="item in collections"
+           :key="item.id"
+           :label="item.name"
+           :value="item.id"
+         />
+       </el-select>
+     </el-form-item>
+
+     <el-form-item label="库地址：" prop="folderName">
+       <!-- 输入框 -->
+       <el-input
+         readonly
+         v-model="form.folderName"
+         placeholder="请选择库对应的文件夹"
+       ></el-input>
+     </el-form-item>
+
+     <el-form-item>
+       <!-- 树形图 -->
+       <div style="display: inline-block; margin-left: 79px">
+         <el-input
+           v-model="filterText"
+           style="width: 200px"
+           placeholder="搜索文件夹"
+         />
+         <el-tree
+           ref="treeRef"
+           style="max-width: 500px; margin: 10px 0"
+           class="filter-tree"
+           :data="treeData"
+           :props="defaultProps"
+           accordion
+           :filter-node-method="filterNode"
+           @node-click="handleNodeChange"
+         />
+       </div>
+     </el-form-item>
+
+     <!-- 操作按钮 -->
+     <el-form-item style="flex-direction: column">
+       <el-button @click="handleClose">取消</el-button>
+       <el-button type="primary" @click="handleConfirm(libraryFormRef)"
+         >确定</el-button
+       >
+     </el-form-item>
+   </el-form>
+ </el-dialog>
   </div>
-  <!-- 模态框 -->
-  <el-dialog
-    style="padding: 30px; max-height: 500px; overflow: scroll"
-    title="管理库"
-    v-model="dialogVisible"
-    width="500px"
-    @close="handleClose"
-  >
-    <el-form
-      ref="libraryFormRef"
-      :model="form"
-      label-width="auto"
-      :rules="rules"
-    >
-      <el-form-item label="库名称：" prop="name">
-        <!-- 库名称 -->
-        <el-input v-model="form.name" placeholder="请输入库名称"></el-input>
-      </el-form-item>
-      <el-form-item label="合集：" prop="collectionId">
-        <el-select
-        v-model="form.collectionId"
-        filterable
-        placeholder="请选择库所属的合集"
-        style="width: 200px"
-      >
-        <el-option
-          v-for="item in collections"
-          :key="item.id"
-          :label="item.name"
-          :value="item.id"
-        />
-      </el-select>
-      </el-form-item>
-      
-
-      <el-form-item label="库地址：" prop="folderName">
-        <!-- 输入框 -->
-        <el-input
-          readonly
-          v-model="form.folderName"
-          placeholder="请选择库对应的文件夹"
-        ></el-input>
-      </el-form-item>
-
-      <el-form-item>
-        <!-- 树形图 -->
-        <div style="display: inline-block; margin-left: 79px">
-          <el-input
-            v-model="filterText"
-            style="width: 200px"
-            placeholder="搜索文件夹"
-          />
-          <el-tree
-            ref="treeRef"
-            style="max-width: 500px; margin: 10px 0"
-            class="filter-tree"
-            :data="treeData"
-            :props="defaultProps"
-            accordion
-            :filter-node-method="filterNode"
-            @node-click="handleNodeChange"
-          />
-        </div>
-      </el-form-item>
-
-      <!-- 操作按钮 -->
-      <el-form-item style="flex-direction: column">
-        <el-button @click="handleClose">取消</el-button>
-        <el-button type="primary" @click="handleConfirm(libraryFormRef)"
-          >确定</el-button
-        >
-      </el-form-item>
-    </el-form>
-  </el-dialog>
+  
 </template>
 
 <script setup lang="ts">
@@ -120,10 +124,11 @@ import {
   listLibraryApi,
   listCollectionApi,
   deleteLibraryApi,
-  refreshLibraryApi
+  refreshLibraryApi,
 } from "@/api/resources";
-import type { Library,Collection } from "@/types/gw.resources";
+import type { Library, Collection } from "@/types/gw.resources";
 import GWTitleImageCard from "@/components/GWTitleImageCard.vue";
+import LibrarySearch from "./LibrarySearch.vue";
 
 const router = useRouter();
 
@@ -143,9 +148,22 @@ onMounted(() => {
 
 // 跳转到详情页函数
 const goToManage = (library: Record<string, any>) => {
-  if(library?.id){
-    router.push({ name: 'MgtLibrary', params: { id:library.id } });
+  if (library?.id) {
+    // router.push({ name: 'MgtLibrary', params: { id:library.id } });
+    window.open(
+      router.resolve({
+        name: "MgtLibrary",
+        params: { id: library.id },
+      }).href,
+      "_blank"
+    );
   }
+};
+
+const librarySearch = async (params: any) => {
+  await listLibraryApi(params ? params : 0).then((rsp) => {
+    librarys.value = rsp.data;
+  });
 };
 
 const refreshData = async () => {
@@ -293,14 +311,18 @@ const handleNodeChange = (data: any) => {
 </script>
 
 <style scoped lang="scss">
-.graython-library-root {
-  background-color: var(--gw-bg-color);
-  @include box(100%, 100%);
-  position: relative;
+.library-container {
+  width: 100%;
+  height: calc(100% - 50px);
+  padding: 5px 20px;
   overflow: scroll;
+}
+.graython-library-root {
+  padding: 10px 0;
+  position: relative;
   display: flex;
   gap: 20px;
-  padding: 20px;
+
   flex-direction: row;
   flex-wrap: wrap;
 }
