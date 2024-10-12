@@ -70,7 +70,7 @@ function clickThis() {
 
 <style scoped lang="scss">
 .gw-card {
-  border: 1px solid var(--gw-font-color);
+  border: var(--el-border);
   position: relative;
   width: 250px;
   height: 200px;
