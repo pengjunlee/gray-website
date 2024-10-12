@@ -31,6 +31,7 @@
 
     <!-- 遮罩层 -->
     <div v-if="showOverlay" class="overlay">
+      <div class="play-button" style="margin-right: 20px;" @click="download"> ⬇️ </div>
       <div class="play-button" @click="togglePlay">{{ isPlaying ? "⏸️" : "▶️" }}</div>
     </div>
   </div>
@@ -39,6 +40,7 @@
 <script lang="ts" setup>
 import { ref, toRefs } from "vue";
 import audioIcon from "@/assets/icons/audio.svg";
+import FileSaver from 'file-saver';
 
 interface AudioProps {
   url: string;
@@ -188,6 +190,15 @@ onBeforeUnmount(() => {
     clearInterval(updateInterval);
   }
 });
+
+function download() {
+  fetch(url.value)
+        .then(response => response.blob())
+        .then(blob => {
+          FileSaver.saveAs(blob, name.value); // 下载后的文件名
+        })
+        .catch(error => console.error('下载音频异常:', error));
+}
 </script>
 
 <style scoped>
