@@ -252,6 +252,7 @@ function download() {
   border-radius: 10px;
   overflow: hidden;
   background-color: var(--gw-bg-color);
+  padding: 5px;
   &:hover {
     cursor: default;
   }
@@ -378,5 +379,8 @@ function download() {
   &:hover {
     cursor: pointer;
   }
+}
+.icon:hover {
+  cursor: pointer;
 }
 </style>

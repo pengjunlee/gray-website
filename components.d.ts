@@ -47,6 +47,7 @@ declare module 'vue' {
     GWClassifyImage: typeof import('./src/components/GWClassifyImage.vue')['default']
     GWHeader: typeof import('./src/components/GWHeader.vue')['default']
     GWLinkCard: typeof import('./src/components/GWLinkCard.vue')['default']
+    GWLogoCard: typeof import('./src/components/GWLogoCard.vue')['default']
     GWPdfViewer: typeof import('./src/components/GWPdfViewer.vue')['default']
     'GWPdfViewer copy': typeof import('./src/components/GWPdfViewer copy.vue')['default']
     GWPreviewImage: typeof import('./src/components/GWPreviewImage.vue')['default']
