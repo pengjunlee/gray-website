@@ -84,7 +84,7 @@ const showHeader = () => {
   return true;
 };
 
-const hideFooterArray = ["Login", "Aticles", "Resource", "TodoIndex", "PlanIndex", "NoteIndex"];
+const hideFooterArray = ["Login", "Articles", "Resource", "TodoIndex", "PlanIndex", "NoteIndex"];
 
 const showFooter = () => {
   const currentRoute = router.currentRoute.value;
