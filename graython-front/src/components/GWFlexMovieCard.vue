@@ -67,6 +67,7 @@ const currentVideUrl = ref<string>(movie.value.previewUrl);
 const currentVideName = ref<string>(movie.value.title);
 const showSeries = ref(false);
 
+
 let size = computed(() => {
   if (movie.value.size) {
     if (movie.value.series == "是") {
@@ -102,6 +103,7 @@ function choosePlay(event: { target: any }) {
   playThis();
 }
 function playThis() {
+  debugger;
   PreviewerApi.previewVideo(getWebsiteApiBaseUrl() +currentVideUrl.value,currentVideName.value);
 }
 

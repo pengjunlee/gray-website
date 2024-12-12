@@ -32,7 +32,7 @@ export default defineConfig({
     proxy: {
       // 第一个代理后端地址
       "/website-api": {
-        target: "http://192.168.192.66:8081",
+        target: "http://192.168.31.66:8081",
         // target: "http://localhost:8081",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/website-api/, ''),  

@@ -59,8 +59,8 @@
       <template v-slot:flex-items>
         <GWFlexMovieCard
           v-for="(movie, index) in movies"
+          :key="movie.id"
           :click="clickThis"
-          :play="playThis"
           :movie="movie"
         ></GWFlexMovieCard>
       </template>
@@ -230,13 +230,6 @@ const clickThis = (item:Movie) => {
   currentMovieUrl.value = item.previewUrl;
   currentMovieId.value = item.id;
   fileselectRef.value.click();
-};
-
-const playThis = (item: {name:string,url:string}) => {
-  
-  currentMovieName.value = item.name;
-  currentMovieUrl.value = item.url;
-  previewShow.value = true;
 };
 
 const handlePageChange = (newPage: number) => {

@@ -36,12 +36,21 @@ const { src, name, visible } = toRefs(props);
 
 const emits = defineEmits(["close"]);
 
+watch(src,(newValue) => {
+  console.log(newValue.value);
+});
+
+onMounted(() => {
+  console.log(src.value);
+})
+
 // 点击图片时调用父组件的回调函数
 function closePreview() {
   var vide = document.getElementById("videoPlayer") as HTMLVideoElement;
   vide?.pause();
   emits("close");
 }
+
 
 // 处理视频暂停事件
 const handleVideoPause = () => {

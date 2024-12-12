@@ -85,6 +85,8 @@ const previewVideo = (src: string, name: string) => {
 const hideVideoPreview = () => {
   if (videoPreviewVNode) {
     videoVisible.value = false;
+    videoSrc.value = '';
+    videoName.value = "";
     videoPreviewVNode.props.visible = videoVisible; // 设置组件为不可见
     render(videoPreviewVNode, videoPreviewContainer);
   }
